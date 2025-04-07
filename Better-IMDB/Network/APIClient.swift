@@ -12,6 +12,11 @@ import RxCocoa
 class APIClient {
     private let baseURL = URL(string: TMDBAPI.baseURLString)!
     
+    private let scheduler: SchedulerType!
+    init(scheduler: SchedulerType = MainScheduler.asyncInstance) {
+        self.scheduler = scheduler
+    }
+    
     func discover<T: Codable>() -> Observable<T> {
         let request = DiscoverRequest().request(with: baseURL)
         
@@ -19,7 +24,7 @@ class APIClient {
             .map { data in
                 try JSONDecoder().decode(T.self, from: data)
             }
-            .observe(on: MainScheduler.asyncInstance)
+            .observe(on: scheduler)
     }
     
 }

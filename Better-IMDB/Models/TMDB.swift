@@ -7,14 +7,14 @@
 
 import UIKit
 
-struct Discover {
-    let page: Int
-    let results: [Result]
-    let total_pages: Int
-    let total_results: Int
+struct Discover: Codable {
+    var page: Int
+    var results: [Result]
+    var total_pages: Int
+    var total_results: Int
 }
 
-struct Result {
+struct Result: Codable {
     let adult: Bool
     let backdrop_path: String
     let genre_ids: [Int]

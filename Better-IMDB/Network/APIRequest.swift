@@ -15,6 +15,7 @@ protocol APIRequest {
     var method: RequestType { get }
     var path: String { get }
     var parameters: [String : String] { get }
+    var auth: String { get }
 }
 
 extension APIRequest {
@@ -34,6 +35,8 @@ extension APIRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.addValue(auth, forHTTPHeaderField: "Authorization")
+        
         return request
     }
 }
