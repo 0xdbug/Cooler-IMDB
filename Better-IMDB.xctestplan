@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "BB62F5FE-E12A-418F-9EDC-CEB9655D79B2",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Better-IMDB.xcodeproj",
+      "identifier" : "708CAE782DA3A08A00062906",
+      "name" : "Better-IMDB"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : false,
+      "target" : {
+        "containerPath" : "container:Better-IMDB.xcodeproj",
+        "identifier" : "708CAE8E2DA3A08D00062906",
+        "name" : "Better-IMDBTests"
+      }
+    }
+  ],
+  "version" : 1
+}
