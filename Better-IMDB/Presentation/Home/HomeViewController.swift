@@ -6,13 +6,16 @@
 //
 
 import UIKit
+import RxSwift
 
 class HomeViewController: UIViewController, Storyboarded {
     weak var coordinator: AppCoordinator?
 
+    let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        viewModel.fetchItems()        
     }
 
 

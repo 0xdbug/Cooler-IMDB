@@ -1,0 +1,6 @@
+framework module Pods_Better_IMDBTests {
+  umbrella header "Pods-Better-IMDBTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
