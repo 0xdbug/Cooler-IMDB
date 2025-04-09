@@ -43,6 +43,14 @@
                                                                 <rect key="frame" x="57" y="72" width="250" height="397"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="baseline.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="YIX-uY-wip">
+                                                                <rect key="frame" x="57.333333333333343" y="71" width="250.00000000000003" height="397"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            </imageView>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="baseline.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="vMH-fP-Uru">
+                                                                <rect key="frame" x="57.333333333333343" y="71" width="250.00000000000003" height="397"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            </imageView>
                                                         </subviews>
                                                     </view>
                                                     <color key="tintColor" name="AccentColor"/>
@@ -91,6 +99,8 @@
                                             <outlet property="allButton" destination="dGi-UT-ayu" id="P1N-HB-BkA"/>
                                             <outlet property="cellPosterImage" destination="VWj-OF-gsC" id="4Gr-G3-vPc"/>
                                             <outlet property="itemPosterImage" destination="Cgp-P5-zYP" id="HN6-8o-kjo"/>
+                                            <outlet property="secondItemPosterImage" destination="YIX-uY-wip" id="cdk-dY-74A"/>
+                                            <outlet property="thirdItemPosterImage" destination="vMH-fP-Uru" id="tJR-Qk-6Kf"/>
                                             <outlet property="titleLabel" destination="03a-Jq-uxv" id="ZQg-Eq-bng"/>
                                             <outlet property="titleStack" destination="7z0-FV-RgB" id="OAh-d2-OeZ"/>
                                             <outlet property="visualEffectView" destination="Pec-AU-hLd" id="ua6-mE-ErC"/>

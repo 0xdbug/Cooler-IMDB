@@ -25,6 +25,17 @@ class HomeViewController: UIViewController, Storyboarded {
         
         viewModel.fetchItems()
         setupCollectionView()
+        let sampleImages = [
+            UIImage(named: "minecraft")!,
+            UIImage(named: "minecraft")!,
+        ]
+        
+        let posterStackView = MultiplePosterView(frame: .zero, posters: sampleImages)
+        view.addSubview(posterStackView)
+        
+        posterStackView.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
 
     func setupCollectionView() {

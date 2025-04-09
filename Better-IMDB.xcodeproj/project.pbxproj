@@ -15,6 +15,7 @@
 		701DABC32DA69AF1008625CA /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC22DA69AF1008625CA /* Nuke */; };
 		701DABC52DA69AF1008625CA /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC42DA69AF1008625CA /* NukeExtensions */; };
 		701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABC62DA69B03008625CA /* UIImageView+Ext.swift */; };
+		701E872B2DA6F3D6000DBF15 /* MultiplePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */; };
 		704A69852DA3C3F3001E249C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69842DA3C3F3001E249C /* RxCocoa */; };
 		704A69872DA3C3F3001E249C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69862DA3C3F3001E249C /* RxSwift */; };
 		704A69892DA3C3F3001E249C /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69882DA3C3F3001E249C /* RxTest */; };
@@ -65,6 +66,7 @@
 		701DABBD2DA68CA0008625CA /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		701DABC62DA69B03008625CA /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePosterView.swift; sourceTree = "<group>"; };
 		704A698B2DA3DB6D001E249C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		704A698D2DA3DC83001E249C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		704A698F2DA3E07F001E249C /* TMDBAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPI.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			children = (
 				701DABBD2DA68CA0008625CA /* HomeCollectionViewCell.swift */,
 				701DABBB2DA68C5F008625CA /* HomeCollectionView.swift */,
+				701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -528,6 +531,7 @@
 				708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */,
 				701DABBE2DA68CA0008625CA /* HomeCollectionViewCell.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
+				701E872B2DA6F3D6000DBF15 /* MultiplePosterView.swift in Sources */,
 				70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */,
 				708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */,
 				704A698C2DA3DB6D001E249C /* APIRequest.swift in Sources */,

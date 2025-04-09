@@ -16,15 +16,15 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var cellPosterImage: UIImageView!
     @IBOutlet weak var itemPosterImage: UIImageView!
+    @IBOutlet weak var secondItemPosterImage: UIImageView!
+    @IBOutlet weak var thirdItemPosterImage: UIImageView!
+    
         
     func setup() {
         allButton.titleLabel?.textColor = .white
         titleLabel.text = "TOP MOVIES"
         titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        
-//        itemPosterImage.clipsToBounds = true
-        itemPosterImage.layer.cornerRadius = 30
-        
+                
         layer.cornerRadius = 30
     }
  
@@ -32,15 +32,19 @@ class HomeCollectionViewCell: UICollectionViewCell {
         setup()
         
         do {
-            print(item.posterImageURL)
             try await cellPosterImage.loadImage(item.posterImageURL)
-            itemPosterImage.image = cellPosterImage.image
-            
-            itemPosterImage.setShadowWithColor(color: .yellow, opacity: 0.9, offset: CGSize(width: 500, height: 500), radius: 100, viewCornerRadius: 30)
             
         } catch {
             print("Failed to load image")
         }
+        setupPosters()
+
+    }
+    
+    func setupPosters() {
+        itemPosterImage.image = cellPosterImage.image
+        itemPosterImage.layer.cornerRadius = 30
+        
     }
     
     override func prepareForReuse() {
