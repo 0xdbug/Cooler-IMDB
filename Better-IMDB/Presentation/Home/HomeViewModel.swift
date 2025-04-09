@@ -17,7 +17,8 @@ class HomeViewModel {
     let networkService: HomeNetworkServiceProtocol
     
     private let disposeBag = DisposeBag()
-    var items: PublishRelay<Discover> = .init()
+    var discover: PublishRelay<Discover> = .init()
+    var items: PublishRelay<[DiscoverResult]> = .init()
     
     init(networkService: HomeNetworkServiceProtocol) {
         self.networkService = networkService
@@ -26,7 +27,8 @@ class HomeViewModel {
     func fetchItems() {
         networkService.discover().subscribe(
             onNext: { e in
-                self.items.accept(e)
+                self.discover.accept(e)
+                self.items.accept(e.results)
             }, onError: { err in
                 print(err)
             }

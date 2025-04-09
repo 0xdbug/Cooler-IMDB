@@ -18,16 +18,9 @@ class AppCoordinator: Coordinator {
     
     // MARK: - Functions
     func start() {
-        let home = HomeViewController.instantiate()
-        home.coordinator = self
-        navigationController.pushViewController(home, animated: true)
+        let baseTabBarController = BITabBarController()
+        baseTabBarController.coordinator = self
+        navigationController.pushViewController(baseTabBarController, animated: true)
     }
-    
-//    func viewDetail(_ item: NivlItem) {
-//        let detailViewModel = DetailViewModel(item: item)
-//        let detail = DetailViewController.instantiate()
-//        detail.viewModel = detailViewModel
-//        navigationController.pushViewController(detail, animated: true)
-//    }
     
 }

@@ -7,17 +7,36 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class HomeViewController: UIViewController, Storyboarded {
     weak var coordinator: AppCoordinator?
 
     let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService())
+    private let disposeBag = DisposeBag()
+    
+    @IBOutlet weak var mainCollectionView: HomeCollectionView!
+    
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchItems()        
+        
+        viewModel.fetchItems()
+        setupCollectionView()
     }
 
-
+    func setupCollectionView() {
+        viewModel.items
+            .bind(to: mainCollectionView
+                .rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self)) { row, item, cell in
+                    Task {
+                        await cell.configureWithItem(item)
+                    }
+                }
+                .disposed(by: disposeBag)
+    }
+    
 }
 

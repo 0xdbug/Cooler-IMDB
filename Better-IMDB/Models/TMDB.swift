@@ -9,12 +9,12 @@ import UIKit
 
 struct Discover: Codable {
     var page: Int
-    var results: [Result]
+    var results: [DiscoverResult]
     var total_pages: Int
     var total_results: Int
 }
 
-struct Result: Codable {
+struct DiscoverResult: Codable {
     let adult: Bool
     let backdrop_path: String
     let genre_ids: [Int]
@@ -29,4 +29,11 @@ struct Result: Codable {
     let video: Bool
     let vote_average: Double
     let vote_count: Int
+    
+    var posterImageURL: URL {
+        URL(string: TMDBAPI.imagesURLString + poster_path) ?? URL(string: "")!
+    }
+    var backdropImageURL: URL {
+        URL(string: TMDBAPI.imagesURLString + backdrop_path) ?? URL(string: "")!
+    }
 }
