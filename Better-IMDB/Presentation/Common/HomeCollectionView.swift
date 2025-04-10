@@ -29,7 +29,7 @@ class HomeCollectionView: UICollectionView {
             
             let groupSize = NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1),
-                heightDimension: .absolute(540)
+                heightDimension: .absolute(500)
             )
             
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, repeatingSubitem: item, count: columns)

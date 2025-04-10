@@ -24,35 +24,35 @@
                                 <collectionViewLayout key="collectionViewLayout" id="ENF-qh-HiM"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="homeMainCell" id="Pdt-bK-eDa" customClass="HomeCollectionViewCell" customModule="Better_IMDB" customModuleProvider="target">
-                                        <rect key="frame" x="13.666666666666666" y="0.0" width="366" height="540"/>
+                                        <rect key="frame" x="13.666666666666666" y="0.0" width="366" height="500"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PeZ-ke-Hk0">
-                                            <rect key="frame" x="0.0" y="0.0" width="366" height="540"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="366" height="500"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="baseline.jpeg" translatesAutoresizingMaskIntoConstraints="NO" id="VWj-OF-gsC">
-                                                    <rect key="frame" x="-32" y="-106" width="439" height="828"/>
+                                                    <rect key="frame" x="-32" y="-106" width="439" height="788"/>
                                                 </imageView>
                                                 <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pec-AU-hLd">
-                                                    <rect key="frame" x="0.0" y="0.0" width="366" height="540"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="366" height="500"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="to1-XL-ehc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="540"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="500"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     </view>
                                                     <color key="tintColor" name="AccentColor"/>
                                                     <blurEffect style="regular"/>
                                                 </visualEffectView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="7z0-FV-RgB">
-                                                    <rect key="frame" x="20" y="25" width="326" height="25"/>
+                                                    <rect key="frame" x="29" y="35" width="308" height="25"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03a-Jq-uxv">
-                                                            <rect key="frame" x="0.0" y="0.0" width="41.333333333333336" height="25"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="308" height="25"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-UT-ayu">
-                                                            <rect key="frame" x="256" y="0.0" width="70" height="25"/>
+                                                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dGi-UT-ayu">
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="70" id="GKw-Xf-wp1"/>
                                                             </constraints>
@@ -72,15 +72,15 @@
                                                 <constraint firstItem="Pec-AU-hLd" firstAttribute="centerY" secondItem="PeZ-ke-Hk0" secondAttribute="centerY" id="DTm-DQ-yGK"/>
                                                 <constraint firstItem="VWj-OF-gsC" firstAttribute="leading" secondItem="PeZ-ke-Hk0" secondAttribute="leading" constant="-32" id="GMT-MZ-bhz"/>
                                                 <constraint firstAttribute="bottom" secondItem="VWj-OF-gsC" secondAttribute="bottom" constant="-182" id="IIq-R0-V5K"/>
-                                                <constraint firstItem="7z0-FV-RgB" firstAttribute="top" secondItem="PeZ-ke-Hk0" secondAttribute="top" constant="25" id="M8o-PX-NuK"/>
+                                                <constraint firstItem="7z0-FV-RgB" firstAttribute="top" secondItem="PeZ-ke-Hk0" secondAttribute="top" constant="35" id="M8o-PX-NuK"/>
                                                 <constraint firstItem="Pec-AU-hLd" firstAttribute="centerX" secondItem="7z0-FV-RgB" secondAttribute="centerX" id="ag7-fK-dvh"/>
                                                 <constraint firstItem="VWj-OF-gsC" firstAttribute="top" secondItem="PeZ-ke-Hk0" secondAttribute="top" constant="-106" id="bqQ-cb-Ecg"/>
-                                                <constraint firstAttribute="trailing" secondItem="7z0-FV-RgB" secondAttribute="trailing" constant="20" id="jhU-9o-5cb"/>
+                                                <constraint firstAttribute="trailing" secondItem="7z0-FV-RgB" secondAttribute="trailing" constant="29" id="jhU-9o-5cb"/>
                                                 <constraint firstItem="Pec-AU-hLd" firstAttribute="top" secondItem="PeZ-ke-Hk0" secondAttribute="top" id="s7y-SQ-aE1"/>
-                                                <constraint firstItem="7z0-FV-RgB" firstAttribute="leading" secondItem="PeZ-ke-Hk0" secondAttribute="leading" constant="20" id="stD-DM-izV"/>
+                                                <constraint firstItem="7z0-FV-RgB" firstAttribute="leading" secondItem="PeZ-ke-Hk0" secondAttribute="leading" constant="29" id="stD-DM-izV"/>
                                             </constraints>
                                         </collectionViewCellContentView>
-                                        <size key="customSize" width="366" height="540"/>
+                                        <size key="customSize" width="366" height="500"/>
                                         <connections>
                                             <outlet property="allButton" destination="dGi-UT-ayu" id="P1N-HB-BkA"/>
                                             <outlet property="cellPosterImage" destination="VWj-OF-gsC" id="4Gr-G3-vPc"/>
@@ -108,6 +108,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="58.778625954198468" y="3.5211267605633805"/>
+        </scene>
+        <!--List View Controller-->
+        <scene sceneID="3Ps-0g-nlt">
+            <objects>
+                <viewController storyboardIdentifier="ListViewController" id="L6G-fd-AZQ" customClass="ListViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Sx7-hc-MFG">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="edN-GS-AEz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CI6-QE-7IY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="944" y="4"/>
         </scene>
     </scenes>
     <resources>

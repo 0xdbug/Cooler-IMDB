@@ -17,30 +17,31 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var cellPosterImage: UIImageView!
     
-    let sampleImages = [
-        UIImage(named: "minecraft")!,
-        UIImage(named: "minecraft")!,
-    ]
+    var item: HomeCards!
     
     let posterStackView = MultiplePosterView(frame: .zero)
-
     
-    func setup() {
+    func configureWithItem(_ item: HomeCards) async {
+        self.item = item
+        setupCard()
+        await setupPosters()
+    }
+    
+    func setupCard() {
         addSubview(posterStackView)
         
         posterStackView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(-5)
+            make.centerX.equalToSuperview().offset(0)
             make.centerY.equalToSuperview().offset(25)
         }
-    }
-    
-    func configureWithItem(_ item: HomeCards) async {
-        setup()
+        
         titleLabel.text = item.cardName
         allButton.titleLabel?.textColor = .white
-        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        titleLabel.font = .systemFont(ofSize: 25, weight: .heavy)
         layer.cornerRadius = 30
-        
+    }
+    
+    func setupPosters() async {
         guard item.movies.count >= 2 else { return }
         let firstPoster = item.movies.first!.posterImageURL
         let secondPoster = item.movies[1].posterImageURL
@@ -53,17 +54,11 @@ class HomeCollectionViewCell: UICollectionViewCell {
         } catch {
             print("Failed to load image")
         }
-        setupPosters()
-        
-    }
-    
-    func setupPosters() {
-        //        itemPosterImage.image = cellPosterImage.image
-        //        itemPosterImage.layer.cornerRadius = 30
         
     }
     
     override func prepareForReuse() {
+        item = .none
         backgroundColor = .secondarySystemBackground
         titleLabel.text = ""
     }

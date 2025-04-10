@@ -12,8 +12,8 @@ class MultiplePosterView: UIView {
     
     var posters: [UIImage] = []
     var posterViews: [UIImageView] = []
-    let posterWidth: CGFloat = 200
-    let posterHeight: CGFloat = 350 // temp
+    let posterWidth: CGFloat = 220
+    let posterHeight: CGFloat = 330 // temp
     
     init(frame: CGRect, posters: [UIImage] = []) {
         self.posters = posters
@@ -43,7 +43,7 @@ class MultiplePosterView: UIView {
         let posterView = UIImageView(image: image)
         posterView.contentMode = .scaleAspectFill
         posterView.clipsToBounds = true
-        posterView.layer.cornerRadius = 30
+        posterView.layer.cornerRadius = 25
         
         containerView.addSubview(posterView)
         

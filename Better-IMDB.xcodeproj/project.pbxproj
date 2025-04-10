@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		2E2BFC7604720DC0494F0AF4 /* Pods_Better_IMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCABFE3ECA34F0AEEAF4356 /* Pods_Better_IMDB.framework */; };
 		7016344F2DA55AA50066D373 /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016344E2DA55AA50066D373 /* TMDBService.swift */; };
-		701DABBC2DA68C5F008625CA /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABBB2DA68C5F008625CA /* HomeCollectionView.swift */; };
-		701DABBE2DA68CA0008625CA /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABBD2DA68CA0008625CA /* HomeCollectionViewCell.swift */; };
 		701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */; };
 		701DABC32DA69AF1008625CA /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC22DA69AF1008625CA /* Nuke */; };
 		701DABC52DA69AF1008625CA /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC42DA69AF1008625CA /* NukeExtensions */; };
 		701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABC62DA69B03008625CA /* UIImageView+Ext.swift */; };
-		701E872B2DA6F3D6000DBF15 /* MultiplePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */; };
+		701E87322DA7B2E7000DBF15 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */; };
+		701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */; };
+		701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */; };
+		701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87362DA7B313000DBF15 /* ListViewController.swift */; };
+		701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87382DA7B705000DBF15 /* HomeCoordinator.swift */; };
 		704A69852DA3C3F3001E249C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69842DA3C3F3001E249C /* RxCocoa */; };
 		704A69872DA3C3F3001E249C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69862DA3C3F3001E249C /* RxSwift */; };
 		704A69892DA3C3F3001E249C /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69882DA3C3F3001E249C /* RxTest */; };
@@ -62,11 +64,13 @@
 		0C105766A2B95E47C30CAE22 /* Pods-Better-IMDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDB.release.xcconfig"; path = "Target Support Files/Pods-Better-IMDB/Pods-Better-IMDB.release.xcconfig"; sourceTree = "<group>"; };
 		0F077B33A76B69C99F72FD40 /* Pods-Better-IMDB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDB.debug.xcconfig"; path = "Target Support Files/Pods-Better-IMDB/Pods-Better-IMDB.debug.xcconfig"; sourceTree = "<group>"; };
 		7016344E2DA55AA50066D373 /* TMDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBService.swift; sourceTree = "<group>"; };
-		701DABBB2DA68C5F008625CA /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
-		701DABBD2DA68CA0008625CA /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		701DABC62DA69B03008625CA /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
-		701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePosterView.swift; sourceTree = "<group>"; };
+		701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionView.swift; sourceTree = "<group>"; };
+		701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePosterView.swift; sourceTree = "<group>"; };
+		701E87362DA7B313000DBF15 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		701E87382DA7B705000DBF15 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		704A698B2DA3DB6D001E249C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		704A698D2DA3DC83001E249C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		704A698F2DA3E07F001E249C /* TMDBAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBAPI.swift; sourceTree = "<group>"; };
@@ -147,14 +151,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		701DABBA2DA68C2F008625CA /* Common */ = {
+		701E872E2DA7B2DF000DBF15 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				701DABBD2DA68CA0008625CA /* HomeCollectionViewCell.swift */,
-				701DABBB2DA68C5F008625CA /* HomeCollectionView.swift */,
-				701E872A2DA6F3D6000DBF15 /* MultiplePosterView.swift */,
+				701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */,
+				701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */,
+				701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		701E87352DA7B305000DBF15 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				701E87362DA7B313000DBF15 /* ListViewController.swift */,
+			);
+			path = List;
 			sourceTree = "<group>";
 		};
 		704A698A2DA3DB59001E249C /* Network */ = {
@@ -163,7 +175,6 @@
 				704A69912DA3E0CA001E249C /* Request */,
 				704A698F2DA3E07F001E249C /* TMDBAPI.swift */,
 				704A698D2DA3DC83001E249C /* APIClient.swift */,
-				704A698B2DA3DB6D001E249C /* APIRequest.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -172,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				704A69922DA3E0D2001E249C /* TMDBRequest.swift */,
+				704A698B2DA3DB6D001E249C /* APIRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -221,6 +233,7 @@
 		708CAEBD2DA3A13B00062906 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				701E87382DA7B705000DBF15 /* HomeCoordinator.swift */,
 				708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */,
 				708CAEBB2DA3A13B00062906 /* Coordinator.swift */,
 				708CAEBC2DA3A13B00062906 /* Storyboarded.swift */,
@@ -272,8 +285,9 @@
 		708CAEDC2DA3A16700062906 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				701DABBA2DA68C2F008625CA /* Common */,
+				701E872E2DA7B2DF000DBF15 /* Common */,
 				70733A7D2DA5C3BC006D0DA8 /* TabBar */,
+				701E87352DA7B305000DBF15 /* List */,
 				708CAEDD2DA3A1B700062906 /* Home */,
 				708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */,
 				708CAEC72DA3A13B00062906 /* Main.storyboard */,
@@ -521,6 +535,10 @@
 				70733A892DA5C9C9006D0DA8 /* BITabBar.swift in Sources */,
 				70733A7F2DA5C3E6006D0DA8 /* BITabItem.swift in Sources */,
 				708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */,
+				701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */,
+				701E87322DA7B2E7000DBF15 /* HomeCollectionView.swift in Sources */,
+				701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */,
+				701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */,
 				701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */,
 				701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */,
 				704A69902DA3E07F001E249C /* TMDBAPI.swift in Sources */,
@@ -528,16 +546,14 @@
 				704A69932DA3E0E0001E249C /* TMDBRequest.swift in Sources */,
 				704A698E2DA3DC83001E249C /* APIClient.swift in Sources */,
 				708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */,
+				701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */,
 				708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */,
-				701DABBE2DA68CA0008625CA /* HomeCollectionViewCell.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
-				701E872B2DA6F3D6000DBF15 /* MultiplePosterView.swift in Sources */,
 				70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */,
 				708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */,
 				704A698C2DA3DB6D001E249C /* APIRequest.swift in Sources */,
 				70733A812DA5C6C4006D0DA8 /* BIItemView.swift in Sources */,
 				708CAECF2DA3A13B00062906 /* HomeViewController.swift in Sources */,
-				701DABBC2DA68C5F008625CA /* HomeCollectionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
