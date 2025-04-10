@@ -28,7 +28,7 @@ class MultiplePosterView: UIView {
     
     
     private func setupView() {
-        for (index, image) in posters.enumerated().reversed() {
+        for (index, image) in posters.enumerated() {
             let posterView = createPosters(with: image, at: index)
             posterViews.append(posterView)
             addSubview(posterView)

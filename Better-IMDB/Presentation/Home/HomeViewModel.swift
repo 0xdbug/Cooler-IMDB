@@ -9,29 +9,102 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum HomeCardCategory {
+//    case discover
+    case popular
+    case trending
+    case topRated
+    case upcoming
+}
+
 protocol HomeNetworkServiceProtocol {
-    func discover() -> Observable<Discover>
+//    func discover() -> Observable<TMDBMovies>
+    func popular() -> Observable<TMDBMovies>
+    func trending() -> Observable<TMDBMovies>
+    func topRated() -> Observable<TMDBMovies>
+    func upcoming() -> Observable<TMDBMovies>
 }
 
 class HomeViewModel {
     let networkService: HomeNetworkServiceProtocol
     
     private let disposeBag = DisposeBag()
-    var discover: PublishRelay<Discover> = .init()
-    var items: PublishRelay<[DiscoverResult]> = .init()
+    var discover: PublishRelay<TMDBMovies> = .init()
+    var trending: PublishRelay<TMDBMovies> = .init()
+    var items: BehaviorRelay<[HomeCards]> = .init(value: [])
     
     init(networkService: HomeNetworkServiceProtocol) {
         self.networkService = networkService
     }
     
     func fetchItems() {
-        networkService.discover().subscribe(
-            onNext: { e in
-                self.discover.accept(e)
-                self.items.accept(e.results)
-            }, onError: { err in
-                print(err)
+        items.accept([])
+
+        let categories: [HomeCardCategory] = [.popular, .trending, .topRated, .upcoming]
+        let categoryObservables = categories.map { fetchCategory($0) }
+        
+        Observable.concat(categoryObservables)
+            .scan(into: [HomeCards]()) { (currentItems, newCard) in
+                currentItems.append(newCard)
             }
-        ).disposed(by: disposeBag)
-    }    
+            .asDriver(onErrorJustReturn: [])
+            .drive(items)
+            .disposed(by: disposeBag)
+    }
+    
+    private func fetchCategory(_ category: HomeCardCategory) -> Observable<HomeCards> {
+        switch category {
+//            case .discover:
+//                return fetchPopular()
+            case .popular:
+                return fetchPopular()
+            case .trending:
+                return fetchTrending()
+            case .topRated:
+                return fetchTopRated()
+            case .upcoming:
+                return fetchUpcoming()
+        }
+    }
+    
+    func fetchPopular() -> Observable<HomeCards> {
+        networkService.popular()
+            .map { result -> HomeCards in
+                self.discover.accept(result)
+                return HomeCards(cardName: "POPULAR",
+                                 cardType: .popular,
+                                 movies: result.results)
+            }
+    }
+    
+    func fetchTrending() -> Observable<HomeCards> {
+        networkService.trending()
+            .map { result -> HomeCards in
+                self.trending.accept(result)
+                return HomeCards(cardName: "TRENDING",
+                                 cardType: .trending,
+                                 movies: result.results)
+            }
+    }
+    
+    func fetchTopRated() -> Observable<HomeCards> {
+        networkService.topRated()
+            .map { result -> HomeCards in
+                self.trending.accept(result)
+                return HomeCards(cardName: "TOP RATED",
+                                 cardType: .topRated,
+                                 movies: result.results)
+            }
+    }
+    
+    func fetchUpcoming() -> Observable<HomeCards> {
+        networkService.upcoming()
+            .map { result -> HomeCards in
+                self.trending.accept(result)
+                return HomeCards(cardName: "UPCOMING",
+                                 cardType: .upcoming,
+                                 movies: result.results)
+            }
+    }
+    
 }

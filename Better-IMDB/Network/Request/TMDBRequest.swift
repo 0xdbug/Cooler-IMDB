@@ -19,3 +19,55 @@ class DiscoverRequest: APIRequest {
         "sort_by": "popularity.desc",
     ]
 }
+
+class PopularRequest: APIRequest {
+    var method = RequestType.GET
+    var path = TMDBAPI.popular
+    var auth = TMDBAPI.auth
+    var parameters = [
+        "include_adult": "false",
+        "include_video": "false",
+        "language": "en-US",
+        "page": "1",
+        "sort_by": "popularity.desc",
+    ]
+}
+
+class TrendingRequest: APIRequest {
+    var method = RequestType.GET
+    var path = TMDBAPI.trending
+    var auth = TMDBAPI.auth
+    var parameters = [
+        "include_adult": "false",
+        "include_video": "false",
+        "language": "en-US",
+        "page": "1",
+        "sort_by": "popularity.desc",
+    ]
+}
+
+class TopRatedRequest: APIRequest {
+    var method = RequestType.GET
+    var path = TMDBAPI.topRated
+    var auth = TMDBAPI.auth
+    var parameters = [
+        "include_adult": "false",
+        "include_video": "false",
+        "language": "en-US",
+        "page": "1",
+        "sort_by": "popularity.desc",
+    ]
+}
+
+class UpcomingRequest: APIRequest {
+    var method = RequestType.GET
+    var path = TMDBAPI.upcoming
+    var auth = TMDBAPI.auth
+    var parameters = [
+        "include_adult": "false",
+        "include_video": "false",
+        "language": "en-US",
+        "page": "1",
+        "sort_by": "popularity.desc",
+    ]
+}

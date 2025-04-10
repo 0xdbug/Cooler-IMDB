@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Nuke
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let id = "homeMainCell"
@@ -25,11 +26,6 @@ class HomeCollectionViewCell: UICollectionViewCell {
 
     
     func setup() {
-        allButton.titleLabel?.textColor = .white
-        titleLabel.text = "TOP MOVIES"
-        titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-        layer.cornerRadius = 30
-        
         addSubview(posterStackView)
         
         posterStackView.snp.makeConstraints { make in
@@ -38,12 +34,22 @@ class HomeCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configureWithItem(_ item: DiscoverResult) async {
+    func configureWithItem(_ item: HomeCards) async {
         setup()
+        titleLabel.text = item.cardName
+        allButton.titleLabel?.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 18, weight: .bold)
+        layer.cornerRadius = 30
+        
+        guard item.movies.count >= 2 else { return }
+        let firstPoster = item.movies.first!.posterImageURL
+        let secondPoster = item.movies[1].posterImageURL
         
         do {
-            try await cellPosterImage.loadImage(item.posterImageURL)
-            posterStackView.updatePosters(sampleImages)
+            try await cellPosterImage.loadImage(firstPoster)
+            let secondPosterImage = try await ImagePipeline.shared.image(for: secondPoster)
+            
+            posterStackView.updatePosters([cellPosterImage.image!, secondPosterImage])
         } catch {
             print("Failed to load image")
         }

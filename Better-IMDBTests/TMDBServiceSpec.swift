@@ -21,7 +21,7 @@ class TMDBServiceSpec: QuickSpec {
             var viewModel: HomeViewModel!
             var disposeBag: DisposeBag!
             var scheduler: TestScheduler!
-            var discoverObserver: TestableObserver<Discover>!
+            var discoverObserver: TestableObserver<TMDBMovies>!
             
             beforeEach {
                 disposeBag = DisposeBag()
@@ -29,7 +29,7 @@ class TMDBServiceSpec: QuickSpec {
                 sut = TMDBService()
                 viewModel = HomeViewModel(networkService: sut)
                 
-                discoverObserver = scheduler.createObserver(Discover.self)
+                discoverObserver = scheduler.createObserver(TMDBMovies.self)
                 viewModel.items.bind(to: discoverObserver).disposed(by: disposeBag)
             }
             
