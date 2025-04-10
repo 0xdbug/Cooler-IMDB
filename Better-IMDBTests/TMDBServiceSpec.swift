@@ -15,13 +15,12 @@ import RxSwift
 
 class TMDBServiceSpec: QuickSpec {
     override class func spec() {
-        // TMDBServiceSpec should returned expected discover
         describe("TMDBServiceSpec") {
             var sut: TMDBService!
             var viewModel: HomeViewModel!
             var disposeBag: DisposeBag!
             var scheduler: TestScheduler!
-            var discoverObserver: TestableObserver<TMDBMovies>!
+            var observer: TestableObserver<[HomeCards]>!
             
             beforeEach {
                 disposeBag = DisposeBag()
@@ -29,15 +28,15 @@ class TMDBServiceSpec: QuickSpec {
                 sut = TMDBService()
                 viewModel = HomeViewModel(networkService: sut)
                 
-                discoverObserver = scheduler.createObserver(TMDBMovies.self)
-                viewModel.items.bind(to: discoverObserver).disposed(by: disposeBag)
+                observer = scheduler.createObserver([HomeCards].self)
+                viewModel.items.bind(to: observer).disposed(by: disposeBag)
             }
             
-            it("should return expected result") {
+            it("should fill view model items") {
                 viewModel.fetchItems()
                 scheduler.start()
                 
-                expect(discoverObserver.events.count).toEventually(equal(1))
+                expect(observer.events.count).toEventually(equal(6))
             }
         }
     }

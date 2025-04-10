@@ -29,8 +29,6 @@ class HomeViewModel {
     let networkService: HomeNetworkServiceProtocol
     
     private let disposeBag = DisposeBag()
-    var discover: PublishRelay<TMDBMovies> = .init()
-    var trending: PublishRelay<TMDBMovies> = .init()
     var items: BehaviorRelay<[HomeCards]> = .init(value: [])
     
     init(networkService: HomeNetworkServiceProtocol) {
@@ -70,7 +68,6 @@ class HomeViewModel {
     func fetchPopular() -> Observable<HomeCards> {
         networkService.popular()
             .map { result -> HomeCards in
-                self.discover.accept(result)
                 return HomeCards(cardName: "POPULAR",
                                  cardType: .popular,
                                  movies: result.results)
@@ -80,7 +77,6 @@ class HomeViewModel {
     func fetchTrending() -> Observable<HomeCards> {
         networkService.trending()
             .map { result -> HomeCards in
-                self.trending.accept(result)
                 return HomeCards(cardName: "TRENDING",
                                  cardType: .trending,
                                  movies: result.results)
@@ -90,7 +86,6 @@ class HomeViewModel {
     func fetchTopRated() -> Observable<HomeCards> {
         networkService.topRated()
             .map { result -> HomeCards in
-                self.trending.accept(result)
                 return HomeCards(cardName: "TOP RATED",
                                  cardType: .topRated,
                                  movies: result.results)
@@ -100,7 +95,6 @@ class HomeViewModel {
     func fetchUpcoming() -> Observable<HomeCards> {
         networkService.upcoming()
             .map { result -> HomeCards in
-                self.trending.accept(result)
                 return HomeCards(cardName: "UPCOMING",
                                  cardType: .upcoming,
                                  movies: result.results)
