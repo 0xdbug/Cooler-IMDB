@@ -15,7 +15,7 @@ class MultiplePosterView: UIView {
     let posterWidth: CGFloat = 200
     let posterHeight: CGFloat = 350 // temp
     
-    init(frame: CGRect, posters: [UIImage]) {
+    init(frame: CGRect, posters: [UIImage] = []) {
         self.posters = posters
         super.init(frame: frame)
         setupView()
@@ -70,13 +70,14 @@ class MultiplePosterView: UIView {
                 make.width.equalTo(width)
                 make.height.equalTo(height)
                 
-                make.bottom.equalToSuperview().offset(-8)
+//                make.bottom.equalToSuperview().offset(-8)
                 
                 if index == 0 {
                     make.left.equalToSuperview()
                 } else {
                     let leftOffset = posterWidth - (CGFloat(index) * 80)
                     make.left.equalToSuperview().offset(leftOffset)
+                    make.centerY.equalToSuperview()
                 }
                 
                 posterView.layer.zPosition = CGFloat(posterViews.count - index)
@@ -88,5 +89,16 @@ class MultiplePosterView: UIView {
             make.width.equalTo(totalWidth)
             make.height.equalTo(posterHeight)
         }
+    }
+    
+    func updatePosters(_ newPosters: [UIImage]) {
+        for posterView in posterViews {
+            posterView.removeFromSuperview()
+        }
+        
+        posterViews.removeAll()
+        posters = newPosters
+        
+        setupView()
     }
 }

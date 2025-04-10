@@ -16,26 +16,14 @@ class HomeViewController: UIViewController, Storyboarded {
     private let disposeBag = DisposeBag()
     
     @IBOutlet weak var mainCollectionView: HomeCollectionView!
-    
-    @IBOutlet weak var visualEffectView: UIVisualEffectView!
-    
+        
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.fetchItems()
         setupCollectionView()
-        let sampleImages = [
-            UIImage(named: "minecraft")!,
-            UIImage(named: "minecraft")!,
-        ]
-        
-        let posterStackView = MultiplePosterView(frame: .zero, posters: sampleImages)
-        view.addSubview(posterStackView)
-        
-        posterStackView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+
     }
 
     func setupCollectionView() {

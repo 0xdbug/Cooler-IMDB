@@ -15,35 +15,45 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var allButton: UIButton!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     @IBOutlet weak var cellPosterImage: UIImageView!
-    @IBOutlet weak var itemPosterImage: UIImageView!
-    @IBOutlet weak var secondItemPosterImage: UIImageView!
-    @IBOutlet weak var thirdItemPosterImage: UIImageView!
     
-        
+    let sampleImages = [
+        UIImage(named: "minecraft")!,
+        UIImage(named: "minecraft")!,
+    ]
+    
+    let posterStackView = MultiplePosterView(frame: .zero)
+
+    
     func setup() {
         allButton.titleLabel?.textColor = .white
         titleLabel.text = "TOP MOVIES"
         titleLabel.font = .systemFont(ofSize: 17, weight: .semibold)
-                
         layer.cornerRadius = 30
+        
+        addSubview(posterStackView)
+        
+        posterStackView.snp.makeConstraints { make in
+            make.centerX.equalToSuperview().offset(-5)
+            make.centerY.equalToSuperview().offset(25)
+        }
     }
- 
+    
     func configureWithItem(_ item: DiscoverResult) async {
         setup()
         
         do {
             try await cellPosterImage.loadImage(item.posterImageURL)
-            
+            posterStackView.updatePosters(sampleImages)
         } catch {
             print("Failed to load image")
         }
         setupPosters()
-
+        
     }
     
     func setupPosters() {
-        itemPosterImage.image = cellPosterImage.image
-        itemPosterImage.layer.cornerRadius = 30
+        //        itemPosterImage.image = cellPosterImage.image
+        //        itemPosterImage.layer.cornerRadius = 30
         
     }
     
