@@ -8,7 +8,7 @@
 import UIKit
 
 class ListViewController: UIViewController, Storyboarded {
-    weak var coordinator: AppCoordinator?
+    weak var coordinator: HomeCoordinator?
     
     override func viewDidLoad() {
         print("hi")

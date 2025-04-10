@@ -13,15 +13,6 @@ enum BITabItem: String, CaseIterable {
 }
 
 extension BITabItem {
-    var viewController: UIViewController {
-        switch self {
-            case .home:
-                return HomeViewController.instantiate()
-            case .bookmark:
-                return HomeViewController.instantiate()
-        }
-    }
-    
     var icon: UIImage? {
         switch self {
             case .home:

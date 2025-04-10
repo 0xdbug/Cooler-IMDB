@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeCoordinator: Coordinator {
+class BookmarkCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
@@ -17,18 +17,12 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeViewController.instantiate()
+        let vc = BookmarkViewController.instantiate()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list() {
-        let vc = ListViewController.instantiate()
-        vc.coordinator = self
-        vc.preferredTransition = .zoom(sourceViewProvider: {context in 
-            return UIView()
-        })
-        navigationController.pushViewController(vc, animated: true)
     }
     
 }

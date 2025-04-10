@@ -9,23 +9,22 @@ import UIKit
 import SnapKit
 
 final class BIItemView: UIView {
-    
     private let iconImageView = UIImageView()
-    private let containerView = UIView()
-    let index: Int
+    private let titleLabel = UILabel()
+    private let stackView = UIStackView()
     
-    var isSelected = false {
+    let index: Int
+    private let item: BITabItem
+    
+    var isSelected: Bool = false {
         didSet {
-            animateItems()
+            updateAppearance()
         }
     }
-    
-    private let item: BITabItem
     
     init(with item: BITabItem, index: Int) {
         self.item = item
         self.index = index
-        
         super.init(frame: .zero)
         
         setupHierarchy()
@@ -38,35 +37,43 @@ final class BIItemView: UIView {
     }
     
     private func setupHierarchy() {
-        addSubview(containerView)
-        let subViews = [iconImageView]
-        subViews.forEach { containerView.addSubview($0) }
+        stackView.addArrangedSubview(iconImageView)
+        stackView.addArrangedSubview(titleLabel)
+        addSubview(stackView)
     }
     
     private func setupLayout() {
-        containerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
-//            $0.height.width.equalTo(55)
+        stackView.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
-        
-//        iconImageView.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
         
     }
     
     private func setupProperties() {
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 4
+        
+        titleLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        titleLabel.text = item.name
+        titleLabel.textColor = .white.withAlphaComponent(0.4)
+        titleLabel.textAlignment = .center
+        
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.image = isSelected ? item.selectedIcon : item.icon
+        iconImageView.image = item.icon
+        
+        // Adding debug color to see the frames
+        // backgroundColor = .red.withAlphaComponent(0.3)
+        
+        updateAppearance()
     }
     
-    private func animateItems() {
-        UIView.transition(with: iconImageView,
-                          duration: 0.1,
-                          options: .transitionCrossDissolve) { [unowned self] in
-            self.iconImageView.image = self.isSelected ? self.item.selectedIcon : self.item.icon
+    private func updateAppearance() {
+        iconImageView.image = isSelected ? item.selectedIcon : item.icon
+        titleLabel.textColor = isSelected ? .white : .white.withAlphaComponent(0.4)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.transform = self.isSelected ? CGAffineTransform(scaleX: 1.1, y: 1.1) : .identity
         }
     }
 }

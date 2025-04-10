@@ -40,16 +40,20 @@ final class BITabBar: UIStackView {
     }
     
     private func setupHierarchy() {
-        let subViews = [homeItem, bookmarkItem]
-        subViews.forEach { addArrangedSubview($0) }
+        addArrangedSubview(homeItem)
+        addArrangedSubview(bookmarkItem)
     }
     
     private func setupProperties() {
         distribution = .fillEqually
-        alignment = .center
+        alignment = .fill
+        spacing = 0
         
-        backgroundColor = .black.withAlphaComponent(0.2)
+        // Adding debug color
+        // backgroundColor = .blue.withAlphaComponent(0.3)
+        
         layer.cornerRadius = 30
+        clipsToBounds = true
         
         customItemViews.forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +84,5 @@ final class BITabBar: UIStackView {
                 self.selectItem(index: self.bookmarkItem.index)
             }
             .disposed(by: disposeBag)
-        
     }
 }

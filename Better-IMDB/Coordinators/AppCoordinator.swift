@@ -18,9 +18,10 @@ class AppCoordinator: Coordinator {
     
     // MARK: - Functions
     func start() {
-        let baseTabBarController = BITabBarController()
-        baseTabBarController.coordinator = self
-        navigationController.pushViewController(baseTabBarController, animated: true)
+        let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
+        tabBarCoordinator.parentCoordinator = self
+        children = [tabBarCoordinator]
+        tabBarCoordinator.start()
     }
-    
 }
+

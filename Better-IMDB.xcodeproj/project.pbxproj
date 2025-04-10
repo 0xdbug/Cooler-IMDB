@@ -47,6 +47,10 @@
 		708CAED32DA3A13B00062906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708CAEC72DA3A13B00062906 /* Main.storyboard */; };
 		708CAED62DA3A14000062906 /* Better_IMDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAED42DA3A14000062906 /* Better_IMDBTests.swift */; };
 		708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */; };
+		70929C222DA7EA42008DB6AC /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */; };
+		70929C272DA7F464008DB6AC /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */; };
+		70929C282DA7F464008DB6AC /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C252DA7F464008DB6AC /* BookmarkViewController.swift */; };
+		70929C2A2DA7F4AB008DB6AC /* BookmarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */; };
 		E0395E49DEADA00B26E25568 /* Pods_Better_IMDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -96,6 +100,10 @@
 		708CAEC82DA3A13B00062906 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		708CAED42DA3A14000062906 /* Better_IMDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Better_IMDBTests.swift; sourceTree = "<group>"; };
 		708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
+		70929C252DA7F464008DB6AC /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoordinator.swift; sourceTree = "<group>"; };
 		8925B360A557176EFF5ED914 /* Pods-Better-IMDBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDBTests.release.xcconfig"; path = "Target Support Files/Pods-Better-IMDBTests/Pods-Better-IMDBTests.release.xcconfig"; sourceTree = "<group>"; };
 		9FCABFE3ECA34F0AEEAF4356 /* Pods_Better_IMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -233,7 +241,9 @@
 		708CAEBD2DA3A13B00062906 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */,
 				701E87382DA7B705000DBF15 /* HomeCoordinator.swift */,
+				70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */,
 				708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */,
 				708CAEBB2DA3A13B00062906 /* Coordinator.swift */,
 				708CAEBC2DA3A13B00062906 /* Storyboarded.swift */,
@@ -285,10 +295,10 @@
 		708CAEDC2DA3A16700062906 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				70929C232DA7F457008DB6AC /* Tabs */,
 				701E872E2DA7B2DF000DBF15 /* Common */,
 				70733A7D2DA5C3BC006D0DA8 /* TabBar */,
 				701E87352DA7B305000DBF15 /* List */,
-				708CAEDD2DA3A1B700062906 /* Home */,
 				708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */,
 				708CAEC72DA3A13B00062906 /* Main.storyboard */,
 			);
@@ -310,6 +320,24 @@
 				708CAEC22DA3A13B00062906 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		70929C232DA7F457008DB6AC /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				708CAEDD2DA3A1B700062906 /* Home */,
+				70929C262DA7F464008DB6AC /* Bookmark */,
+			);
+			path = Tabs;
+			sourceTree = "<group>";
+		};
+		70929C262DA7F464008DB6AC /* Bookmark */ = {
+			isa = PBXGroup;
+			children = (
+				70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */,
+				70929C252DA7F464008DB6AC /* BookmarkViewController.swift */,
+			);
+			path = Bookmark;
 			sourceTree = "<group>";
 		};
 		D4B3EA5B88CD5DBF4A6F4159 /* Frameworks */ = {
@@ -533,6 +561,7 @@
 				70733A8C2DA5CAE9006D0DA8 /* UIView+Ext.swift in Sources */,
 				7016344F2DA55AA50066D373 /* TMDBService.swift in Sources */,
 				70733A892DA5C9C9006D0DA8 /* BITabBar.swift in Sources */,
+				70929C222DA7EA42008DB6AC /* TabBarCoordinator.swift in Sources */,
 				70733A7F2DA5C3E6006D0DA8 /* BITabItem.swift in Sources */,
 				708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */,
 				701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */,
@@ -543,6 +572,7 @@
 				701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */,
 				704A69902DA3E07F001E249C /* TMDBAPI.swift in Sources */,
 				708CAECB2DA3A13B00062906 /* Coordinator.swift in Sources */,
+				70929C282DA7F464008DB6AC /* BookmarkViewController.swift in Sources */,
 				704A69932DA3E0E0001E249C /* TMDBRequest.swift in Sources */,
 				704A698E2DA3DC83001E249C /* APIClient.swift in Sources */,
 				708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */,
@@ -550,8 +580,10 @@
 				708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
 				70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */,
+				70929C272DA7F464008DB6AC /* BookmarkViewModel.swift in Sources */,
 				708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */,
 				704A698C2DA3DB6D001E249C /* APIRequest.swift in Sources */,
+				70929C2A2DA7F4AB008DB6AC /* BookmarkCoordinator.swift in Sources */,
 				70733A812DA5C6C4006D0DA8 /* BIItemView.swift in Sources */,
 				708CAECF2DA3A13B00062906 /* HomeViewController.swift in Sources */,
 			);
