@@ -8,12 +8,13 @@
 import UIKit
 import RxSwift
 
-class TMDBService: APIClient, HomeNetworkServiceProtocol {
+class TMDBService: APIClient, TMDBNetworkServiceProtocol {
+    
     var baseURL: URL = URL(string: TMDBAPI.baseURLString)!
     var scheduler: any SchedulerType = MainScheduler.asyncInstance
     
-    func discover() -> Observable<TMDBMovies> {
-        let request = DiscoverRequest().request(with: baseURL)
+    func discover(page: Int = 1) -> Observable<TMDBMovies> {
+        let request = DiscoverRequest(page: page).request(with: baseURL)
         
         return URLSession.shared.rx.data(request: request)
             .map { data in
@@ -22,8 +23,8 @@ class TMDBService: APIClient, HomeNetworkServiceProtocol {
             .observe(on: scheduler)
     }
     
-    func popular() -> Observable<TMDBMovies> {
-        let request = PopularRequest().request(with: baseURL)
+    func popular(page: Int = 1) -> Observable<TMDBMovies> {
+        let request = PopularRequest(page: page).request(with: baseURL)
         
         return URLSession.shared.rx.data(request: request)
             .map { data in
@@ -32,8 +33,8 @@ class TMDBService: APIClient, HomeNetworkServiceProtocol {
             .observe(on: scheduler)
     }
     
-    func trending() -> Observable<TMDBMovies> {
-        let request = TrendingRequest().request(with: baseURL)
+    func trending(page: Int = 1) -> Observable<TMDBMovies> {
+        let request = TrendingRequest(page: page).request(with: baseURL)
         
         return URLSession.shared.rx.data(request: request)
             .map { data in
@@ -42,8 +43,8 @@ class TMDBService: APIClient, HomeNetworkServiceProtocol {
             .observe(on: scheduler)
     }
     
-    func topRated() -> Observable<TMDBMovies> {
-        let request = TopRatedRequest().request(with: baseURL)
+    func topRated(page: Int = 1) -> Observable<TMDBMovies> {
+        let request = TopRatedRequest(page: page).request(with: baseURL)
         
         return URLSession.shared.rx.data(request: request)
             .map { data in
@@ -52,8 +53,8 @@ class TMDBService: APIClient, HomeNetworkServiceProtocol {
             .observe(on: scheduler)
     }
     
-    func upcoming() -> Observable<TMDBMovies> {
-        let request = UpcomingRequest().request(with: baseURL)
+    func upcoming(page: Int = 1) -> Observable<TMDBMovies> {
+        let request = UpcomingRequest(page: page).request(with: baseURL)
         
         return URLSession.shared.rx.data(request: request)
             .map { data in
