@@ -157,52 +157,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		700CB5B02DA8642300BFCDEB /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				701E872E2DA7B2DF000DBF15 /* Common */,
-				70733A7D2DA5C3BC006D0DA8 /* TabBar */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		7016344D2DA55A9D0066D373 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				7016344E2DA55AA50066D373 /* TMDBService.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		701E872E2DA7B2DF000DBF15 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				700CB5B62DA8751300BFCDEB /* ListCollectionViewCell.swift */,
-				700CB5B22DA8749500BFCDEB /* ListCollectionView.swift */,
-				701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */,
-				701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */,
-				701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		701E87352DA7B305000DBF15 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				70ACD19C2DA9DDEF003BB2C0 /* UI */,
 				70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */,
 				701E87362DA7B313000DBF15 /* ListViewController.swift */,
 			);
 			path = List;
-			sourceTree = "<group>";
-		};
-		704A698A2DA3DB59001E249C /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				704A69912DA3E0CA001E249C /* Request */,
-				704A698F2DA3E07F001E249C /* TMDBAPI.swift */,
-				704A698D2DA3DC83001E249C /* APIClient.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		704A69912DA3E0CA001E249C /* Request */ = {
@@ -212,27 +174,6 @@
 				704A698B2DA3DB6D001E249C /* APIRequest.swift */,
 			);
 			path = Request;
-			sourceTree = "<group>";
-		};
-		70733A7D2DA5C3BC006D0DA8 /* TabBar */ = {
-			isa = PBXGroup;
-			children = (
-				70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */,
-				70733A882DA5C9C9006D0DA8 /* BITabBar.swift */,
-				70733A7E2DA5C3C3006D0DA8 /* BITabItem.swift */,
-				70733A802DA5C6C4006D0DA8 /* BIItemView.swift */,
-			);
-			path = TabBar;
-			sourceTree = "<group>";
-		};
-		70733A8A2DA5CAB9006D0DA8 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				701DABC62DA69B03008625CA /* UIImageView+Ext.swift */,
-				701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */,
-				70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */,
-			);
-			path = Utils;
 			sourceTree = "<group>";
 		};
 		708CAE702DA3A08A00062906 = {
@@ -256,45 +197,12 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		708CAEBD2DA3A13B00062906 /* Coordinators */ = {
-			isa = PBXGroup;
-			children = (
-				70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */,
-				701E87382DA7B705000DBF15 /* HomeCoordinator.swift */,
-				70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */,
-				708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */,
-				708CAEBB2DA3A13B00062906 /* Coordinator.swift */,
-				708CAEBC2DA3A13B00062906 /* Storyboarded.swift */,
-			);
-			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		708CAEBF2DA3A13B00062906 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				708CAEBE2DA3A13B00062906 /* AppDelegate.swift */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		708CAEC12DA3A13B00062906 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				708CAEC02DA3A13B00062906 /* TMDB.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		708CAEC92DA3A13B00062906 /* Better-IMDB */ = {
 			isa = PBXGroup;
 			children = (
-				70733A8A2DA5CAB9006D0DA8 /* Utils */,
-				7016344D2DA55A9D0066D373 /* Services */,
-				704A698A2DA3DB59001E249C /* Network */,
-				708CAEBF2DA3A13B00062906 /* Core */,
-				708CAEBD2DA3A13B00062906 /* Coordinators */,
-				708CAEC12DA3A13B00062906 /* Models */,
-				708CAEDC2DA3A16700062906 /* Presentation */,
+				70ACD19E2DA9DE2D003BB2C0 /* Shared */,
+				70ACD1942DA9DCA4003BB2C0 /* App */,
+				70ACD1982DA9DD6C003BB2C0 /* Features */,
 				708CAEDE2DA3A2AF00062906 /* Resources */,
 				708CAEC32DA3A13B00062906 /* Info.plist */,
 			);
@@ -310,27 +218,6 @@
 			path = "Better-IMDBTests";
 			sourceTree = "<group>";
 		};
-		708CAEDC2DA3A16700062906 /* Presentation */ = {
-			isa = PBXGroup;
-			children = (
-				700CB5B02DA8642300BFCDEB /* UI */,
-				70929C232DA7F457008DB6AC /* Tabs */,
-				701E87352DA7B305000DBF15 /* List */,
-				708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */,
-				708CAEC72DA3A13B00062906 /* Main.storyboard */,
-			);
-			path = Presentation;
-			sourceTree = "<group>";
-		};
-		708CAEDD2DA3A1B700062906 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */,
-				708CAEC82DA3A13B00062906 /* HomeViewController.swift */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
 		708CAEDE2DA3A2AF00062906 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,22 +226,167 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		70929C232DA7F457008DB6AC /* Tabs */ = {
+		70ACD1942DA9DCA4003BB2C0 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				708CAEDD2DA3A1B700062906 /* Home */,
-				70929C262DA7F464008DB6AC /* Bookmark */,
+				70ACD1952DA9DD45003BB2C0 /* UI */,
+				708CAEBE2DA3A13B00062906 /* AppDelegate.swift */,
+				708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */,
+				70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */,
+				708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */,
 			);
-			path = Tabs;
+			path = App;
 			sourceTree = "<group>";
 		};
-		70929C262DA7F464008DB6AC /* Bookmark */ = {
+		70ACD1952DA9DD45003BB2C0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD1972DA9DD54003BB2C0 /* TabBar */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		70ACD1972DA9DD54003BB2C0 /* TabBar */ = {
+			isa = PBXGroup;
+			children = (
+				70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */,
+				70733A882DA5C9C9006D0DA8 /* BITabBar.swift */,
+				70733A7E2DA5C3C3006D0DA8 /* BITabItem.swift */,
+				70733A802DA5C6C4006D0DA8 /* BIItemView.swift */,
+			);
+			path = TabBar;
+			sourceTree = "<group>";
+		};
+		70ACD1982DA9DD6C003BB2C0 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				708CAEC72DA3A13B00062906 /* Main.storyboard */,
+				70ACD1992DA9DD75003BB2C0 /* Home */,
+				70ACD19B2DA9DDCD003BB2C0 /* Bookmark */,
+				701E87352DA7B305000DBF15 /* List */,
+				70ACD19D2DA9DE21003BB2C0 /* MovieDetail */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		70ACD1992DA9DD75003BB2C0 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD19A2DA9DD88003BB2C0 /* UI */,
+				708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */,
+				708CAEC82DA3A13B00062906 /* HomeViewController.swift */,
+				701E87382DA7B705000DBF15 /* HomeCoordinator.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		70ACD19A2DA9DD88003BB2C0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */,
+				701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		70ACD19B2DA9DDCD003BB2C0 /* Bookmark */ = {
 			isa = PBXGroup;
 			children = (
 				70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */,
 				70929C252DA7F464008DB6AC /* BookmarkViewController.swift */,
+				70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */,
 			);
 			path = Bookmark;
+			sourceTree = "<group>";
+		};
+		70ACD19C2DA9DDEF003BB2C0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				700CB5B62DA8751300BFCDEB /* ListCollectionViewCell.swift */,
+				700CB5B22DA8749500BFCDEB /* ListCollectionView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		70ACD19D2DA9DE21003BB2C0 /* MovieDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MovieDetail;
+			sourceTree = "<group>";
+		};
+		70ACD19E2DA9DE2D003BB2C0 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD1A62DA9DF25003BB2C0 /* Utils */,
+				70ACD1A52DA9DF12003BB2C0 /* UI */,
+				70ACD1A22DA9DE90003BB2C0 /* Data */,
+				70ACD19F2DA9DE38003BB2C0 /* Coordinator */,
+				70ACD1A12DA9DE79003BB2C0 /* Models */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		70ACD19F2DA9DE38003BB2C0 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				708CAEBB2DA3A13B00062906 /* Coordinator.swift */,
+				708CAEBC2DA3A13B00062906 /* Storyboarded.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		70ACD1A12DA9DE79003BB2C0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				708CAEC02DA3A13B00062906 /* TMDB.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		70ACD1A22DA9DE90003BB2C0 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD1A32DA9DE98003BB2C0 /* Network */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		70ACD1A32DA9DE98003BB2C0 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD1A42DA9DEF7003BB2C0 /* Services */,
+				704A69912DA3E0CA001E249C /* Request */,
+				704A698D2DA3DC83001E249C /* APIClient.swift */,
+				704A698F2DA3E07F001E249C /* TMDBAPI.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		70ACD1A42DA9DEF7003BB2C0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				7016344E2DA55AA50066D373 /* TMDBService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		70ACD1A52DA9DF12003BB2C0 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		70ACD1A62DA9DF25003BB2C0 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				701DABC62DA69B03008625CA /* UIImageView+Ext.swift */,
+				701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */,
+				70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		D4B3EA5B88CD5DBF4A6F4159 /* Frameworks */ = {
