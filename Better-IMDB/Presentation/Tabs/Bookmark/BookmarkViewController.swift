@@ -21,7 +21,7 @@ class BookmarkViewController: UIViewController, Storyboarded {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.fetchItems()
+//        viewModel.fetchItems()
         setupCollectionView()
 
     }

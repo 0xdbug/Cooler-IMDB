@@ -36,13 +36,11 @@ class HomeViewController: UIViewController, Storyboarded {
                 }
                 .disposed(by: disposeBag)
         
-        
         mainCollectionView
             .rx
             .modelSelected(HomeCards.self)
-            .subscribe(onNext: { _ in
-                print("hh")
-                self.coordinator?.list()
+            .subscribe(onNext: { selected in
+                self.coordinator?.list(selected)
             })
             .disposed(by: disposeBag)
     }

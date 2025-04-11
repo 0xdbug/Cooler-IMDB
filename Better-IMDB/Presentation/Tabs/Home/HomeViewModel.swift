@@ -17,21 +17,20 @@ enum HomeCardCategory {
     case upcoming
 }
 
-protocol HomeNetworkServiceProtocol {
-//    func discover() -> Observable<TMDBMovies>
-    func popular() -> Observable<TMDBMovies>
-    func trending() -> Observable<TMDBMovies>
-    func topRated() -> Observable<TMDBMovies>
-    func upcoming() -> Observable<TMDBMovies>
+protocol TMDBNetworkServiceProtocol {
+    func popular(page: Int) -> Observable<TMDBMovies>
+    func trending(page: Int) -> Observable<TMDBMovies>
+    func topRated(page: Int) -> Observable<TMDBMovies>
+    func upcoming(page: Int) -> Observable<TMDBMovies>
 }
 
 class HomeViewModel {
-    let networkService: HomeNetworkServiceProtocol
+    let networkService: TMDBNetworkServiceProtocol
     
     private let disposeBag = DisposeBag()
     var items: BehaviorRelay<[HomeCards]> = .init(value: [])
     
-    init(networkService: HomeNetworkServiceProtocol) {
+    init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     
@@ -66,7 +65,7 @@ class HomeViewModel {
     }
     
     func fetchPopular() -> Observable<HomeCards> {
-        networkService.popular()
+        networkService.popular(page: 1)
             .map { result -> HomeCards in
                 return HomeCards(cardName: "POPULAR",
                                  cardType: .popular,
@@ -75,7 +74,7 @@ class HomeViewModel {
     }
     
     func fetchTrending() -> Observable<HomeCards> {
-        networkService.trending()
+        networkService.trending(page: 1)
             .map { result -> HomeCards in
                 return HomeCards(cardName: "TRENDING",
                                  cardType: .trending,
@@ -84,7 +83,7 @@ class HomeViewModel {
     }
     
     func fetchTopRated() -> Observable<HomeCards> {
-        networkService.topRated()
+        networkService.topRated(page: 1)
             .map { result -> HomeCards in
                 return HomeCards(cardName: "TOP RATED",
                                  cardType: .topRated,
@@ -93,7 +92,7 @@ class HomeViewModel {
     }
     
     func fetchUpcoming() -> Observable<HomeCards> {
-        networkService.upcoming()
+        networkService.upcoming(page: 1)
             .map { result -> HomeCards in
                 return HomeCards(cardName: "UPCOMING",
                                  cardType: .upcoming,

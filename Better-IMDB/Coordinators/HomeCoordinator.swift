@@ -22,12 +22,11 @@ class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func list() {
+    func list(_ card: HomeCards) {
         let vc = ListViewController.instantiate()
         vc.coordinator = self
-        vc.preferredTransition = .zoom(sourceViewProvider: {context in 
-            return UIView()
-        })
+        vc.selectedCard = card
+        
         navigationController.pushViewController(vc, animated: true)
     }
     

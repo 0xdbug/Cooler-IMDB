@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2E2BFC7604720DC0494F0AF4 /* Pods_Better_IMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FCABFE3ECA34F0AEEAF4356 /* Pods_Better_IMDB.framework */; };
+		700CB5B32DA8749A00BFCDEB /* ListCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700CB5B22DA8749500BFCDEB /* ListCollectionView.swift */; };
+		700CB5B72DA8751800BFCDEB /* ListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 700CB5B62DA8751300BFCDEB /* ListCollectionViewCell.swift */; };
 		7016344F2DA55AA50066D373 /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016344E2DA55AA50066D373 /* TMDBService.swift */; };
 		701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */; };
 		701DABC32DA69AF1008625CA /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC22DA69AF1008625CA /* Nuke */; };
@@ -51,6 +53,7 @@
 		70929C272DA7F464008DB6AC /* BookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */; };
 		70929C282DA7F464008DB6AC /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C252DA7F464008DB6AC /* BookmarkViewController.swift */; };
 		70929C2A2DA7F4AB008DB6AC /* BookmarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */; };
+		70ACD1922DA9C41A003BB2C0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */; };
 		E0395E49DEADA00B26E25568 /* Pods_Better_IMDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +70,8 @@
 /* Begin PBXFileReference section */
 		0C105766A2B95E47C30CAE22 /* Pods-Better-IMDB.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDB.release.xcconfig"; path = "Target Support Files/Pods-Better-IMDB/Pods-Better-IMDB.release.xcconfig"; sourceTree = "<group>"; };
 		0F077B33A76B69C99F72FD40 /* Pods-Better-IMDB.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDB.debug.xcconfig"; path = "Target Support Files/Pods-Better-IMDB/Pods-Better-IMDB.debug.xcconfig"; sourceTree = "<group>"; };
+		700CB5B22DA8749500BFCDEB /* ListCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionView.swift; sourceTree = "<group>"; };
+		700CB5B62DA8751300BFCDEB /* ListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCell.swift; sourceTree = "<group>"; };
 		7016344E2DA55AA50066D373 /* TMDBService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBService.swift; sourceTree = "<group>"; };
 		701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Ext.swift"; sourceTree = "<group>"; };
 		701DABC62DA69B03008625CA /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
@@ -104,6 +109,7 @@
 		70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewModel.swift; sourceTree = "<group>"; };
 		70929C252DA7F464008DB6AC /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoordinator.swift; sourceTree = "<group>"; };
+		70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		8925B360A557176EFF5ED914 /* Pods-Better-IMDBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDBTests.release.xcconfig"; path = "Target Support Files/Pods-Better-IMDBTests/Pods-Better-IMDBTests.release.xcconfig"; sourceTree = "<group>"; };
 		9FCABFE3ECA34F0AEEAF4356 /* Pods_Better_IMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +157,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		700CB5B02DA8642300BFCDEB /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				701E872E2DA7B2DF000DBF15 /* Common */,
+				70733A7D2DA5C3BC006D0DA8 /* TabBar */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		7016344D2DA55A9D0066D373 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +177,8 @@
 		701E872E2DA7B2DF000DBF15 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				700CB5B62DA8751300BFCDEB /* ListCollectionViewCell.swift */,
+				700CB5B22DA8749500BFCDEB /* ListCollectionView.swift */,
 				701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */,
 				701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */,
 				701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */,
@@ -172,6 +189,7 @@
 		701E87352DA7B305000DBF15 /* List */ = {
 			isa = PBXGroup;
 			children = (
+				70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */,
 				701E87362DA7B313000DBF15 /* ListViewController.swift */,
 			);
 			path = List;
@@ -295,9 +313,8 @@
 		708CAEDC2DA3A16700062906 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				700CB5B02DA8642300BFCDEB /* UI */,
 				70929C232DA7F457008DB6AC /* Tabs */,
-				701E872E2DA7B2DF000DBF15 /* Common */,
-				70733A7D2DA5C3BC006D0DA8 /* TabBar */,
 				701E87352DA7B305000DBF15 /* List */,
 				708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */,
 				708CAEC72DA3A13B00062906 /* Main.storyboard */,
@@ -564,6 +581,7 @@
 				70929C222DA7EA42008DB6AC /* TabBarCoordinator.swift in Sources */,
 				70733A7F2DA5C3E6006D0DA8 /* BITabItem.swift in Sources */,
 				708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */,
+				700CB5B72DA8751800BFCDEB /* ListCollectionViewCell.swift in Sources */,
 				701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */,
 				701E87322DA7B2E7000DBF15 /* HomeCollectionView.swift in Sources */,
 				701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */,
@@ -584,7 +602,9 @@
 				708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */,
 				704A698C2DA3DB6D001E249C /* APIRequest.swift in Sources */,
 				70929C2A2DA7F4AB008DB6AC /* BookmarkCoordinator.swift in Sources */,
+				700CB5B32DA8749A00BFCDEB /* ListCollectionView.swift in Sources */,
 				70733A812DA5C6C4006D0DA8 /* BIItemView.swift in Sources */,
+				70ACD1922DA9C41A003BB2C0 /* ListViewModel.swift in Sources */,
 				708CAECF2DA3A13B00062906 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,29 +7,21 @@
 
 import UIKit
 
-enum HomeCardTypes {
-    case topMovies
-    case popular
-    case trending
-    case topRated
-    case upcoming
-}
-
 struct HomeCards {
     let cardName: String
-    let cardType: HomeCardTypes
-    let movies: [MovieResults]
+    let cardType: HomeCardCategory
+    let movies: [Movie]
     
 }
 
 struct TMDBMovies: Codable {
     var page: Int
-    var results: [MovieResults]
+    var results: [Movie]
     var total_pages: Int
     var total_results: Int
 }
 
-struct MovieResults: Codable {
+struct Movie: Codable {
     let adult: Bool
     let backdrop_path: String
     let genre_ids: [Int]

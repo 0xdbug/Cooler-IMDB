@@ -12,7 +12,7 @@ import SnapKit
 class BITabBarController: UITabBarController {
     weak var coordinator: AppCoordinator?
     
-    private let biTabBar = BITabBar()
+    let biTabBar = BITabBar()
     private let disposeBag = DisposeBag()
     let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
     
