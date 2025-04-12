@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SafariServices
 
 class MovieDetailViewController: UIViewController, Storyboarded {
     
@@ -78,6 +79,20 @@ class MovieDetailViewController: UIViewController, Storyboarded {
             
             self!.playView.isHidden = false
         }).disposed(by: disposeBag)
+        
+        viewModel.videoURL.subscribe(onNext: { [weak self] videoUrlString in
+            guard let self = self else { return }
+            
+            if let urlString = videoUrlString, let url = URL(string: urlString) {
+                self.playVideoWithURL(url)
+            } else {
+                print("nil video URL")
+            }
+        }).disposed(by: disposeBag)
+    }
+    
+    @IBAction func playVideo(_ sender: Any) {
+        viewModel.fetchTrailer(withId: selectedMovie.id)
     }
     
     func setHeader() async {
@@ -94,5 +109,20 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         let pair = ValueLabelPair(value: value, type: type)
         valuePairStackView.addArrangedSubview(pair)
     }
-
+    
+    func playVideoWithURL(_ url: URL) {
+        
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+        
+        // this wont do. its a yt video
+        //        let player = AVPlayer(url: url)
+        //        let playerViewController = AVPlayerViewController()
+        //        playerViewController.player = player
+        //
+        //        present(playerViewController, animated: true) {
+        //            player.play()
+        //        }
+    }
+    
 }

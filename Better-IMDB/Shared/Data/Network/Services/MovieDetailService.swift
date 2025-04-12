@@ -11,6 +11,7 @@ import RxSwift
 // sourcery: AutoMockable
 protocol MovieDetailNetworkServiceProtocol {
     func fetchMovie(withId id: String) -> Observable<MovieDetail>
+    func fetchVideoURLString(withId id: Int) -> Observable<String>
 }
 
 class MovieDetailService: APIClient, MovieDetailNetworkServiceProtocol {
@@ -23,6 +24,19 @@ class MovieDetailService: APIClient, MovieDetailNetworkServiceProtocol {
         return URLSession.shared.rx.data(request: request)
             .map { data in
                 try JSONDecoder().decode(MovieDetail.self, from: data)
+            }
+            .observe(on: scheduler)
+    }
+    
+    // running out of time im forcing some stuff
+    func fetchVideoURLString(withId id: Int) -> Observable<String> {
+        let request = MovieVideoRequest(id: id).request(with: baseURL)
+        
+        return URLSession.shared.rx.data(request: request)
+            .map { data in
+                let response = try JSONDecoder().decode(MovieVideoResponse.self, from: data)
+                let key = response.results.first!.key
+                return TMDBAPI.playMovieVideo(key: key)
             }
             .observe(on: scheduler)
     }

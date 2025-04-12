@@ -20,3 +20,16 @@ class MovieDetailRequest: APIRequest {
         self.path += "\(id)"
     }
 }
+
+class MovieVideoRequest: APIRequest {
+    var method = RequestType.GET
+    var path = TMDBAPI.movieVideo(id: 0)
+    var auth = TMDBAPI.auth
+    var parameters: [String: String]
+    
+    init(id: Int) {
+        self.parameters = [:]
+        self.path = TMDBAPI.movieVideo(id: id)
+    }
+}
+

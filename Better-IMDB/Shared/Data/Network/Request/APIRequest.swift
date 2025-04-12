@@ -24,8 +24,10 @@ extension APIRequest {
             fatalError("Unable to create URL components")
         }
         
-        components.queryItems = parameters.map {
-            URLQueryItem(name: String($0), value: String($1))
+        if !(parameters.isEmpty) {
+            components.queryItems = parameters.map {
+                URLQueryItem(name: String($0), value: String($1))
+            }
         }
         
         guard let url = components.url else {

@@ -220,6 +220,9 @@
                                                 <buttonConfiguration key="configuration" style="plain">
                                                     <imageReference key="image" image="play.fill" catalog="system" symbolScale="large"/>
                                                 </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="playVideo:" destination="Jzb-Ta-A3S" eventType="touchUpInside" id="71z-4K-D28"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
