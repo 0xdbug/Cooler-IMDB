@@ -30,4 +30,29 @@ class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: true)
     }
     
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
+        let vc = MovieDetailViewController.instantiate()
+        vc.selectedMovie = movie
+        
+        vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
+            
+            guard let sourceVC = listViewController else {
+                print("ListViewController is nil.")
+                return nil
+            }
+            
+            guard let collectionView = sourceVC.collectionView else {
+                print("CollectionView is nil.")
+                return nil
+            }
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell else {
+                return nil
+            }
+
+            return cell.posterImage
+        })
+        
+        navigationController.pushViewController(vc, animated: true)
+    }
 }

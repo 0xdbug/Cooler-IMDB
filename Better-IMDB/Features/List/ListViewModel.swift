@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-
 protocol ListNetworkServiceProtocol {
     func fetchItems(for category: HomeCardCategory)
 }

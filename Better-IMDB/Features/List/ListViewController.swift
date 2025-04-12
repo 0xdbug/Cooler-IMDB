@@ -34,6 +34,23 @@ class ListViewController: UIViewController, Storyboarded {
                 }
                 .disposed(by: disposeBag)
         
+        
+        collectionView
+            .rx
+            .itemSelected
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else { return }
+                
+                guard indexPath.item < self.viewModel.items.value.count else {
+                    return
+                }
+                let movie = self.viewModel.items.value[indexPath.item]
+
+                self.coordinator?.showDetail(movie, from: self, at: indexPath)
+            })
+            .disposed(by: disposeBag)
+
+        
         collectionView.rx.didScroll.subscribe { [weak self] _ in
             guard let self = self else { return }
             let offSetY = self.collectionView.contentOffset.y

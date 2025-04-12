@@ -196,6 +196,37 @@
             </objects>
             <point key="canvasLocation" x="72.51908396946564" y="691.54929577464793"/>
         </scene>
+        <!--Movie Detail View Controller-->
+        <scene sceneID="tLV-4d-b6D">
+            <objects>
+                <viewController storyboardIdentifier="MovieDetailViewController" id="Jzb-Ta-A3S" customClass="MovieDetailViewController" customModule="Better_IMDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WjT-s8-suq">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eCO-G2-Xq0">
+                                <rect key="frame" x="76" y="59" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="P0A-Jn-fhc"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="OeB-bm-mko"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OeB-bm-mko" firstAttribute="trailing" secondItem="eCO-G2-Xq0" secondAttribute="trailing" constant="77" id="JA3-mz-KEO"/>
+                            <constraint firstItem="eCO-G2-Xq0" firstAttribute="leading" secondItem="OeB-bm-mko" secondAttribute="leading" constant="76" id="rNK-M7-g7M"/>
+                            <constraint firstItem="eCO-G2-Xq0" firstAttribute="top" secondItem="OeB-bm-mko" secondAttribute="top" id="s7d-4p-In0"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="movieHeader" destination="eCO-G2-Xq0" id="DWU-8f-9Mq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gZE-Xl-qzI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="847" y="692"/>
+        </scene>
     </scenes>
     <resources>
         <image name="baseline.jpeg" width="450" height="300"/>
