@@ -10,18 +10,10 @@ import RxSwift
 import RxCocoa
 
 enum HomeCardCategory {
-//    case discover
     case popular
     case trending
     case topRated
     case upcoming
-}
-
-protocol TMDBNetworkServiceProtocol {
-    func popular(page: Int) -> Observable<TMDBMovies>
-    func trending(page: Int) -> Observable<TMDBMovies>
-    func topRated(page: Int) -> Observable<TMDBMovies>
-    func upcoming(page: Int) -> Observable<TMDBMovies>
 }
 
 class HomeViewModel {

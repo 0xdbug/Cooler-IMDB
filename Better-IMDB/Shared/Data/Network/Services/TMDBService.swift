@@ -8,6 +8,14 @@
 import UIKit
 import RxSwift
 
+// sourcery: AutoMockable
+protocol TMDBNetworkServiceProtocol {
+    func popular(page: Int) -> Observable<TMDBMovies>
+    func trending(page: Int) -> Observable<TMDBMovies>
+    func topRated(page: Int) -> Observable<TMDBMovies>
+    func upcoming(page: Int) -> Observable<TMDBMovies>
+}
+
 class TMDBService: APIClient, TMDBNetworkServiceProtocol {
     
     var baseURL: URL = URL(string: TMDBAPI.baseURLString)!

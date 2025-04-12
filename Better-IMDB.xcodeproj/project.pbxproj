@@ -54,6 +54,8 @@
 		70929C282DA7F464008DB6AC /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C252DA7F464008DB6AC /* BookmarkViewController.swift */; };
 		70929C2A2DA7F4AB008DB6AC /* BookmarkCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */; };
 		70ACD1922DA9C41A003BB2C0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */; };
+		70ACD1A82DA9E446003BB2C0 /* ListViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */; };
+		70ACD1AB2DA9E9AB003BB2C0 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1A92DA9E9AB003BB2C0 /* Mock.generated.swift */; };
 		E0395E49DEADA00B26E25568 /* Pods_Better_IMDBTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +112,8 @@
 		70929C252DA7F464008DB6AC /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
 		70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkCoordinator.swift; sourceTree = "<group>"; };
 		70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelSpec.swift; sourceTree = "<group>"; };
+		70ACD1A92DA9E9AB003BB2C0 /* Mock.generated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		8925B360A557176EFF5ED914 /* Pods-Better-IMDBTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Better-IMDBTests.release.xcconfig"; path = "Target Support Files/Pods-Better-IMDBTests/Pods-Better-IMDBTests.release.xcconfig"; sourceTree = "<group>"; };
 		9FCABFE3ECA34F0AEEAF4356 /* Pods_Better_IMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF57DD903B5982949494B868 /* Pods_Better_IMDBTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Better_IMDBTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -212,8 +216,10 @@
 		708CAED52DA3A14000062906 /* Better-IMDBTests */ = {
 			isa = PBXGroup;
 			children = (
+				70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */,
 				704A6A022DA41FCE001E249C /* TMDBServiceSpec.swift */,
 				708CAED42DA3A14000062906 /* Better_IMDBTests.swift */,
+				70ACD1AA2DA9E9AB003BB2C0 /* Mocks */,
 			);
 			path = "Better-IMDBTests";
 			sourceTree = "<group>";
@@ -387,6 +393,14 @@
 				70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		70ACD1AA2DA9E9AB003BB2C0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				70ACD1A92DA9E9AB003BB2C0 /* Mock.generated.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		D4B3EA5B88CD5DBF4A6F4159 /* Frameworks */ = {
@@ -645,7 +659,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70ACD1A82DA9E446003BB2C0 /* ListViewModelSpec.swift in Sources */,
 				704A6A032DA41FD5001E249C /* TMDBServiceSpec.swift in Sources */,
+				70ACD1AB2DA9E9AB003BB2C0 /* Mock.generated.swift in Sources */,
 				708CAED62DA3A14000062906 /* Better_IMDBTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

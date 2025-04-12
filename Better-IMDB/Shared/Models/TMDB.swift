@@ -44,3 +44,9 @@ struct Movie: Codable {
         URL(string: TMDBAPI.imagesURLString + backdrop_path) ?? URL(string: "")!
     }
 }
+
+extension Movie: Equatable {
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
