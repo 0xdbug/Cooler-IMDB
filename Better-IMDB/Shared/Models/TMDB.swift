@@ -41,7 +41,7 @@ struct Movie: Codable {
         URL(string: TMDBAPI.imagesURLString + poster_path) ?? URL(string: "")!
     }
     var backdropImageURL: URL {
-        URL(string: TMDBAPI.imagesURLString + backdrop_path) ?? URL(string: "")!
+        URL(string: TMDBAPI.backdropURLString + backdrop_path) ?? URL(string: "")!
     }
 }
 

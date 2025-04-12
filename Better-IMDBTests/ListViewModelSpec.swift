@@ -28,19 +28,12 @@ class ListViewModelSpec: QuickSpec {
         describe("ListViewModel") {
             var viewModel: ListViewModel!
             var mockNetworkService: TMDBNetworkServiceProtocolMock!
-            var disposeBag: DisposeBag!
             
             beforeEach {
                 mockNetworkService = TMDBNetworkServiceProtocolMock()
                 viewModel = ListViewModel(networkService: mockNetworkService)
-                disposeBag = DisposeBag()
             }
-            
-            afterEach {
-                viewModel = nil
-                mockNetworkService = nil
-                disposeBag = nil
-            }
+
             
             describe("loading more items") {
                 let category = HomeCardCategory.popular

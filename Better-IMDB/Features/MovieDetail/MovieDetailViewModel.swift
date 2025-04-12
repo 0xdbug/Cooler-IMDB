@@ -10,5 +10,28 @@ import RxSwift
 import RxCocoa
 
 class MovieDetailViewModel {
-
+    let networkService: MovieDetailNetworkServiceProtocol
+    
+    var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
+    private let disposeBag = DisposeBag()
+    
+    private var currentPage = 1
+    private var totalPages = 1
+    private var currentCategory: HomeCardCategory?
+    
+    init(networkService: MovieDetailNetworkServiceProtocol) {
+        self.networkService = networkService
+    }
+    
+    func fetchMovie(withId id: String) {
+        
+        networkService.fetchMovie(withId: id)
+            .subscribe(onNext: { [weak self] movie in
+                guard let self = self else { return }
+                self.item.accept(movie)
+            }, onError: { error in
+                print(error)
+            })
+            .disposed(by: disposeBag)
+    }
 }
