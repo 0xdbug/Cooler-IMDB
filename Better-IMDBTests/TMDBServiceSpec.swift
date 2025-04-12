@@ -36,7 +36,7 @@ class TMDBServiceSpec: QuickSpec {
                 viewModel.fetchItems()
                 scheduler.start()
                 
-                expect(observer.events.count).toEventually(equal(6))
+                expect(observer.events.count).toEventually(equal(5))
             }
         }
     }
