@@ -10,7 +10,6 @@ import UIKit
 struct MovieDetail: Codable {
     let adult: Bool
     let backdrop_path: String
-    var belongs_to_collection: String?
     let budget: Double
     let homepage: String
     let id: Int
@@ -30,6 +29,13 @@ struct MovieDetail: Codable {
     let video: Bool
     let vote_average: Double
     let vote_count: Int
+    
+    var posterImageURL: URL {
+        URL(string: TMDBAPI.imagesURLString + poster_path) ?? URL(string: "")!
+    }
+    var backdropImageURL: URL {
+        URL(string: TMDBAPI.backdropURLString + backdrop_path) ?? URL(string: "")!
+    }
 }
 
 struct MovieGenre: Codable {

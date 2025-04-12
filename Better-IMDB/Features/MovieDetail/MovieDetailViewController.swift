@@ -53,13 +53,25 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         plotContainerView.layer.cornerRadius = 25
         
         movieOverviewLabel.text = selectedMovie.overview
-        
-        addValueLabelPair(value: "2024", type: "Year")
-        addValueLabelPair(value: "USA", type: "Country")
-        addValueLabelPair(value: "2h 18m", type: "Time")
     }
     
     func setupBindings() {
+        viewModel.item.subscribe(onNext: { [weak self] movie in
+            guard let self = self, let movie = movie else { return }
+            
+            // i think i can refactor this
+            let year = movie.release_date.prefix(4)
+            self.addValueLabelPair(value: String(year), type: "Year")
+            self.addValueLabelPair(value: movie.production_countries.first!.name, type: "Country")
+            
+            let hours = movie.runtime / 60
+            let minutes = movie.runtime % 60
+            let timeString = "\(hours)h \(minutes)m"
+            
+            self.addValueLabelPair(value: timeString, type: "Time")
+        }).disposed(by: disposeBag)
+        
+        
         dominantColor.subscribe(onNext: { [weak self] value in
             self!.playButton.tintColor = value
             self!.titleContainerView.backgroundColor = value
