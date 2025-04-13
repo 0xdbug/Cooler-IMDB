@@ -7,34 +7,44 @@
 
 import UIKit
 
+// sourcery: AutoMockable
+protocol UserDefaultsProtocol {
+    func array(forKey defaultName: String) -> [Any]?
+    func set(_ value: Any?, forKey defaultName: String)
+}
+
+extension UserDefaults: UserDefaultsProtocol {}
+
 class MoviePersistence {
     private let key: String = "bookmarks"
     private let movieId: Int
+    private let userDefaults: UserDefaultsProtocol
     
-    init(movieId: Int) {
+    init(movieId: Int, userDefaults: UserDefaultsProtocol = UserDefaults.standard) {
         self.movieId = movieId
+        self.userDefaults = userDefaults
     }
     
     func toggleBookmark() -> Bool {
-        var bookmarks = UserDefaults.standard.array(forKey: key) as? [Int] ?? []
+        var bookmarks = userDefaults.array(forKey: key) as? [Int] ?? []
         
         if let index = bookmarks.firstIndex(of: movieId) {
             bookmarks.remove(at: index)
-            UserDefaults.standard.set(bookmarks, forKey: key)
+            userDefaults.set(bookmarks, forKey: key)
             return false
         } else {
             bookmarks.append(movieId)
-            UserDefaults.standard.set(bookmarks, forKey: key)
+            userDefaults.set(bookmarks, forKey: key)
             return true
         }
     }
     
     func isBookmarked() -> Bool {
-        let bookmarks = UserDefaults.standard.array(forKey: key) as? [Int] ?? []
+        let bookmarks = userDefaults.array(forKey: key) as? [Int] ?? []
         return bookmarks.contains(movieId)
     }
     
-    static func getAllBookmarks() -> [Int] {
-        (UserDefaults.standard.array(forKey: "bookmarks") ?? []) as! [Int]
+    static func getAllBookmarks(userDefaults: UserDefaultsProtocol = UserDefaults.standard) -> [Int] {
+        return (userDefaults.array(forKey: "bookmarks") ?? []) as? [Int] ?? []
     }
 }
