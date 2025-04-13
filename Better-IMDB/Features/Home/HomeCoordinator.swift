@@ -32,7 +32,7 @@ class HomeCoordinator: Coordinator {
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
         let vc = MovieDetailViewController.instantiate()
-        vc.selectedMovie = movie
+        vc.selectedMovieId = movie.id
         
         vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
             

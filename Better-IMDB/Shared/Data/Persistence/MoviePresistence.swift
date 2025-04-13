@@ -34,7 +34,7 @@ class MoviePersistence {
         return bookmarks.contains(movieId)
     }
     
-    static func getAllBookmarks() -> [String] {
-        return UserDefaults.standard.stringArray(forKey: "bookmarks") ?? []
+    static func getAllBookmarks() -> [Int] {
+        (UserDefaults.standard.array(forKey: "bookmarks") ?? []) as! [Int]
     }
 }

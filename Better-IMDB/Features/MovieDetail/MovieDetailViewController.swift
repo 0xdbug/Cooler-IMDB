@@ -12,7 +12,7 @@ import SafariServices
 
 class MovieDetailViewController: UIViewController, Storyboarded {
     
-    var selectedMovie: Movie!
+    var selectedMovieId: Int!
     
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var headerImageView: UIImageView!
@@ -41,15 +41,10 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         setupView()
         setupBindings()
         initialBookmarkState()
-        viewModel.fetchMovie(withId: "\(selectedMovie.id)")
-        Task {
-            await setHeader()
-        }
-        
+        viewModel.fetchMovie(withId: String(selectedMovieId))
     }
     
     func setupView() {
-        movieTitle.text = selectedMovie.title
         headerImageView.layer.cornerRadius = 25
         headerImageView.clipsToBounds = true
         
@@ -58,8 +53,6 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         titleContainerView.layer.cornerRadius = 25
         detailContainerView.layer.cornerRadius = 25
         plotContainerView.layer.cornerRadius = 25
-        
-        movieOverviewLabel.text = selectedMovie.overview
         
         bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
         bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
@@ -80,6 +73,13 @@ class MovieDetailViewController: UIViewController, Storyboarded {
             
             self.addValueLabelPair(value: timeString, type: "Time")
             self.viewModel.updateBookmarkState(for: movie.id)
+            
+            self.movieTitle.text = movie.title
+            self.movieOverviewLabel.text = movie.overview
+            
+            Task {
+                await self.setHeader(backdropImageUrl: movie.backdropImageURL)
+            }
         }).disposed(by: disposeBag)
         
         
@@ -113,12 +113,12 @@ class MovieDetailViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func playVideo(_ sender: Any) {
-        viewModel.fetchTrailer(withId: selectedMovie.id)
+        viewModel.fetchTrailer(withId: selectedMovieId)
     }
     
-    func setHeader() async {
+    func setHeader(backdropImageUrl: URL) async {
         do {
-            try await headerImageView.loadImage(selectedMovie.backdropImageURL)
+            try await headerImageView.loadImage(backdropImageUrl)
             self.dominantColor.accept(headerImageView.image!.dominantColor()!)
             
         } catch {
@@ -132,7 +132,7 @@ class MovieDetailViewController: UIViewController, Storyboarded {
     }
     
     @IBAction func toggleBookmark(_ sender: Any) {
-        viewModel.toggleBookmark(for: selectedMovie.id)
+        viewModel.toggleBookmark(for: selectedMovieId)
     }
     
     func initialBookmarkState() {
@@ -153,6 +153,32 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         //        present(playerViewController, animated: true) {
         //            player.play()
         //        }
+    }
+    
+    
+    // i brute forced this dont know if it should be done like this tbh
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if isMovingFromParent {
+            if let tabBarController = navigationController?.tabBarController as? BITabBarController {
+                UIView.animate(withDuration: 0.25) {
+                    tabBarController.biTabBar.alpha = 1
+                    tabBarController.visualEffectView.alpha = 1
+                }
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isMovingToParent {
+            if let tabBarController = navigationController?.tabBarController as? BITabBarController {
+                UIView.animate(withDuration: 0.25) {
+                    tabBarController.biTabBar.alpha = 0
+                    tabBarController.visualEffectView.alpha = 0
+                }
+            }
+        }
     }
     
 }

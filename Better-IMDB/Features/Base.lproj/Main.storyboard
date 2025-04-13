@@ -117,9 +117,61 @@
                     <view key="view" contentMode="scaleToFill" id="rCS-Qx-BVk">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4AI-yt-NYu" customClass="BookmarkListCollectionView" customModule="Better_IMDB" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="29" width="393" height="793"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="jGO-hb-w89">
+                                    <size key="itemSize" width="179" height="262"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="bookmarkListMovieCell" id="Y5c-QS-Cbc" customClass="BookmarkListCollectionViewCell" customModule="Better_IMDB" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="179" height="262"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="elS-hv-GPI">
+                                            <rect key="frame" x="0.0" y="0.0" width="179" height="262"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pf-de-FET">
+                                                    <rect key="frame" x="8" y="226" width="83" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rRd-3p-FbT">
+                                                    <rect key="frame" x="15" y="8" width="148" height="205"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rRd-3p-FbT" firstAttribute="top" secondItem="elS-hv-GPI" secondAttribute="top" constant="8" id="5cw-Im-ml6"/>
+                                                <constraint firstItem="7pf-de-FET" firstAttribute="leading" secondItem="elS-hv-GPI" secondAttribute="leading" constant="8" id="9KL-ls-VbM"/>
+                                                <constraint firstAttribute="bottom" secondItem="7pf-de-FET" secondAttribute="bottom" constant="15" id="N4o-CT-gAe"/>
+                                                <constraint firstAttribute="trailing" secondItem="rRd-3p-FbT" secondAttribute="trailing" constant="16" id="TIg-d6-bw3"/>
+                                                <constraint firstItem="rRd-3p-FbT" firstAttribute="leading" secondItem="elS-hv-GPI" secondAttribute="leading" constant="15" id="fNM-KU-ba2"/>
+                                                <constraint firstItem="7pf-de-FET" firstAttribute="top" secondItem="rRd-3p-FbT" secondAttribute="bottom" constant="13" id="oiH-j1-SLk"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="7pf-de-FET" secondAttribute="trailing" constant="20" symbolic="YES" id="qKV-Pd-sMq"/>
+                                                <constraint firstAttribute="bottom" secondItem="rRd-3p-FbT" secondAttribute="bottom" constant="49" id="yjK-wM-0Wl"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="179" height="262"/>
+                                        <connections>
+                                            <outlet property="movieTitle" destination="7pf-de-FET" id="DZ9-Gv-7mr"/>
+                                            <outlet property="posterImage" destination="rRd-3p-FbT" id="8Ng-n8-T82"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="IHQ-9G-5q5"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="4AI-yt-NYu" id="l14-wd-QRc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0T0-mR-o4h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -275,7 +327,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MTC-P6-zjo">
                                 <rect key="frame" x="16" y="294" width="361" height="68"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dF-ns-1dY">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3dF-ns-1dY">
                                         <rect key="frame" x="8" y="14" width="345" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="tpD-zI-zjj"/>
@@ -312,8 +364,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bTR-B2-40W">
                                 <rect key="frame" x="16" y="492" width="361" height="235"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAt-Jy-TTs">
-                                        <rect key="frame" x="24" y="14.000000000000002" width="313" height="21.666666666666671"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dAt-Jy-TTs">
+                                        <rect key="frame" x="24" y="14" width="313" height="0.0"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>

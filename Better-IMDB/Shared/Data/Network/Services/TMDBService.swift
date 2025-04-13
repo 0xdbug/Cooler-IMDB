@@ -14,6 +14,7 @@ protocol TMDBNetworkServiceProtocol {
     func trending(page: Int) -> Observable<TMDBMovies>
     func topRated(page: Int) -> Observable<TMDBMovies>
     func upcoming(page: Int) -> Observable<TMDBMovies>
+    func fetchMovies(ids: [Int]) -> Observable<[MovieDetail]>
 }
 
 class TMDBService: APIClient, TMDBNetworkServiceProtocol {
@@ -69,6 +70,22 @@ class TMDBService: APIClient, TMDBNetworkServiceProtocol {
                 try JSONDecoder().decode(TMDBMovies.self, from: data)
             }
             .observe(on: scheduler)
+    }
+    
+    func fetchMovies(ids: [Int]) -> Observable<[MovieDetail]> {
+        print(ids)
+        let requests = ids.map { id -> Observable<MovieDetail> in
+            let request = MovieDetailRequest(id: "\(id)").request(with: baseURL)
+            
+            return URLSession.shared.rx.data(request: request)
+                .map { data in
+                    try JSONDecoder().decode(MovieDetail.self, from: data)
+                }
+        }
+        
+        return Observable.merge(requests)
+            .toArray()
+            .asObservable()
     }
     
 }

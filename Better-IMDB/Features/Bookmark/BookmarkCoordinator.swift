@@ -22,7 +22,30 @@ class BookmarkCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func list() {
+    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
+        let vc = MovieDetailViewController.instantiate()
+        vc.selectedMovieId = movie.id
+        
+        vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
+            
+            guard let sourceVC = listViewController else {
+                print("BookmarkViewController is nil.")
+                return nil
+            }
+            
+            guard let collectionView = sourceVC.collectionView else {
+                print("CollectionView is nil.")
+                return nil
+            }
+            
+            guard let cell = collectionView.cellForItem(at: indexPath) as? BookmarkListCollectionViewCell else {
+                return nil
+            }
+            
+            return cell.posterImage
+        })
+        
+        navigationController.pushViewController(vc, animated: true)
     }
     
 }
