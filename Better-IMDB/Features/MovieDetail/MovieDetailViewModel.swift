@@ -14,6 +14,7 @@ class MovieDetailViewModel {
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)
+    var bookmarkState: BehaviorRelay<Bool> = .init(value: false)
     private let disposeBag = DisposeBag()
     
     private var currentPage = 1
@@ -44,6 +45,16 @@ class MovieDetailViewModel {
                 print(error)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func toggleBookmark(for id: Int) {
+        let isNowBookmarked = MoviePersistence(movieId: id).toggleBookmark()
+        bookmarkState.accept(isNowBookmarked)
+    }
+    
+    func updateBookmarkState(for id: Int) {
+        let isBookmarked = MoviePersistence(movieId: id).isBookmarked()
+        bookmarkState.accept(isBookmarked)
     }
     
 }

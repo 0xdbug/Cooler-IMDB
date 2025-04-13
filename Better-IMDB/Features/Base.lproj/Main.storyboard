@@ -235,6 +235,28 @@
                                             <constraint firstItem="ygG-6f-lyq" firstAttribute="leading" secondItem="YlS-b6-igL" secondAttribute="leading" constant="7" id="sbu-jH-lu0"/>
                                         </constraints>
                                     </view>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2VM-bz-8nB">
+                                        <rect key="frame" x="302" y="8" width="45" height="46"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQi-YN-PFL">
+                                                <rect key="frame" x="7" y="5" width="31" height="35"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain">
+                                                    <imageReference key="image" image="bookmark" catalog="system" symbolScale="large"/>
+                                                </buttonConfiguration>
+                                                <connections>
+                                                    <action selector="toggleBookmark:" destination="Jzb-Ta-A3S" eventType="touchUpInside" id="vhd-gb-Ao4"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="OQi-YN-PFL" firstAttribute="top" secondItem="2VM-bz-8nB" secondAttribute="top" constant="5" id="07G-cx-Gaa"/>
+                                            <constraint firstAttribute="trailing" secondItem="OQi-YN-PFL" secondAttribute="trailing" constant="7" id="LVV-IL-uAs"/>
+                                            <constraint firstAttribute="height" constant="46" id="e94-9c-jop"/>
+                                            <constraint firstAttribute="bottom" secondItem="OQi-YN-PFL" secondAttribute="bottom" constant="6" id="hAT-L7-QBR"/>
+                                            <constraint firstItem="OQi-YN-PFL" firstAttribute="leading" secondItem="2VM-bz-8nB" secondAttribute="leading" constant="7" id="usb-eY-cVK"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -243,6 +265,9 @@
                                     <constraint firstAttribute="height" constant="216" id="Gqm-Pw-9Cv"/>
                                     <constraint firstAttribute="trailing" secondItem="YlS-b6-igL" secondAttribute="trailing" constant="24" id="I5v-0s-rFX"/>
                                     <constraint firstAttribute="trailing" secondItem="eCO-G2-Xq0" secondAttribute="trailing" constant="5" id="MkA-RU-z8U"/>
+                                    <constraint firstItem="2VM-bz-8nB" firstAttribute="leading" secondItem="Sp2-Lr-yTT" secondAttribute="leading" constant="302" id="bG9-z4-gVY"/>
+                                    <constraint firstItem="2VM-bz-8nB" firstAttribute="top" secondItem="Sp2-Lr-yTT" secondAttribute="top" constant="8" id="cwc-gG-C0I"/>
+                                    <constraint firstAttribute="trailing" secondItem="2VM-bz-8nB" secondAttribute="trailing" constant="24" id="e0x-Ra-Vxj"/>
                                     <constraint firstItem="eCO-G2-Xq0" firstAttribute="top" secondItem="Sp2-Lr-yTT" secondAttribute="top" id="en2-Yv-ec0"/>
                                     <constraint firstAttribute="bottom" secondItem="YlS-b6-igL" secondAttribute="bottom" constant="8" id="pxY-aN-3Rg"/>
                                 </constraints>
@@ -322,6 +347,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bookmarkButton" destination="OQi-YN-PFL" id="w8B-c3-iqp"/>
+                        <outlet property="bookmarkView" destination="2VM-bz-8nB" id="BLH-IG-cyu"/>
                         <outlet property="detailContainerView" destination="kdb-da-4eY" id="C0B-7l-Kvq"/>
                         <outlet property="headerContainer" destination="Sp2-Lr-yTT" id="yhX-AW-Hqu"/>
                         <outlet property="headerImageView" destination="eCO-G2-Xq0" id="y1V-jJ-myR"/>
@@ -341,6 +368,7 @@
     </scenes>
     <resources>
         <image name="baseline.jpeg" width="450" height="300"/>
+        <image name="bookmark" catalog="system" width="110" height="128"/>
         <image name="play.fill" catalog="system" width="120" height="128"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

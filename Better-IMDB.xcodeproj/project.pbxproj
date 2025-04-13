@@ -45,6 +45,7 @@
 		70733A892DA5C9C9006D0DA8 /* BITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A882DA5C9C9006D0DA8 /* BITabBar.swift */; };
 		70733A8C2DA5CAE9006D0DA8 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */; };
 		70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */; };
+		707F70F82DAC3292003BDE12 /* MoviePresistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F70F72DAC327A003BDE12 /* MoviePresistence.swift */; };
 		708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */; };
 		708CAECB2DA3A13B00062906 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBB2DA3A13B00062906 /* Coordinator.swift */; };
 		708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBC2DA3A13B00062906 /* Storyboarded.swift */; };
@@ -107,6 +108,7 @@
 		70733A882DA5C9C9006D0DA8 /* BITabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BITabBar.swift; sourceTree = "<group>"; };
 		70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BITabBarController.swift; sourceTree = "<group>"; };
+		707F70F72DAC327A003BDE12 /* MoviePresistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresistence.swift; sourceTree = "<group>"; };
 		708CAE792DA3A08A00062906 /* Better-IMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Better-IMDB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708CAE8F2DA3A08D00062906 /* Better-IMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Better-IMDBTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -201,6 +203,14 @@
 				704F5DE92DAAEC3E005FA9FA /* ValueLabelPair.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		707F70F62DAC3263003BDE12 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				707F70F72DAC327A003BDE12 /* MoviePresistence.swift */,
+			);
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		708CAE702DA3A08A00062906 = {
@@ -381,6 +391,7 @@
 		70ACD1A22DA9DE90003BB2C0 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				707F70F62DAC3263003BDE12 /* Persistence */,
 				70ACD1A32DA9DE98003BB2C0 /* Network */,
 			);
 			path = Data;
@@ -658,6 +669,7 @@
 				708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */,
 				700CB5B72DA8751800BFCDEB /* ListCollectionViewCell.swift in Sources */,
 				701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */,
+				707F70F82DAC3292003BDE12 /* MoviePresistence.swift in Sources */,
 				701E87322DA7B2E7000DBF15 /* HomeCollectionView.swift in Sources */,
 				701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */,
 				701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */,

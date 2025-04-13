@@ -22,9 +22,13 @@ class MovieDetailViewController: UIViewController, Storyboarded {
     @IBOutlet weak var detailContainerView: UIView!
     @IBOutlet weak var plotContainerView: UIView!
     
+    @IBOutlet weak var bookmarkView: UIView!
     @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieOverviewLabel: UILabel!
     @IBOutlet weak var valuePairStackView: UIStackView!
+    
+    @IBOutlet weak var bookmarkButton: UIButton!
+    
     
     let viewModel = MovieDetailViewModel(networkService: MovieDetailService())
     
@@ -36,10 +40,12 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         super.viewDidLoad()
         setupView()
         setupBindings()
+        initialBookmarkState()
         viewModel.fetchMovie(withId: "\(selectedMovie.id)")
         Task {
             await setHeader()
         }
+        
     }
     
     func setupView() {
@@ -54,6 +60,9 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         plotContainerView.layer.cornerRadius = 25
         
         movieOverviewLabel.text = selectedMovie.overview
+        
+        bookmarkButton.setImage(UIImage(systemName: "bookmark"), for: .normal)
+        bookmarkButton.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
     }
     
     func setupBindings() {
@@ -70,13 +79,16 @@ class MovieDetailViewController: UIViewController, Storyboarded {
             let timeString = "\(hours)h \(minutes)m"
             
             self.addValueLabelPair(value: timeString, type: "Time")
+            self.viewModel.updateBookmarkState(for: movie.id)
         }).disposed(by: disposeBag)
         
         
         dominantColor.subscribe(onNext: { [weak self] value in
             self!.playButton.tintColor = value
+            self!.bookmarkButton.tintColor = .white
             self!.titleContainerView.backgroundColor = value
             
+            self!.bookmarkView.isHidden = false
             self!.playView.isHidden = false
         }).disposed(by: disposeBag)
         
@@ -89,6 +101,15 @@ class MovieDetailViewController: UIViewController, Storyboarded {
                 print("nil video URL")
             }
         }).disposed(by: disposeBag)
+        
+        
+        viewModel.bookmarkState
+            .subscribe(onNext: { [weak self] isBookmarked in
+                print(isBookmarked)
+                self?.bookmarkButton.isSelected = isBookmarked
+            })
+            .disposed(by: disposeBag)
+
     }
     
     @IBAction func playVideo(_ sender: Any) {
@@ -108,6 +129,15 @@ class MovieDetailViewController: UIViewController, Storyboarded {
     func addValueLabelPair(value: String, type: String) {
         let pair = ValueLabelPair(value: value, type: type)
         valuePairStackView.addArrangedSubview(pair)
+    }
+    
+    @IBAction func toggleBookmark(_ sender: Any) {
+        viewModel.toggleBookmark(for: selectedMovie.id)
+    }
+    
+    func initialBookmarkState() {
+        guard let movieId = viewModel.item.value?.id else { return }
+        viewModel.updateBookmarkState(for: movieId)
     }
     
     func playVideoWithURL(_ url: URL) {
