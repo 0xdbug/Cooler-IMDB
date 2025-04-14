@@ -19,13 +19,12 @@ class BookmarkViewController: UIViewController, Storyboarded {
         
     override func viewDidLoad() {
         setupCollectionView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }
     
     func setupCollectionView() {
+        collectionView.refreshControl = UIRefreshControl()
+        
         viewModel.items
             .bind(to: collectionView
                 .rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
@@ -50,6 +49,11 @@ class BookmarkViewController: UIViewController, Storyboarded {
                 self.coordinator?.showDetail(movie, from: self, at: indexPath)
             })
             .disposed(by: disposeBag)
+        
+        collectionView.refreshControl?.rx.controlEvent(.valueChanged).subscribe(onNext: {
+            self.viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
+            self.collectionView.refreshControl?.endRefreshing()
+        }).disposed(by: disposeBag)
     }
 }
 

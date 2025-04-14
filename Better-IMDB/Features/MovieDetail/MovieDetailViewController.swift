@@ -161,7 +161,8 @@ class MovieDetailViewController: UIViewController, Storyboarded {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
-            if let tabBarController = navigationController?.tabBarController as? BITabBarController {
+            if let parentVC = navigationController?.viewControllers.last as? BookmarkViewController,
+               let tabBarController = navigationController?.tabBarController as? BITabBarController {
                 UIView.animate(withDuration: 0.25) {
                     tabBarController.biTabBar.alpha = 1
                     tabBarController.visualEffectView.alpha = 1
