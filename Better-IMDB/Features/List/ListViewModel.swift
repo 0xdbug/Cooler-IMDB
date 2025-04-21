@@ -17,7 +17,8 @@ class ListViewModel {
     
     private var currentPage = 1
     private var totalPages = 1
-    private var currentCategory: HomeCardCategory?
+//    private var currentCategory: HomeCardCategory? // more generic model
+    private var currentSection: MovieSection? // more generic model
     var canLoadMore: Bool {
         return currentPage < totalPages
     }
@@ -26,12 +27,12 @@ class ListViewModel {
         self.networkService = networkService
     }
     
-    func fetchItems(for category: HomeCardCategory) {
+    func fetchItems(for section: MovieSection) {
         currentPage = 1
-        currentCategory = category
+        currentSection = section
         items.accept([])
         
-        fetchPage(for: category, page: currentPage)
+        networkService.fetchMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
                 self.totalPages = tmdbMovies.total_pages
@@ -43,11 +44,10 @@ class ListViewModel {
     }
     
     func loadMoreItems() {
-        guard canLoadMore, let category = currentCategory else { return }
-        
+        guard canLoadMore, let section = currentSection else { return }
         currentPage += 1
         
-        fetchPage(for: category, page: currentPage)
+        networkService.fetchMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
                 let currentItems = self.items.value
@@ -60,16 +60,4 @@ class ListViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func fetchPage(for category: HomeCardCategory, page: Int) -> Observable<TMDBMovies> {
-        switch category {
-            case .popular:
-                return networkService.popular(page: page)
-            case .trending:
-                return networkService.trending(page: page)
-            case .topRated:
-                return networkService.topRated(page: page)
-            case .upcoming:
-                return networkService.upcoming(page: page)
-        }
-    }
 }

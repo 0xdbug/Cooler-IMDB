@@ -24,70 +24,20 @@ class DiscoverRequest: APIRequest {
     }
 }
 
-class PopularRequest: APIRequest {
+class SectionRequest: APIRequest {
+    var path: String
     var method = RequestType.GET
-    var path = TMDBAPI.popular
     var auth = TMDBAPI.auth
     var parameters: [String: String]
     
-    init(page: Int = 1) {
+    init(path: String, page: Int = 1) {
         self.parameters = [
             "include_adult": "false",
             "include_video": "false",
             "language": "en-US",
-            "page": "\(page)",
             "sort_by": "popularity.desc",
         ]
+        self.path = path
     }
 }
 
-class TrendingRequest: APIRequest {
-    var method = RequestType.GET
-    var path = TMDBAPI.trending
-    var auth = TMDBAPI.auth
-    var parameters: [String: String]
-    
-    init(page: Int = 1) {
-        self.parameters = [
-            "include_adult": "false",
-            "include_video": "false",
-            "language": "en-US",
-            "page": "\(page)",
-            "sort_by": "popularity.desc",
-        ]
-    }
-}
-
-class TopRatedRequest: APIRequest {
-    var method = RequestType.GET
-    var path = TMDBAPI.topRated
-    var auth = TMDBAPI.auth
-    var parameters: [String: String]
-    
-    init(page: Int = 1) {
-        self.parameters = [
-            "include_adult": "false",
-            "include_video": "false",
-            "language": "en-US",
-            "page": "\(page)",
-            "sort_by": "popularity.desc",
-        ]
-    }
-}
-
-class UpcomingRequest: APIRequest {
-    var method = RequestType.GET
-    var path = TMDBAPI.upcoming
-    var auth = TMDBAPI.auth
-    var parameters: [String: String]
-    
-    init(page: Int = 1) {
-        self.parameters = [
-            "include_adult": "false",
-            "include_video": "false",
-            "language": "en-US",
-            "page": "\(page)",
-            "sort_by": "popularity.desc",
-        ]
-    }
-}

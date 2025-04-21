@@ -9,11 +9,12 @@ import UIKit
 
 struct HomeCards {
     let cardName: String
-    let cardType: HomeCardCategory
+    let cardType: MovieSection
     let movies: [Movie]
     
 }
 
+// change to camel case
 struct TMDBMovies: Codable {
     var page: Int
     var results: [Movie]

@@ -9,6 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+//
 class MovieDetailViewModel {
     let networkService: MovieDetailNetworkServiceProtocol
     
@@ -19,7 +20,7 @@ class MovieDetailViewModel {
     
     private var currentPage = 1
     private var totalPages = 1
-    private var currentCategory: HomeCardCategory?
+    private var currentSection: MovieSection?
     
     init(networkService: MovieDetailNetworkServiceProtocol) {
         self.networkService = networkService

@@ -9,18 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-enum HomeCardCategory {
-    case popular
-    case trending
-    case topRated
-    case upcoming
-}
 
-class HomeViewModel {
+// improve solid
+// remove strong reference
+class HomeViewModel { // use delegation, remove depandacny cycle
     let networkService: TMDBNetworkServiceProtocol
     
     private let disposeBag = DisposeBag()
-    var items: BehaviorRelay<[HomeCards]> = .init(value: [])
+    var items: BehaviorRelay<[HomeCards]> = .init(value: []) // use driver
     
     init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
@@ -28,8 +24,8 @@ class HomeViewModel {
     
     func fetchItems() {
         items.accept([])
-
-        let categories: [HomeCardCategory] = [.popular, .trending, .topRated, .upcoming]
+        
+        let categories: [MovieSection] = [.popular, .trending, .topRated, .upcoming]
         let categoryObservables = categories.map { fetchCategory($0) }
         
         Observable.concat(categoryObservables)
@@ -41,53 +37,13 @@ class HomeViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func fetchCategory(_ category: HomeCardCategory) -> Observable<HomeCards> {
-        switch category {
-//            case .discover:
-//                return fetchPopular()
-            case .popular:
-                return fetchPopular()
-            case .trending:
-                return fetchTrending()
-            case .topRated:
-                return fetchTopRated()
-            case .upcoming:
-                return fetchUpcoming()
-        }
-    }
-    
-    func fetchPopular() -> Observable<HomeCards> {
-        networkService.popular(page: 1)
+    private func fetchCategory(_ section: MovieSection) -> Observable<HomeCards> {
+        return networkService.fetchMoviesForSection(section, page: 1)
             .map { result -> HomeCards in
-                return HomeCards(cardName: "POPULAR",
-                                 cardType: .popular,
-                                 movies: result.results)
-            }
-    }
-    
-    func fetchTrending() -> Observable<HomeCards> {
-        networkService.trending(page: 1)
-            .map { result -> HomeCards in
-                return HomeCards(cardName: "TRENDING",
-                                 cardType: .trending,
-                                 movies: result.results)
-            }
-    }
-    
-    func fetchTopRated() -> Observable<HomeCards> {
-        networkService.topRated(page: 1)
-            .map { result -> HomeCards in
-                return HomeCards(cardName: "TOP RATED",
-                                 cardType: .topRated,
-                                 movies: result.results)
-            }
-    }
-    
-    func fetchUpcoming() -> Observable<HomeCards> {
-        networkService.upcoming(page: 1)
-            .map { result -> HomeCards in
-                return HomeCards(cardName: "UPCOMING",
-                                 cardType: .upcoming,
+                return HomeCards(cardName: section.rawValue
+                    .replacingOccurrences(of: "_", with: " ")
+                    .uppercased(),
+                                 cardType: section,
                                  movies: result.results)
             }
     }

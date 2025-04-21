@@ -286,58 +286,16 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
 
 
 
-    open func popular(page: Int) -> Observable<TMDBMovies> {
-        addInvocation(.m_popular__page_page(Parameter<Int>.value(`page`)))
-		let perform = methodPerformValue(.m_popular__page_page(Parameter<Int>.value(`page`))) as? (Int) -> Void
-		perform?(`page`)
+    open func fetchMoviesForSection(_ section: MovieSection, page: Int) -> Observable<TMDBMovies> {
+        addInvocation(.m_fetchMoviesForSection__sectionpage_page(Parameter<MovieSection>.value(`section`), Parameter<Int>.value(`page`)))
+		let perform = methodPerformValue(.m_fetchMoviesForSection__sectionpage_page(Parameter<MovieSection>.value(`section`), Parameter<Int>.value(`page`))) as? (MovieSection, Int) -> Void
+		perform?(`section`, `page`)
 		var __value: Observable<TMDBMovies>
 		do {
-		    __value = try methodReturnValue(.m_popular__page_page(Parameter<Int>.value(`page`))).casted()
+		    __value = try methodReturnValue(.m_fetchMoviesForSection__sectionpage_page(Parameter<MovieSection>.value(`section`), Parameter<Int>.value(`page`))).casted()
 		} catch {
-			onFatalFailure("Stub return value not specified for popular(page: Int). Use given")
-			Failure("Stub return value not specified for popular(page: Int). Use given")
-		}
-		return __value
-    }
-
-    open func trending(page: Int) -> Observable<TMDBMovies> {
-        addInvocation(.m_trending__page_page(Parameter<Int>.value(`page`)))
-		let perform = methodPerformValue(.m_trending__page_page(Parameter<Int>.value(`page`))) as? (Int) -> Void
-		perform?(`page`)
-		var __value: Observable<TMDBMovies>
-		do {
-		    __value = try methodReturnValue(.m_trending__page_page(Parameter<Int>.value(`page`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for trending(page: Int). Use given")
-			Failure("Stub return value not specified for trending(page: Int). Use given")
-		}
-		return __value
-    }
-
-    open func topRated(page: Int) -> Observable<TMDBMovies> {
-        addInvocation(.m_topRated__page_page(Parameter<Int>.value(`page`)))
-		let perform = methodPerformValue(.m_topRated__page_page(Parameter<Int>.value(`page`))) as? (Int) -> Void
-		perform?(`page`)
-		var __value: Observable<TMDBMovies>
-		do {
-		    __value = try methodReturnValue(.m_topRated__page_page(Parameter<Int>.value(`page`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for topRated(page: Int). Use given")
-			Failure("Stub return value not specified for topRated(page: Int). Use given")
-		}
-		return __value
-    }
-
-    open func upcoming(page: Int) -> Observable<TMDBMovies> {
-        addInvocation(.m_upcoming__page_page(Parameter<Int>.value(`page`)))
-		let perform = methodPerformValue(.m_upcoming__page_page(Parameter<Int>.value(`page`))) as? (Int) -> Void
-		perform?(`page`)
-		var __value: Observable<TMDBMovies>
-		do {
-		    __value = try methodReturnValue(.m_upcoming__page_page(Parameter<Int>.value(`page`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for upcoming(page: Int). Use given")
-			Failure("Stub return value not specified for upcoming(page: Int). Use given")
+			onFatalFailure("Stub return value not specified for fetchMoviesForSection(_ section: MovieSection, page: Int). Use given")
+			Failure("Stub return value not specified for fetchMoviesForSection(_ section: MovieSection, page: Int). Use given")
 		}
 		return __value
     }
@@ -358,31 +316,14 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
 
 
     fileprivate enum MethodType {
-        case m_popular__page_page(Parameter<Int>)
-        case m_trending__page_page(Parameter<Int>)
-        case m_topRated__page_page(Parameter<Int>)
-        case m_upcoming__page_page(Parameter<Int>)
+        case m_fetchMoviesForSection__sectionpage_page(Parameter<MovieSection>, Parameter<Int>)
         case m_fetchMovies__ids_ids(Parameter<[Int]>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_popular__page_page(let lhsPage), .m_popular__page_page(let rhsPage)):
+            case (.m_fetchMoviesForSection__sectionpage_page(let lhsSection, let lhsPage), .m_fetchMoviesForSection__sectionpage_page(let rhsSection, let rhsPage)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_trending__page_page(let lhsPage), .m_trending__page_page(let rhsPage)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_topRated__page_page(let lhsPage), .m_topRated__page_page(let rhsPage)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_upcoming__page_page(let lhsPage), .m_upcoming__page_page(let rhsPage)):
-				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSection, rhs: rhsSection, with: matcher), lhsSection, rhsSection, "_ section"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPage, rhs: rhsPage, with: matcher), lhsPage, rhsPage, "page"))
 				return Matcher.ComparisonResult(results)
 
@@ -396,19 +337,13 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_popular__page_page(p0): return p0.intValue
-            case let .m_trending__page_page(p0): return p0.intValue
-            case let .m_topRated__page_page(p0): return p0.intValue
-            case let .m_upcoming__page_page(p0): return p0.intValue
+            case let .m_fetchMoviesForSection__sectionpage_page(p0, p1): return p0.intValue + p1.intValue
             case let .m_fetchMovies__ids_ids(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_popular__page_page: return ".popular(page:)"
-            case .m_trending__page_page: return ".trending(page:)"
-            case .m_topRated__page_page: return ".topRated(page:)"
-            case .m_upcoming__page_page: return ".upcoming(page:)"
+            case .m_fetchMoviesForSection__sectionpage_page: return ".fetchMoviesForSection(_:page:)"
             case .m_fetchMovies__ids_ids: return ".fetchMovies(ids:)"
             }
         }
@@ -423,45 +358,15 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
         }
 
 
-        public static func popular(page: Parameter<Int>, willReturn: Observable<TMDBMovies>...) -> MethodStub {
-            return Given(method: .m_popular__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func trending(page: Parameter<Int>, willReturn: Observable<TMDBMovies>...) -> MethodStub {
-            return Given(method: .m_trending__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func topRated(page: Parameter<Int>, willReturn: Observable<TMDBMovies>...) -> MethodStub {
-            return Given(method: .m_topRated__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func upcoming(page: Parameter<Int>, willReturn: Observable<TMDBMovies>...) -> MethodStub {
-            return Given(method: .m_upcoming__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func fetchMoviesForSection(_ section: Parameter<MovieSection>, page: Parameter<Int>, willReturn: Observable<TMDBMovies>...) -> MethodStub {
+            return Given(method: .m_fetchMoviesForSection__sectionpage_page(`section`, `page`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func fetchMovies(ids: Parameter<[Int]>, willReturn: Observable<[MovieDetail]>...) -> MethodStub {
             return Given(method: .m_fetchMovies__ids_ids(`ids`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func popular(page: Parameter<Int>, willProduce: (Stubber<Observable<TMDBMovies>>) -> Void) -> MethodStub {
+        public static func fetchMoviesForSection(_ section: Parameter<MovieSection>, page: Parameter<Int>, willProduce: (Stubber<Observable<TMDBMovies>>) -> Void) -> MethodStub {
             let willReturn: [Observable<TMDBMovies>] = []
-			let given: Given = { return Given(method: .m_popular__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Observable<TMDBMovies>).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func trending(page: Parameter<Int>, willProduce: (Stubber<Observable<TMDBMovies>>) -> Void) -> MethodStub {
-            let willReturn: [Observable<TMDBMovies>] = []
-			let given: Given = { return Given(method: .m_trending__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Observable<TMDBMovies>).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func topRated(page: Parameter<Int>, willProduce: (Stubber<Observable<TMDBMovies>>) -> Void) -> MethodStub {
-            let willReturn: [Observable<TMDBMovies>] = []
-			let given: Given = { return Given(method: .m_topRated__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Observable<TMDBMovies>).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func upcoming(page: Parameter<Int>, willProduce: (Stubber<Observable<TMDBMovies>>) -> Void) -> MethodStub {
-            let willReturn: [Observable<TMDBMovies>] = []
-			let given: Given = { return Given(method: .m_upcoming__page_page(`page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_fetchMoviesForSection__sectionpage_page(`section`, `page`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Observable<TMDBMovies>).self)
 			willProduce(stubber)
 			return given
@@ -478,10 +383,7 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func popular(page: Parameter<Int>) -> Verify { return Verify(method: .m_popular__page_page(`page`))}
-        public static func trending(page: Parameter<Int>) -> Verify { return Verify(method: .m_trending__page_page(`page`))}
-        public static func topRated(page: Parameter<Int>) -> Verify { return Verify(method: .m_topRated__page_page(`page`))}
-        public static func upcoming(page: Parameter<Int>) -> Verify { return Verify(method: .m_upcoming__page_page(`page`))}
+        public static func fetchMoviesForSection(_ section: Parameter<MovieSection>, page: Parameter<Int>) -> Verify { return Verify(method: .m_fetchMoviesForSection__sectionpage_page(`section`, `page`))}
         public static func fetchMovies(ids: Parameter<[Int]>) -> Verify { return Verify(method: .m_fetchMovies__ids_ids(`ids`))}
     }
 
@@ -489,17 +391,8 @@ open class TMDBNetworkServiceProtocolMock: TMDBNetworkServiceProtocol, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func popular(page: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_popular__page_page(`page`), performs: perform)
-        }
-        public static func trending(page: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_trending__page_page(`page`), performs: perform)
-        }
-        public static func topRated(page: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_topRated__page_page(`page`), performs: perform)
-        }
-        public static func upcoming(page: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_upcoming__page_page(`page`), performs: perform)
+        public static func fetchMoviesForSection(_ section: Parameter<MovieSection>, page: Parameter<Int>, perform: @escaping (MovieSection, Int) -> Void) -> Perform {
+            return Perform(method: .m_fetchMoviesForSection__sectionpage_page(`section`, `page`), performs: perform)
         }
         public static func fetchMovies(ids: Parameter<[Int]>, perform: @escaping ([Int]) -> Void) -> Perform {
             return Perform(method: .m_fetchMovies__ids_ids(`ids`), performs: perform)

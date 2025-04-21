@@ -36,41 +36,41 @@ class ListViewModelSpec: QuickSpec {
 
             
             describe("loading more items") {
-                let category = HomeCardCategory.popular
+                let section = MovieSection.popular
                 let page1Movies = sampleMovies(ids: [1, 2])
                 let responsePage1 = sampleTMDBResponse(page: 1, totalPages: 2, movies: page1Movies)
                 let responsePage2 = sampleTMDBResponse(page: 2, totalPages: 2, movies: [])
                 
                 context("when more pages exist") {
                     it("should call network service with new page number") {
-                        Given(mockNetworkService, .popular(page: .value(1), willReturn: .just(responsePage1)))
-                        viewModel.fetchItems(for: category)
+                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .value(1), willReturn: .just(responsePage1)))
+                        viewModel.fetchItems(for: section)
                         
-                        Given(mockNetworkService, .popular(page: .value(2), willReturn: .just(responsePage2)))
+                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .value(2), willReturn: .just(responsePage2)))
                         viewModel.loadMoreItems()
                         
-                        Verify(mockNetworkService, 1, .popular(page: .value(1)))
-                        Verify(mockNetworkService, 1, .popular(page: .value(2)))
+                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.popular), page: .value(1)))
+                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.popular), page: .value(2)))
                     }
                 }
             }
             
             describe("fetching items") {
-                let category = HomeCardCategory.popular
+                let section = MovieSection.popular
                 let page1Movies = sampleMovies(ids: [1, 2])
                 let responsePage1 = sampleTMDBResponse(page: 1, totalPages: 3, movies: page1Movies)
                 
                 context("when fetch succeeds") {
                     beforeEach {
-                        Given(mockNetworkService, .popular(page: .any, willReturn: .just(responsePage1)))
-                        Given(mockNetworkService, .trending(page: .any, willReturn: .empty()))
+                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .any, willReturn: .just(responsePage1)))
+                        Given(mockNetworkService, .fetchMoviesForSection(.value(.trending), page: .any, willReturn: .empty()))
                         
-                        viewModel.fetchItems(for: category)
+                        viewModel.fetchItems(for: section)
                     }
                     
                     it("should call the correct network service method with page 1") {
-                        Verify(mockNetworkService, 1, .popular(page: .value(1)))
-                        Verify(mockNetworkService, 0, .trending(page: .any))
+                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(section), page: .value(1)))
+                        Verify(mockNetworkService, 0, .fetchMoviesForSection(.value(.trending), page: .any))
                     }
                     
                     it("should update items with the fetched movies") {
