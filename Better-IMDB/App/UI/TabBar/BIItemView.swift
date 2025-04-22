@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SnapKit
 
 final class BIItemView: UIView {
     private let iconImageView = UIImageView()
@@ -43,10 +42,11 @@ final class BIItemView: UIView {
     }
     
     private func setupLayout() {
-        stackView.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
-        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
     }
     
     private func setupProperties() {

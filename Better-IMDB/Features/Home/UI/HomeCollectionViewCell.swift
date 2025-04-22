@@ -30,17 +30,19 @@ class HomeCollectionViewCell: UICollectionViewCell {
     func setupCard() {
         addSubview(posterStackView)
         
-        posterStackView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview().offset(0)
-            make.centerY.equalToSuperview().offset(25)
-        }
-        
+        posterStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            posterStackView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            posterStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 25)
+        ])
+
         titleLabel.text = item.cardName
         allButton.titleLabel?.textColor = .white
         titleLabel.font = .systemFont(ofSize: 25, weight: .heavy)
         layer.cornerRadius = 30
     }
     
+    // remove logic
     func setupPosters() async {
         guard item.movies.count >= 2 else { return }
         let firstPoster = item.movies.first!.posterImageURL

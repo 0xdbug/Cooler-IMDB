@@ -7,6 +7,7 @@
 
 import UIKit
 
+// separate coordinator (specific)
 class HomeCoordinator: Coordinator {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []

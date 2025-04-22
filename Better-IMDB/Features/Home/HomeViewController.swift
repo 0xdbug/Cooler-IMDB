@@ -9,21 +9,20 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+// error handling
 class HomeViewController: UIViewController, Storyboarded {
     weak var coordinator: HomeCoordinator?
 
-    let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService())
+    let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService()) // initialize in coordinator
     private let disposeBag = DisposeBag()
     
     @IBOutlet weak var mainCollectionView: HomeCollectionView!
-        
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewModel.fetchItems()
         setupCollectionView()
-
     }
 
     func setupCollectionView() {

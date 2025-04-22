@@ -5,7 +5,6 @@
 //  Created by dbug on 4/12/25.
 //
 import UIKit
-import SnapKit
 
 class ValueLabelPair: UIView {
     private let containerStack: UIStackView = {
@@ -66,8 +65,13 @@ class ValueLabelPair: UIView {
         valueLabel.text = value
         typeLabel.text = type
         
-        containerStack.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+        containerStack.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerStack.topAnchor.constraint(equalTo: self.topAnchor),
+            containerStack.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            containerStack.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            containerStack.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+
     }
 }

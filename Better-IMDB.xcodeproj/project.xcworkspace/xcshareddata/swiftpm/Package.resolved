@@ -1,5 +1,5 @@
 {
-  "originHash" : "70028220daf25f98fd4911913cd03dd1c69361846afe92c8752cb487ce0a16c5",
+  "originHash" : "60013458741e910a1b3e93d4866600316eefb20c88b4f674f8310567fa5ef675",
   "pins" : [
     {
       "identity" : "cwlcatchexception",
@@ -29,12 +29,30 @@
       }
     },
     {
+      "identity" : "nuke",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Nuke",
+      "state" : {
+        "revision" : "0ead44350d2737db384908569c012fe67c421e4d",
+        "version" : "12.8.0"
+      }
+    },
+    {
       "identity" : "quick",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Quick/Quick.git",
       "state" : {
         "branch" : "main",
         "revision" : "df1178190584ff9e58bb7a792fee4d988a1c79eb"
+      }
+    },
+    {
+      "identity" : "rxgesture",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RxSwiftCommunity/RxGesture.git",
+      "state" : {
+        "revision" : "1b137c576b4aaaab949235752278956697c9e4a0",
+        "version" : "4.0.4"
       }
     },
     {

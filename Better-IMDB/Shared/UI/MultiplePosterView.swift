@@ -13,7 +13,7 @@ class MultiplePosterView: UIView {
     var posters: [UIImage] = []
     var posterViews: [UIImageView] = []
     let posterWidth: CGFloat = 220
-    let posterHeight: CGFloat = 330 // temp
+    let posterHeight: CGFloat = 330
     
     init(frame: CGRect, posters: [UIImage] = []) {
         self.posters = posters
@@ -66,29 +66,29 @@ class MultiplePosterView: UIView {
             let width = isMainPoster ? posterWidth : posterWidth * scaleFactor
             let height = isMainPoster ? posterHeight : posterHeight * scaleFactor
             
-            posterView.snp.makeConstraints { make in
-                make.width.equalTo(width)
-                make.height.equalTo(height)
-                
-//                make.bottom.equalToSuperview().offset(-8)
-                
-                if index == 0 {
-                    make.left.equalToSuperview()
-                } else {
-                    let leftOffset = posterWidth - (CGFloat(index) * 80)
-                    make.left.equalToSuperview().offset(leftOffset)
-                    make.centerY.equalToSuperview()
-                }
-                
-                posterView.layer.zPosition = CGFloat(posterViews.count - index)
+            posterView.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                posterView.widthAnchor.constraint(equalToConstant: width),
+                posterView.heightAnchor.constraint(equalToConstant: height),
+                posterView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            ])
+            
+            if index == 0 {
+                posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+            } else {
+                let leftOffset = posterWidth - (CGFloat(index) * 80)
+                posterView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: leftOffset).isActive = true
             }
+            
+            posterView.layer.zPosition = CGFloat(posterViews.count - index)
         }
         
-        snp.makeConstraints { make in
-            let totalWidth = posterWidth + CGFloat(posterViews.count - 1) * (posterWidth * scaleFactor - 80)
-            make.width.equalTo(totalWidth)
-            make.height.equalTo(posterHeight)
-        }
+        self.translatesAutoresizingMaskIntoConstraints = false
+        let totalWidth = posterWidth + CGFloat(posterViews.count - 1) * (posterWidth * scaleFactor - 80)
+        NSLayoutConstraint.activate([
+            self.widthAnchor.constraint(equalToConstant: totalWidth),
+            self.heightAnchor.constraint(equalToConstant: posterHeight)
+        ])
     }
     
     func updatePosters(_ newPosters: [UIImage]) {

@@ -7,7 +7,6 @@
 
 import UIKit
 import RxSwift
-import SnapKit
 
 class BITabBarController: UITabBarController {
     weak var coordinator: AppCoordinator?
@@ -35,15 +34,21 @@ class BITabBarController: UITabBarController {
     }
     
     private func setupLayout() {
-        biTabBar.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(20)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-10)
-            $0.height.equalTo(70)
-        }
+        biTabBar.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            biTabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            biTabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            biTabBar.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            biTabBar.heightAnchor.constraint(equalToConstant: 70)
+        ])
         
-        visualEffectView.snp.makeConstraints {
-            $0.edges.equalTo(biTabBar)
-        }
+        visualEffectView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            visualEffectView.topAnchor.constraint(equalTo: biTabBar.topAnchor),
+            visualEffectView.bottomAnchor.constraint(equalTo: biTabBar.bottomAnchor),
+            visualEffectView.leadingAnchor.constraint(equalTo: biTabBar.leadingAnchor),
+            visualEffectView.trailingAnchor.constraint(equalTo: biTabBar.trailingAnchor)
+        ])
     }
     
     private func setupProperties() {
