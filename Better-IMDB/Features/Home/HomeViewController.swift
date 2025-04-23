@@ -42,6 +42,22 @@ class HomeViewController: UIViewController, Storyboarded {
                 self.coordinator?.list(selected)
             })
             .disposed(by: disposeBag)
+        
+        
+//        disposeBag.insert(
+//            viewModel.items
+//                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
+//            { row, item, cell in
+//                Task { await cell.configureWithItem(item) }
+//            },
+//
+//            mainCollectionView
+//                .rx
+//                .modelSelected(HomeCards.self)
+//                .subscribe(onNext: { selected in
+//                    self.coordinator?.list(selected)
+//                })
+//        )
     }
     
 }
