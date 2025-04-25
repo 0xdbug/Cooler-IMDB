@@ -9,7 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// error handling
 class HomeViewController: CollectionViewController {
     weak var coordinator: HomeCoordinator?
     

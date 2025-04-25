@@ -30,8 +30,8 @@ class MovieDetailViewModel: ViewModel {
             .subscribe(onNext: { [weak self] movie in
                 guard let self = self else { return }
                 self.item.accept(movie)
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }
@@ -41,8 +41,8 @@ class MovieDetailViewModel: ViewModel {
             .subscribe(onNext: { [weak self] urlString in
                 guard let self = self else { return }
                 videoURL.accept(urlString)
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }
