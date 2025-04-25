@@ -15,15 +15,30 @@ class BookmarkViewController: UIViewController, Storyboarded {
     let viewModel = BookmarkViewModel(networkService: TMDBService())
     private let disposeBag = DisposeBag()
     
-    @IBOutlet weak var collectionView: BookmarkListCollectionView!
+    var collectionView: BookmarkListCollectionView = {
+        let collectionView = BookmarkListCollectionView(layoutProvider: BookmarkLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
         
     override func viewDidLoad() {
+        
+        setupUI()
         setupCollectionView()
         viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }
     
+    private func setupUI() {
+        view.addSubview(collectionView)
+        collectionView.pin(to: view)
+    }
+    
     func setupCollectionView() {
         collectionView.refreshControl = UIRefreshControl()
+        
+//        disposeBag.insert(
+//            viewModel.items.
+//        )
         
         viewModel.items
             .bind(to: collectionView

@@ -16,13 +16,23 @@ class HomeViewController: UIViewController, Storyboarded {
     let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService()) // initialize in coordinator
     private let disposeBag = DisposeBag()
     
-    @IBOutlet weak var mainCollectionView: HomeCollectionView!
+    private lazy var mainCollectionView: HomeCollectionView = {
+        let collectionView = HomeCollectionView(layoutProvider: HomeLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
         viewModel.fetchItems()
         setupCollectionView()
+    }
+    
+    private func setupUI() {
+        view.addSubview(mainCollectionView)
+        mainCollectionView.pin(to: view)
     }
 
     func setupCollectionView() {

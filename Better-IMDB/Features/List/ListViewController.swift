@@ -12,7 +12,11 @@ import RxCocoa
 class ListViewController: UIViewController, Storyboarded {
     weak var coordinator: HomeCoordinator?
     
-    @IBOutlet weak var collectionView: ListCollectionView!
+    var collectionView: ListCollectionView = {
+        let collectionView = ListCollectionView(layoutProvider: ListLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     private let disposeBag = DisposeBag()
     
     var selectedCard: HomeCards!
@@ -20,8 +24,15 @@ class ListViewController: UIViewController, Storyboarded {
     let viewModel = ListViewModel(networkService: TMDBService())
     
     override func viewDidLoad() {
+        
+        setupUI()
         viewModel.fetchItems(for: selectedCard.cardType)
         setupCollectionView()
+    }
+    
+    private func setupUI() {
+        view.addSubview(collectionView)
+        collectionView.pin(to: view)
     }
     
     func setupCollectionView() {

@@ -18,13 +18,13 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeViewController.instantiate()
+        let vc = HomeViewController()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let vc = ListViewController.instantiate()
+        let vc = ListViewController()
         vc.coordinator = self
         vc.selectedCard = card
         
@@ -32,7 +32,7 @@ class HomeCoordinator: Coordinator {
     }
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let vc = MovieDetailViewController.instantiate()
+        let vc = MovieDetailViewController()
         vc.selectedMovieId = movie.id
         
         vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
@@ -42,10 +42,7 @@ class HomeCoordinator: Coordinator {
                 return nil
             }
             
-            guard let collectionView = sourceVC.collectionView else {
-                print("CollectionView is nil.")
-                return nil
-            }
+            let collectionView = sourceVC.collectionView
             
             guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell else {
                 return nil
