@@ -55,7 +55,7 @@ class MovieDetailViewController: UIViewController {
     
 
     private lazy var bookmarkButton: UIButton = {
-        let button = UIButton(type: .system)
+        let button = UIButton(type: .custom)
         button.backgroundColor = .clear
         button.setImage(UIImage(systemName: "bookmark"), for: .normal)
         button.setImage(UIImage(systemName: "bookmark.fill"), for: .selected)
@@ -221,7 +221,6 @@ class MovieDetailViewController: UIViewController {
             movieOverviewLabel.topAnchor.constraint(equalTo: plotContainerView.topAnchor, constant: 14),
             movieOverviewLabel.leadingAnchor.constraint(equalTo: plotContainerView.leadingAnchor, constant: 24),
             movieOverviewLabel.trailingAnchor.constraint(equalTo: plotContainerView.trailingAnchor, constant: -24),
-            movieOverviewLabel.bottomAnchor.constraint(greaterThanOrEqualTo: plotContainerView.bottomAnchor, constant: -14)
         ])
     }
     

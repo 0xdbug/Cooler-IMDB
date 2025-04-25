@@ -24,7 +24,7 @@ struct TMDBAPI {
     }
     
     static func playMovieVideo(key: String) -> String {
-        return "https://www.themoviedb.org/video/play?key=\(key)&width=581&height=326"
+        return "https://www.themoviedb.org/video/play?key=\(key)&width=1920&height=1080"
     }
     
     // remove from source code
