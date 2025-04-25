@@ -9,11 +9,8 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class BookmarkViewController: UIViewController, Storyboarded {
+class BookmarkViewController: CollectionViewController {
     weak var coordinator: BookmarkCoordinator?
-
-    let viewModel = BookmarkViewModel(networkService: TMDBService())
-    private let disposeBag = DisposeBag()
     
     var collectionView: BookmarkListCollectionView = {
         let collectionView = BookmarkListCollectionView(layoutProvider: BookmarkLayoutProvider())
@@ -25,7 +22,6 @@ class BookmarkViewController: UIViewController, Storyboarded {
         
         setupUI()
         setupCollectionView()
-        viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }
     
     private func setupUI() {
@@ -34,12 +30,12 @@ class BookmarkViewController: UIViewController, Storyboarded {
     }
     
     func setupCollectionView() {
-        collectionView.refreshControl = UIRefreshControl()
+        guard let viewModel = viewModel as? BookmarkViewModel else { return }
         
-//        disposeBag.insert(
-//            viewModel.items.
-//        )
-        
+        setupRefreshControl(for: collectionView) {
+            viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
+        }
+
         viewModel.items
             .bind(to: collectionView
                 .rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
@@ -56,19 +52,16 @@ class BookmarkViewController: UIViewController, Storyboarded {
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 
-                guard indexPath.item < self.viewModel.items.value.count else {
+                guard indexPath.item < viewModel.items.value.count else {
                     return
                 }
-                let movie = self.viewModel.items.value[indexPath.item]
+                let movie = viewModel.items.value[indexPath.item]
                 
                 self.coordinator?.showDetail(movie, from: self, at: indexPath)
             })
             .disposed(by: disposeBag)
         
-        collectionView.refreshControl?.rx.controlEvent(.valueChanged).subscribe(onNext: {
-            self.viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
-            self.collectionView.refreshControl?.endRefreshing()
-        }).disposed(by: disposeBag)
+        viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }
 }
 

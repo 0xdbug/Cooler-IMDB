@@ -49,7 +49,6 @@
 		707F70F82DAC3292003BDE12 /* MoviePresistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F70F72DAC327A003BDE12 /* MoviePresistence.swift */; };
 		708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */; };
 		708CAECB2DA3A13B00062906 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBB2DA3A13B00062906 /* Coordinator.swift */; };
-		708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBC2DA3A13B00062906 /* Storyboarded.swift */; };
 		708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBE2DA3A13B00062906 /* AppDelegate.swift */; };
 		708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEC02DA3A13B00062906 /* TMDB.swift */; };
 		708CAECF2DA3A13B00062906 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEC82DA3A13B00062906 /* HomeViewController.swift */; };
@@ -66,6 +65,7 @@
 		709A1E602DBAEF4E00AA281C /* HomeLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A1E5F2DBAEF4E00AA281C /* HomeLayoutProvider.swift */; };
 		709A1E662DBAFD3C00AA281C /* BookmarkLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A1E652DBAFD2B00AA281C /* BookmarkLayoutProvider.swift */; };
 		709A1E682DBB017E00AA281C /* ListLayoutProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A1E672DBB017700AA281C /* ListLayoutProvider.swift */; };
+		709A1E6C2DBB88FE00AA281C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A1E6B2DBB88FA00AA281C /* CollectionViewController.swift */; };
 		70ACD1922DA9C41A003BB2C0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */; };
 		70ACD1A82DA9E446003BB2C0 /* ListViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */; };
 		70CF2D622DB8CF9F00FFF6D0 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CF2D612DB8CF9F00FFF6D0 /* ErrorResponse.swift */; };
@@ -125,7 +125,6 @@
 		708CAE8F2DA3A08D00062906 /* Better-IMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Better-IMDBTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		708CAEBB2DA3A13B00062906 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		708CAEBC2DA3A13B00062906 /* Storyboarded.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storyboarded.swift; sourceTree = "<group>"; };
 		708CAEBE2DA3A13B00062906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		708CAEC02DA3A13B00062906 /* TMDB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDB.swift; sourceTree = "<group>"; };
 		708CAEC22DA3A13B00062906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -143,6 +142,7 @@
 		709A1E5F2DBAEF4E00AA281C /* HomeLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLayoutProvider.swift; sourceTree = "<group>"; };
 		709A1E652DBAFD2B00AA281C /* BookmarkLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkLayoutProvider.swift; sourceTree = "<group>"; };
 		709A1E672DBB017700AA281C /* ListLayoutProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListLayoutProvider.swift; sourceTree = "<group>"; };
+		709A1E6B2DBB88FA00AA281C /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModelSpec.swift; sourceTree = "<group>"; };
 		70CF2D612DB8CF9F00FFF6D0 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
@@ -404,7 +404,6 @@
 			isa = PBXGroup;
 			children = (
 				708CAEBB2DA3A13B00062906 /* Coordinator.swift */,
-				708CAEBC2DA3A13B00062906 /* Storyboarded.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -470,6 +469,7 @@
 		70CF2D5F2DB8CF4400FFF6D0 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				709A1E6B2DBB88FA00AA281C /* CollectionViewController.swift */,
 				709A1E5D2DBAED5500AA281C /* CollectionView.swift */,
 				70CF2D652DB8EDE400FFF6D0 /* ViewController.swift */,
 				70CF2D632DB8CFF500FFF6D0 /* ViewModel.swift */,
@@ -735,11 +735,11 @@
 				701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */,
 				709A1E662DBAFD3C00AA281C /* BookmarkLayoutProvider.swift in Sources */,
 				70CF2D622DB8CF9F00FFF6D0 /* ErrorResponse.swift in Sources */,
-				708CAECC2DA3A13B00062906 /* Storyboarded.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
 				7012982D2DAA9BAB00576ED3 /* MovieDetailService.swift in Sources */,
 				70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */,
 				70929C272DA7F464008DB6AC /* BookmarkViewModel.swift in Sources */,
+				709A1E6C2DBB88FE00AA281C /* CollectionViewController.swift in Sources */,
 				708CAECE2DA3A13B00062906 /* TMDB.swift in Sources */,
 				709A1E5E2DBAED5500AA281C /* CollectionView.swift in Sources */,
 				704A698C2DA3DB6D001E249C /* APIRequest.swift in Sources */,

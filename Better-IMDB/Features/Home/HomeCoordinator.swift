@@ -18,13 +18,13 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeViewController()
+        let vc = HomeViewController(viewModel: HomeViewModel(networkService: TMDBService()))
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let vc = ListViewController()
+        let vc = ListViewController(viewModel: ListViewModel(networkService: TMDBService()))
         vc.coordinator = self
         vc.selectedCard = card
         
@@ -32,7 +32,7 @@ class HomeCoordinator: Coordinator {
     }
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let vc = MovieDetailViewController()
+        let vc = MovieDetailViewController(viewModel: MovieDetailViewModel(networkService: MovieDetailService()))
         vc.selectedMovieId = movie.id
         
         vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in

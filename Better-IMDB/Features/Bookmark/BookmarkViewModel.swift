@@ -9,24 +9,28 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class BookmarkViewModel {
+class BookmarkViewModel: ViewModel {
     let networkService: TMDBNetworkServiceProtocol
     
     var items: BehaviorRelay<[MovieDetail]> = .init(value: [])
-    private let disposeBag = DisposeBag()
     
     init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     
     func fetchMovies(withIds id: [Int]) {
+        startLoading()
+        
         networkService.fetchMovies(ids: id)
             .subscribe(onNext: { [weak self] movies in
                 guard let self = self else { return }
-                print(movies)
                 self.items.accept(movies)
-            }, onError: { error in
-                print(error)
+                
+            }, onError: { [weak self] error in
+                self?.handleError(error)
+                
+            }, onCompleted: { [weak self] in
+                self?.stopLoading()
             })
             .disposed(by: disposeBag)
     }

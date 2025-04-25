@@ -9,15 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListViewModel {
+class ListViewModel: ViewModel {
     let networkService: TMDBNetworkServiceProtocol
     
     var items = BehaviorRelay<[Movie]>(value: [])
-    private let disposeBag = DisposeBag()
     
     private var currentPage = 1
     private var totalPages = 1
-//    private var currentCategory: HomeCardCategory? // more generic model
+    //    private var currentCategory: HomeCardCategory? // more generic model
     private var currentSection: MovieSection? // more generic model
     var canLoadMore: Bool {
         return currentPage < totalPages
@@ -28,6 +27,7 @@ class ListViewModel {
     }
     
     func fetchItems(for section: MovieSection) {
+        startLoading()
         currentPage = 1
         currentSection = section
         items.accept([])
@@ -37,8 +37,12 @@ class ListViewModel {
                 guard let self = self else { return }
                 self.totalPages = tmdbMovies.total_pages
                 self.items.accept(tmdbMovies.results)
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
+                
+            }, onCompleted: { [weak self] in
+                self?.stopLoading()
+                
             })
             .disposed(by: disposeBag)
     }
@@ -53,9 +57,10 @@ class ListViewModel {
                 let currentItems = self.items.value
                 let newItems = currentItems + tmdbMovies.results
                 self.items.accept(newItems)
-            }, onError: { error in
-                print(error)
-                self.currentPage -= 1
+                
+            }, onError: { [weak self] error in
+                self?.currentPage -= 1
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }

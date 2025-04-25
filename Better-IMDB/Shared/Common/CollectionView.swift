@@ -12,8 +12,12 @@ protocol CollectionViewLayoutProvider {
 }
 
 class BaseCollectionView: UICollectionView {
-    
     private var layoutProvider: CollectionViewLayoutProvider?
+    
+    init() {
+        super.init(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout())
+        makeUI()
+    }
     
     init(frame: CGRect = .zero, layoutProvider: CollectionViewLayoutProvider) {
         self.layoutProvider = layoutProvider
@@ -31,7 +35,6 @@ class BaseCollectionView: UICollectionView {
         updateUI()
     }
     
-    // future use?
     func updateUI() {
         setNeedsDisplay()
     }
@@ -40,5 +43,5 @@ class BaseCollectionView: UICollectionView {
         self.layoutProvider = provider
         self.collectionViewLayout = provider.createLayout(for: environment)
     }
-
 }
+

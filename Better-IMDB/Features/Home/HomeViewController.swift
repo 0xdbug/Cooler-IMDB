@@ -10,11 +10,8 @@ import RxSwift
 import RxCocoa
 
 // error handling
-class HomeViewController: UIViewController, Storyboarded {
+class HomeViewController: CollectionViewController {
     weak var coordinator: HomeCoordinator?
-
-    let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService()) // initialize in coordinator
-    private let disposeBag = DisposeBag()
     
     private lazy var mainCollectionView: HomeCollectionView = {
         let collectionView = HomeCollectionView(layoutProvider: HomeLayoutProvider())
@@ -24,9 +21,7 @@ class HomeViewController: UIViewController, Storyboarded {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-        viewModel.fetchItems()
         setupCollectionView()
     }
     
@@ -34,40 +29,49 @@ class HomeViewController: UIViewController, Storyboarded {
         view.addSubview(mainCollectionView)
         mainCollectionView.pin(to: view)
     }
-
+    
     func setupCollectionView() {
+        guard let viewModel = viewModel as? HomeViewModel else { return }
+        
+        setupRefreshControl(for: mainCollectionView) {
+            viewModel.fetchItems()
+        }
+        
         viewModel.items
             .bind(to: mainCollectionView
-                .rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self)) { row, item, cell in
-                    Task {
-                        await cell.configureWithItem(item)
-                    }
+                .rx.items(cellIdentifier: HomeCollectionViewCell.id,
+                          cellType: HomeCollectionViewCell.self)) { row, item, cell in
+                Task {
+                    await cell.configureWithItem(item)
                 }
-                .disposed(by: disposeBag)
+            }
+                          .disposed(by: disposeBag)
         
         mainCollectionView
             .rx
             .modelSelected(HomeCards.self)
-            .subscribe(onNext: { selected in
-                self.coordinator?.list(selected)
+            .subscribe(onNext: { [weak self] selected in
+                self?.coordinator?.list(selected)
             })
             .disposed(by: disposeBag)
         
+        viewModel.fetchItems()
         
-//        disposeBag.insert(
-//            viewModel.items
-//                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
-//            { row, item, cell in
-//                Task { await cell.configureWithItem(item) }
-//            },
-//
-//            mainCollectionView
-//                .rx
-//                .modelSelected(HomeCards.self)
-//                .subscribe(onNext: { selected in
-//                    self.coordinator?.list(selected)
-//                })
-//        )
+        
+        //        disposeBag.insert(
+        //            viewModel.items
+        //                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
+        //            { row, item, cell in
+        //                Task { await cell.configureWithItem(item) }
+        //            },
+        //
+        //            mainCollectionView
+        //                .rx
+        //                .modelSelected(HomeCards.self)
+        //                .subscribe(onNext: { selected in
+        //                    self.coordinator?.list(selected)
+        //                })
+        //        )
     }
     
 }

@@ -10,13 +10,13 @@ import RxSwift
 import RxCocoa
 import SafariServices
 
-class MovieDetailViewController: UIViewController {
+class MovieDetailViewController: ViewController {
     
     // MARK: - Properties
     var selectedMovieId: Int!
-    let viewModel = MovieDetailViewModel(networkService: MovieDetailService())
     var dominantColor: BehaviorRelay<UIColor> = .init(value: .secondarySystemBackground)
-    let disposeBag = DisposeBag()
+    private var movieViewModel: MovieDetailViewModel?
+
     
     // MARK: - UI Components
     private lazy var headerContainer: UIView = {
@@ -106,18 +106,25 @@ class MovieDetailViewController: UIViewController {
     private lazy var movieOverviewLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.font = .systemFont(ofSize: 18, weight: .semibold)
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // i only makde movieViewModel because it's used in different places
+        self.movieViewModel = viewModel as? MovieDetailViewModel
+        guard let _ = movieViewModel else {
+            print("MovieDetailViewModel Needed")
+            return
+        }
+        
         setupView()
         setupConstraints()
         setupBindings()
         initialBookmarkState()
-        viewModel.fetchMovie(withId: String(selectedMovieId))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,6 +173,89 @@ class MovieDetailViewController: UIViewController {
         plotContainerView.addSubview(movieOverviewLabel)
     }
     
+    private func setupBindings() {
+        movieViewModel?.fetchMovie(withId: String(selectedMovieId))
+        movieViewModel?.item.subscribe(onNext: { [weak self] movie in
+            guard let self = self, let movie = movie else { return }
+            
+            let year = movie.release_date.prefix(4)
+            self.addValueLabelPair(value: String(year), type: "Year")
+            self.addValueLabelPair(value: movie.production_countries.first!.name, type: "Country")
+            
+            let hours = movie.runtime / 60
+            let minutes = movie.runtime % 60
+            let timeString = "\(hours)h \(minutes)m"
+            
+            self.addValueLabelPair(value: timeString, type: "Time")
+            movieViewModel?.updateBookmarkState(for: movie.id)
+            
+            self.movieTitle.text = movie.title
+            self.movieOverviewLabel.text = movie.overview
+            
+            Task {
+                await self.setHeader(backdropImageUrl: movie.backdropImageURL)
+            }
+        }).disposed(by: disposeBag)
+        
+        dominantColor.subscribe(onNext: { [weak self] value in
+            guard let self = self else { return }
+            self.playButton.tintColor = value
+            self.bookmarkButton.tintColor = .white
+            self.titleContainerView.backgroundColor = value
+            
+            self.playView.isHidden = false
+        }).disposed(by: disposeBag)
+        
+        movieViewModel?.videoURL.subscribe(onNext: { [weak self] videoUrlString in
+            guard let self = self else { return }
+            
+            if let urlString = videoUrlString, let url = URL(string: urlString) {
+                self.playVideoWithURL(url)
+            } else {
+                print("nil video URL")
+            }
+        }).disposed(by: disposeBag)
+        
+        movieViewModel?.bookmarkState
+            .subscribe(onNext: { [weak self] isBookmarked in
+                print(isBookmarked)
+                self?.bookmarkButton.isSelected = isBookmarked
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    @objc private func playVideo() {
+        movieViewModel?.fetchTrailer(withId: selectedMovieId)
+    }
+    
+    @objc private func toggleBookmark() {
+        movieViewModel?.toggleBookmark(for: selectedMovieId)
+    }
+    
+    func setHeader(backdropImageUrl: URL) async {
+        do {
+            try await headerImageView.loadImage(backdropImageUrl)
+            self.dominantColor.accept(headerImageView.image!.dominantColor()!)
+        } catch {
+            print("error loading image")
+        }
+    }
+    
+    func addValueLabelPair(value: String, type: String) {
+        let pair = ValueLabelPair(value: value, type: type)
+        valuePairStackView.addArrangedSubview(pair)
+    }
+    
+    func initialBookmarkState() {
+        guard let movieId = movieViewModel?.item.value?.id else { return }
+        movieViewModel?.updateBookmarkState(for: movieId)
+    }
+    
+    func playVideoWithURL(_ url: URL) {
+        let safariVC = SFSafariViewController(url: url)
+        present(safariVC, animated: true)
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),
@@ -192,7 +282,7 @@ class MovieDetailViewController: UIViewController {
             bookmarkButton.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor, constant: -24),
             bookmarkButton.widthAnchor.constraint(equalToConstant: 45),
             bookmarkButton.heightAnchor.constraint(equalToConstant: 46),
-
+            
             titleContainerView.topAnchor.constraint(equalTo: headerContainer.bottomAnchor, constant: 8),
             titleContainerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             titleContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
@@ -218,91 +308,10 @@ class MovieDetailViewController: UIViewController {
             plotContainerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             plotContainerView.heightAnchor.constraint(equalToConstant: 235),
             
+            movieOverviewLabel.heightAnchor.constraint(equalTo: plotContainerView.heightAnchor, constant: -50),
             movieOverviewLabel.topAnchor.constraint(equalTo: plotContainerView.topAnchor, constant: 14),
             movieOverviewLabel.leadingAnchor.constraint(equalTo: plotContainerView.leadingAnchor, constant: 24),
             movieOverviewLabel.trailingAnchor.constraint(equalTo: plotContainerView.trailingAnchor, constant: -24),
         ])
-    }
-    
-    private func setupBindings() {
-        viewModel.item.subscribe(onNext: { [weak self] movie in
-            guard let self = self, let movie = movie else { return }
-            
-            let year = movie.release_date.prefix(4)
-            self.addValueLabelPair(value: String(year), type: "Year")
-            self.addValueLabelPair(value: movie.production_countries.first!.name, type: "Country")
-            
-            let hours = movie.runtime / 60
-            let minutes = movie.runtime % 60
-            let timeString = "\(hours)h \(minutes)m"
-            
-            self.addValueLabelPair(value: timeString, type: "Time")
-            self.viewModel.updateBookmarkState(for: movie.id)
-            
-            self.movieTitle.text = movie.title
-            self.movieOverviewLabel.text = movie.overview
-            
-            Task {
-                await self.setHeader(backdropImageUrl: movie.backdropImageURL)
-            }
-        }).disposed(by: disposeBag)
-        
-        dominantColor.subscribe(onNext: { [weak self] value in
-            guard let self = self else { return }
-            self.playButton.tintColor = value
-            self.bookmarkButton.tintColor = .white
-            self.titleContainerView.backgroundColor = value
-            
-            self.playView.isHidden = false
-        }).disposed(by: disposeBag)
-        
-        viewModel.videoURL.subscribe(onNext: { [weak self] videoUrlString in
-            guard let self = self else { return }
-            
-            if let urlString = videoUrlString, let url = URL(string: urlString) {
-                self.playVideoWithURL(url)
-            } else {
-                print("nil video URL")
-            }
-        }).disposed(by: disposeBag)
-        
-        viewModel.bookmarkState
-            .subscribe(onNext: { [weak self] isBookmarked in
-                print(isBookmarked)
-                self?.bookmarkButton.isSelected = isBookmarked
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    @objc private func playVideo() {
-        viewModel.fetchTrailer(withId: selectedMovieId)
-    }
-    
-    @objc private func toggleBookmark() {
-        viewModel.toggleBookmark(for: selectedMovieId)
-    }
-    
-    func setHeader(backdropImageUrl: URL) async {
-        do {
-            try await headerImageView.loadImage(backdropImageUrl)
-            self.dominantColor.accept(headerImageView.image!.dominantColor()!)
-        } catch {
-            print("error loading image")
-        }
-    }
-    
-    func addValueLabelPair(value: String, type: String) {
-        let pair = ValueLabelPair(value: value, type: type)
-        valuePairStackView.addArrangedSubview(pair)
-    }
-    
-    func initialBookmarkState() {
-        guard let movieId = viewModel.item.value?.id else { return }
-        viewModel.updateBookmarkState(for: movieId)
-    }
-    
-    func playVideoWithURL(_ url: URL) {
-        let safariVC = SFSafariViewController(url: url)
-        present(safariVC, animated: true)
     }
 }

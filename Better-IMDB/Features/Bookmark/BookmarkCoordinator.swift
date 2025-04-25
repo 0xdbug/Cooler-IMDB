@@ -17,13 +17,13 @@ class BookmarkCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = BookmarkViewController()
+        let vc = BookmarkViewController(viewModel: BookmarkViewModel(networkService: TMDBService()))
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
     
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
-        let vc = MovieDetailViewController()
+        let vc = MovieDetailViewController(viewModel: MovieDetailViewModel(networkService: MovieDetailService()))
         vc.selectedMovieId = movie.id
         
         vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in

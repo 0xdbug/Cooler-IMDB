@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListViewController: UIViewController, Storyboarded {
+class ListViewController: CollectionViewController {
     weak var coordinator: HomeCoordinator?
     
     var collectionView: ListCollectionView = {
@@ -17,16 +17,12 @@ class ListViewController: UIViewController, Storyboarded {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-    private let disposeBag = DisposeBag()
     
     var selectedCard: HomeCards!
-    
-    let viewModel = ListViewModel(networkService: TMDBService())
     
     override func viewDidLoad() {
         
         setupUI()
-        viewModel.fetchItems(for: selectedCard.cardType)
         setupCollectionView()
     }
     
@@ -36,6 +32,12 @@ class ListViewController: UIViewController, Storyboarded {
     }
     
     func setupCollectionView() {
+        guard let viewModel = viewModel as? ListViewModel else { return }
+        
+        setupRefreshControl(for: collectionView, refreshAction: {
+            viewModel.fetchItems(for: self.selectedCard.cardType)
+        })
+    
         viewModel.items
             .bind(to: collectionView
                 .rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
@@ -52,10 +54,10 @@ class ListViewController: UIViewController, Storyboarded {
             .subscribe(onNext: { [weak self] indexPath in
                 guard let self = self else { return }
                 
-                guard indexPath.item < self.viewModel.items.value.count else {
+                guard indexPath.item < viewModel.items.value.count else {
                     return
                 }
-                let movie = self.viewModel.items.value[indexPath.item]
+                let movie = viewModel.items.value[indexPath.item]
 
                 self.coordinator?.showDetail(movie, from: self, at: indexPath)
             })
@@ -68,13 +70,14 @@ class ListViewController: UIViewController, Storyboarded {
             let contentHeight = self.collectionView.contentSize.height
             
             if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                self.viewModel.loadMoreItems()
+                viewModel.loadMoreItems()
             }
         }
         .disposed(by: disposeBag)
+        
+        viewModel.fetchItems(for: selectedCard.cardType)
     }
     
-    // i brute forced this dont know if it should be done like this tbh
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
