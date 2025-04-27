@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class ListViewController: CollectionViewController {
-    weak var coordinator: HomeCoordinator?
     
     var collectionView: ListCollectionView = {
         let collectionView = ListCollectionView(layoutProvider: ListLayoutProvider())
@@ -59,7 +58,7 @@ class ListViewController: CollectionViewController {
                 }
                 let movie = viewModel.items.value[indexPath.item]
 
-                self.coordinator?.showDetail(movie, from: self, at: indexPath)
+                viewModel.showDetail(movie, from: self, at: indexPath)
             })
             .disposed(by: disposeBag)
 

@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 class ListViewModel: ViewModel {
+    weak var coordinator: HomeCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
     var items = BehaviorRelay<[Movie]>(value: [])
@@ -63,6 +64,10 @@ class ListViewModel: ViewModel {
                 self?.handleError(error)
             })
             .disposed(by: disposeBag)
+    }
+    
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
+        coordinator?.showDetail(movie, from: listViewController, at: indexPath)
     }
     
 }

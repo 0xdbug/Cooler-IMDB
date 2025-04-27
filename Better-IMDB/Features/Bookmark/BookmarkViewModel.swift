@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 class BookmarkViewModel: ViewModel {
+    weak var coordinator: BookmarkCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
     var items: BehaviorRelay<[MovieDetail]> = .init(value: [])
@@ -33,6 +34,10 @@ class BookmarkViewModel: ViewModel {
                 self?.stopLoading()
             })
             .disposed(by: disposeBag)
+    }
+    
+    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
+        coordinator?.showDetail(movie, from: listViewController, at: indexPath)
     }
 
 }
