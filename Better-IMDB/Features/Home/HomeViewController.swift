@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 class HomeViewController: CollectionViewController {
-    weak var coordinator: HomeCoordinator?
     
     private lazy var mainCollectionView: HomeCollectionView = {
         let collectionView = HomeCollectionView(layoutProvider: HomeLayoutProvider())
@@ -36,41 +35,22 @@ class HomeViewController: CollectionViewController {
             viewModel.fetchItems()
         }
         
-        viewModel.items
-            .bind(to: mainCollectionView
-                .rx.items(cellIdentifier: HomeCollectionViewCell.id,
-                          cellType: HomeCollectionViewCell.self)) { row, item, cell in
-                Task {
-                    await cell.configureWithItem(item)
-                }
-            }
-                          .disposed(by: disposeBag)
-        
-        mainCollectionView
-            .rx
-            .modelSelected(HomeCards.self)
-            .subscribe(onNext: { [weak self] selected in
-                self?.coordinator?.list(selected)
-            })
-            .disposed(by: disposeBag)
+        disposeBag.insert(
+            viewModel.items
+                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
+            { row, item, cell in
+                Task { await cell.configureWithItem(item) }
+            },
+            
+            mainCollectionView
+                .rx
+                .modelSelected(HomeCards.self)
+                .subscribe(onNext: { selected in
+                    viewModel.showList(selected)
+                })
+        )
         
         viewModel.fetchItems()
-        
-        
-        //        disposeBag.insert(
-        //            viewModel.items
-        //                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
-        //            { row, item, cell in
-        //                Task { await cell.configureWithItem(item) }
-        //            },
-        //
-        //            mainCollectionView
-        //                .rx
-        //                .modelSelected(HomeCards.self)
-        //                .subscribe(onNext: { selected in
-        //                    self.coordinator?.list(selected)
-        //                })
-        //        )
     }
     
 }

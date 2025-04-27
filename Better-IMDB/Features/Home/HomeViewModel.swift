@@ -11,18 +11,21 @@ import RxCocoa
 
 
 // improve solid
-// remove strong reference
-class HomeViewModel: ViewModel { // use delegation, remove depandacny cycle
+class HomeViewModel: ViewModel {
+    weak var coordinator: HomeCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
-    var items: BehaviorRelay<[HomeCards]> = .init(value: []) // use driver
+    private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
+    var items: Driver<[HomeCards]> {
+        return itemsRelay.asDriver()
+    }
     
     init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     
     func fetchItems() {
-        items.accept([])
+        itemsRelay.accept([])
         
         startLoading()
         
@@ -40,7 +43,7 @@ class HomeViewModel: ViewModel { // use delegation, remove depandacny cycle
                 self?.stopLoading()
             })
             .asDriver(onErrorJustReturn: [])
-            .drive(items)
+            .drive(itemsRelay)
             .disposed(by: disposeBag)
     }
     
@@ -53,6 +56,10 @@ class HomeViewModel: ViewModel { // use delegation, remove depandacny cycle
                                  cardType: section,
                                  movies: result.results)
             }
+    }
+    
+    func showList(_ card: HomeCards) {
+        coordinator?.list(card)
     }
     
 }
