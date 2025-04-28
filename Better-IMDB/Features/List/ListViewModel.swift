@@ -9,36 +9,44 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListViewModel {
+class ListViewModel: ViewModel {
+    weak var coordinator: HomeCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
-    var items = BehaviorRelay<[Movie]>(value: [])
-    private let disposeBag = DisposeBag()
+    private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
+    var items: Driver<[Movie]> {
+        itemsRelay.asDriver()
+    }
     
     private var currentPage = 1
     private var totalPages = 1
-//    private var currentCategory: HomeCardCategory? // more generic model
-    private var currentSection: MovieSection? // more generic model
+    private var currentSection: MovieSection?
     var canLoadMore: Bool {
         return currentPage < totalPages
     }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
+    init(coordinator: HomeCoordinator, networkService: TMDBNetworkServiceProtocol) {
+        self.coordinator = coordinator
         self.networkService = networkService
     }
     
     func fetchItems(for section: MovieSection) {
+        startLoading()
         currentPage = 1
         currentSection = section
-        items.accept([])
+        itemsRelay.accept([])
         
         networkService.fetchMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
                 self.totalPages = tmdbMovies.total_pages
-                self.items.accept(tmdbMovies.results)
-            }, onError: { error in
-                print(error)
+                self.itemsRelay.accept(tmdbMovies.results)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
+                
+            }, onCompleted: { [weak self] in
+                self?.stopLoading()
+                
             })
             .disposed(by: disposeBag)
     }
@@ -50,14 +58,20 @@ class ListViewModel {
         networkService.fetchMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
-                let currentItems = self.items.value
+                let currentItems = self.itemsRelay.value
                 let newItems = currentItems + tmdbMovies.results
-                self.items.accept(newItems)
-            }, onError: { error in
-                print(error)
-                self.currentPage -= 1
+                self.itemsRelay.accept(newItems)
+                
+            }, onError: { [weak self] error in
+                self?.currentPage -= 1
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }
-    
+}
+
+extension ListViewModel: ListViewControllerDelegate {
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
+        coordinator?.showDetail(movie, from: listViewController, at: indexPath)
+    }
 }

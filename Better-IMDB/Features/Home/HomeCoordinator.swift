@@ -9,7 +9,7 @@ import UIKit
 
 // separate coordinator (specific)
 class HomeCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
+    weak var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -18,21 +18,22 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeViewController.instantiate()
-        vc.coordinator = self
+        let viewModel = HomeViewModel(coordinator: self, networkService: TMDBService())
+        let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let vc = ListViewController.instantiate()
-        vc.coordinator = self
+        let viewModel = ListViewModel(coordinator: self, networkService: TMDBService())
+        let vc = ListViewController(viewModel: viewModel)
         vc.selectedCard = card
         
         navigationController.pushViewController(vc, animated: true)
     }
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let vc = MovieDetailViewController.instantiate()
+        let viewModel = MovieDetailViewModel(networkService: MovieDetailService())
+        let vc = MovieDetailViewController(viewModel: viewModel)
         vc.selectedMovieId = movie.id
         
         vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
@@ -42,10 +43,7 @@ class HomeCoordinator: Coordinator {
                 return nil
             }
             
-            guard let collectionView = sourceVC.collectionView else {
-                print("CollectionView is nil.")
-                return nil
-            }
+            let collectionView = sourceVC.collectionView
             
             guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell else {
                 return nil

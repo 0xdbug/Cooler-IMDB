@@ -9,51 +9,55 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class BookmarkViewController: UIViewController, Storyboarded {
-    weak var coordinator: BookmarkCoordinator?
+protocol BookmarkViewControllerDelegate {
+    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
+}
 
-    let viewModel = BookmarkViewModel(networkService: TMDBService())
-    private let disposeBag = DisposeBag()
+class BookmarkViewController: CollectionViewController {
     
-    @IBOutlet weak var collectionView: BookmarkListCollectionView!
+    var collectionView: BookmarkListCollectionView = {
+        let collectionView = BookmarkListCollectionView(layoutProvider: BookmarkLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
         
     override func viewDidLoad() {
+        setupUI()
         setupCollectionView()
-        viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
+    }
+    
+    private func setupUI() {
+        view.addSubview(collectionView)
+        collectionView.pin(to: view)
     }
     
     func setupCollectionView() {
-        collectionView.refreshControl = UIRefreshControl()
+        guard let viewModel = viewModel as? BookmarkViewModel else { return }
         
-        viewModel.items
-            .bind(to: collectionView
-                .rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
-                    Task {
-                        await cell.configureWithMovie(item)
-                    }
+        setupRefreshControl(for: collectionView) {
+            viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
+        }
+        
+        disposeBag.insert(
+            viewModel.items.drive(collectionView.rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
+                Task {
+                    await cell.configureWithMovie(item)
                 }
-                .disposed(by: disposeBag)
-        
-        
-        collectionView
-            .rx
-            .itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                
-                guard indexPath.item < self.viewModel.items.value.count else {
-                    return
+            },
+            
+            collectionView
+                .rx
+                .itemSelected
+                .withLatestFrom(viewModel.items) { indexPath, movies -> (IndexPath, MovieDetail) in
+                    return (indexPath, movies[indexPath.item])
                 }
-                let movie = self.viewModel.items.value[indexPath.item]
-                
-                self.coordinator?.showDetail(movie, from: self, at: indexPath)
-            })
-            .disposed(by: disposeBag)
+                .subscribe(onNext: { [weak self] indexPath, movie in
+                    guard let self = self else { return }
+                    viewModel.showDetail(movie, from: self, at: indexPath)
+                })
+        )
         
-        collectionView.refreshControl?.rx.controlEvent(.valueChanged).subscribe(onNext: {
-            self.viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
-            self.collectionView.refreshControl?.endRefreshing()
-        }).disposed(by: disposeBag)
+        viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }
 }
 

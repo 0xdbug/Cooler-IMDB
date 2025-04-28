@@ -9,61 +9,70 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListViewController: UIViewController, Storyboarded {
-    weak var coordinator: HomeCoordinator?
+protocol ListViewControllerDelegate {
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
+}
+
+class ListViewController: CollectionViewController {
     
-    @IBOutlet weak var collectionView: ListCollectionView!
-    private let disposeBag = DisposeBag()
+    var collectionView: ListCollectionView = {
+        let collectionView = ListCollectionView(layoutProvider: ListLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     var selectedCard: HomeCards!
     
-    let viewModel = ListViewModel(networkService: TMDBService())
-    
     override func viewDidLoad() {
-        viewModel.fetchItems(for: selectedCard.cardType)
+        
+        setupUI()
         setupCollectionView()
     }
     
-    func setupCollectionView() {
-        viewModel.items
-            .bind(to: collectionView
-                .rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
-                    Task {
-                        await cell.configureWithMovie(item)
-                    }
-                }
-                .disposed(by: disposeBag)
-        
-        
-        collectionView
-            .rx
-            .itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                
-                guard indexPath.item < self.viewModel.items.value.count else {
-                    return
-                }
-                let movie = self.viewModel.items.value[indexPath.item]
-
-                self.coordinator?.showDetail(movie, from: self, at: indexPath)
-            })
-            .disposed(by: disposeBag)
-
-        
-        collectionView.rx.didScroll.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            let offSetY = self.collectionView.contentOffset.y
-            let contentHeight = self.collectionView.contentSize.height
-            
-            if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                self.viewModel.loadMoreItems()
-            }
-        }
-        .disposed(by: disposeBag)
+    private func setupUI() {
+        view.addSubview(collectionView)
+        collectionView.pin(to: view)
     }
     
-    // i brute forced this dont know if it should be done like this tbh
+    func setupCollectionView() {
+        guard let viewModel = viewModel as? ListViewModel else { return }
+        
+        setupRefreshControl(for: collectionView, refreshAction: {
+            viewModel.fetchItems(for: self.selectedCard.cardType)
+        })
+        
+        disposeBag.insert(
+            viewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
+                Task {
+                    await cell.configureWithMovie(item)
+                }
+            },
+            
+            collectionView.rx.itemSelected
+                .asDriver()
+                .withLatestFrom(viewModel.items) { indexPath, items in (indexPath, items) }
+                .drive(onNext: { [weak self] indexPath, items in
+                    guard let self = self else { return }
+                    guard indexPath.item < items.count else { return }
+                    
+                    let movie = items[indexPath.item]
+                    viewModel.showDetail(movie, from: self, at: indexPath)
+                }),
+            
+            collectionView.rx.didScroll.subscribe { [weak self] _ in
+                guard let self = self else { return }
+                let offSetY = self.collectionView.contentOffset.y
+                let contentHeight = self.collectionView.contentSize.height
+                
+                if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
+                    viewModel.loadMoreItems()
+                }
+            }
+        )
+        
+        viewModel.fetchItems(for: selectedCard.cardType)
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         

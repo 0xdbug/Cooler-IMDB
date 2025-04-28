@@ -35,6 +35,7 @@ class SectionRequest: APIRequest {
             "include_adult": "false",
             "include_video": "false",
             "language": "en-US",
+            "page": "\(page)",
             "sort_by": "popularity.desc",
         ]
         self.path = path

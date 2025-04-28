@@ -11,19 +11,24 @@ import RxCocoa
 
 
 // improve solid
-// remove strong reference
-class HomeViewModel { // use delegation, remove depandacny cycle
+class HomeViewModel: ViewModel {
+    weak var coordinator: HomeCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
-    private let disposeBag = DisposeBag()
-    var items: BehaviorRelay<[HomeCards]> = .init(value: []) // use driver
+    private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
+    var items: Driver<[HomeCards]> {
+        return itemsRelay.asDriver()
+    }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
+    init(coordinator: HomeCoordinator, networkService: TMDBNetworkServiceProtocol) {
+        self.coordinator = coordinator
         self.networkService = networkService
     }
     
     func fetchItems() {
-        items.accept([])
+        itemsRelay.accept([])
+        
+        startLoading()
         
         let categories: [MovieSection] = [.popular, .trending, .topRated, .upcoming]
         let categoryObservables = categories.map { fetchCategory($0) }
@@ -32,8 +37,14 @@ class HomeViewModel { // use delegation, remove depandacny cycle
             .scan(into: [HomeCards]()) { (currentItems, newCard) in
                 currentItems.append(newCard)
             }
+            .do(onError: { [weak self] error in
+                self?.stopLoading()
+                self?.handleError(error)
+            }, onCompleted: { [weak self] in
+                self?.stopLoading()
+            })
             .asDriver(onErrorJustReturn: [])
-            .drive(items)
+            .drive(itemsRelay)
             .disposed(by: disposeBag)
     }
     
@@ -47,5 +58,11 @@ class HomeViewModel { // use delegation, remove depandacny cycle
                                  movies: result.results)
             }
     }
-    
+}
+
+// delegation
+extension HomeViewModel: HomeViewControllerDelegate {
+    func showList(_ card: HomeCards) {
+        coordinator?.list(card)
+    }
 }

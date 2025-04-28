@@ -10,13 +10,12 @@ import RxSwift
 import RxCocoa
 
 //
-class MovieDetailViewModel {
+class MovieDetailViewModel: ViewModel {
     let networkService: MovieDetailNetworkServiceProtocol
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)
     var bookmarkState: BehaviorRelay<Bool> = .init(value: false)
-    private let disposeBag = DisposeBag()
     
     private var currentPage = 1
     private var totalPages = 1
@@ -31,8 +30,8 @@ class MovieDetailViewModel {
             .subscribe(onNext: { [weak self] movie in
                 guard let self = self else { return }
                 self.item.accept(movie)
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }
@@ -42,8 +41,8 @@ class MovieDetailViewModel {
             .subscribe(onNext: { [weak self] urlString in
                 guard let self = self else { return }
                 videoURL.accept(urlString)
-            }, onError: { error in
-                print(error)
+            }, onError: { [weak self] error in
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }

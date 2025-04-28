@@ -9,55 +9,55 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-// error handling
-class HomeViewController: UIViewController, Storyboarded {
-    weak var coordinator: HomeCoordinator?
+protocol HomeViewControllerDelegate {
+    func showList(_ card: HomeCards)
+}
 
-    let viewModel: HomeViewModel = HomeViewModel(networkService: TMDBService()) // initialize in coordinator
-    private let disposeBag = DisposeBag()
+class HomeViewController: CollectionViewController {
     
-    @IBOutlet weak var mainCollectionView: HomeCollectionView!
+//    viewModel is the delegate
+//    weak var delegate: HomeViewControllerDelegate?
+    
+    private lazy var mainCollectionView: HomeCollectionView = {
+        let collectionView = HomeCollectionView(layoutProvider: HomeLayoutProvider())
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return collectionView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.fetchItems()
+        setupUI()
         setupCollectionView()
     }
-
+    
+    private func setupUI() {
+        view.addSubview(mainCollectionView)
+        mainCollectionView.pin(to: view)
+    }
+    
     func setupCollectionView() {
-        viewModel.items
-            .bind(to: mainCollectionView
-                .rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self)) { row, item, cell in
-                    Task {
-                        await cell.configureWithItem(item)
-                    }
-                }
-                .disposed(by: disposeBag)
+        guard let viewModel = viewModel as? HomeViewModel else { return }
         
-        mainCollectionView
-            .rx
-            .modelSelected(HomeCards.self)
-            .subscribe(onNext: { selected in
-                self.coordinator?.list(selected)
-            })
-            .disposed(by: disposeBag)
+        setupRefreshControl(for: mainCollectionView) {
+            viewModel.fetchItems()
+        }
         
+        disposeBag.insert(
+            viewModel.items
+                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
+            { row, item, cell in
+                Task { await cell.configureWithItem(item) }
+            },
+            
+            mainCollectionView
+                .rx
+                .modelSelected(HomeCards.self)
+                .subscribe(onNext: { selected in
+                    viewModel.showList(selected)
+                })
+        )
         
-//        disposeBag.insert(
-//            viewModel.items
-//                .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
-//            { row, item, cell in
-//                Task { await cell.configureWithItem(item) }
-//            },
-//
-//            mainCollectionView
-//                .rx
-//                .modelSelected(HomeCards.self)
-//                .subscribe(onNext: { selected in
-//                    self.coordinator?.list(selected)
-//                })
-//        )
+        viewModel.fetchItems()
     }
     
 }
