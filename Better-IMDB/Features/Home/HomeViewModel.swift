@@ -20,7 +20,8 @@ class HomeViewModel: ViewModel {
         return itemsRelay.asDriver()
     }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
+    init(coordinator: HomeCoordinator, networkService: TMDBNetworkServiceProtocol) {
+        self.coordinator = coordinator
         self.networkService = networkService
     }
     
@@ -57,9 +58,11 @@ class HomeViewModel: ViewModel {
                                  movies: result.results)
             }
     }
-    
+}
+
+// delegation
+extension HomeViewModel: HomeViewControllerDelegate {
     func showList(_ card: HomeCards) {
         coordinator?.list(card)
     }
-    
 }

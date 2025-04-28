@@ -14,7 +14,7 @@ class MovieDetailViewController: ViewController {
     
     // MARK: - Properties
     var selectedMovieId: Int!
-    var dominantColor: BehaviorRelay<UIColor> = .init(value: .secondarySystemBackground)
+    private var dominantColor: BehaviorRelay<UIColor> = .init(value: .secondarySystemBackground)
     private var movieViewModel: MovieDetailViewModel?
 
     

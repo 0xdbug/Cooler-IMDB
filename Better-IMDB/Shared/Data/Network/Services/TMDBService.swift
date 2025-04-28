@@ -41,7 +41,6 @@ class TMDBService: APIClient, TMDBNetworkServiceProtocol {
     }
     
     func fetchMovies(ids: [Int]) -> Observable<[MovieDetail]> {
-        print(ids)
         let requests = ids.map { id -> Observable<MovieDetail> in
             let request = MovieDetailRequest(id: "\(id)").request(with: baseURL)
             

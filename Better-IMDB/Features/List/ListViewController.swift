@@ -9,6 +9,10 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol ListViewControllerDelegate {
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
+}
+
 class ListViewController: CollectionViewController {
     
     var collectionView: ListCollectionView = {
@@ -36,43 +40,35 @@ class ListViewController: CollectionViewController {
         setupRefreshControl(for: collectionView, refreshAction: {
             viewModel.fetchItems(for: self.selectedCard.cardType)
         })
-    
-        viewModel.items
-            .bind(to: collectionView
-                .rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
-                    Task {
-                        await cell.configureWithMovie(item)
-                    }
+        
+        disposeBag.insert(
+            viewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
+                Task {
+                    await cell.configureWithMovie(item)
                 }
-                .disposed(by: disposeBag)
-        
-        
-        collectionView
-            .rx
-            .itemSelected
-            .subscribe(onNext: { [weak self] indexPath in
-                guard let self = self else { return }
-                
-                guard indexPath.item < viewModel.items.value.count else {
-                    return
-                }
-                let movie = viewModel.items.value[indexPath.item]
-
-                viewModel.showDetail(movie, from: self, at: indexPath)
-            })
-            .disposed(by: disposeBag)
-
-        
-        collectionView.rx.didScroll.subscribe { [weak self] _ in
-            guard let self = self else { return }
-            let offSetY = self.collectionView.contentOffset.y
-            let contentHeight = self.collectionView.contentSize.height
+            },
             
-            if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                viewModel.loadMoreItems()
+            collectionView.rx.itemSelected
+                .asDriver()
+                .withLatestFrom(viewModel.items) { indexPath, items in (indexPath, items) }
+                .drive(onNext: { [weak self] indexPath, items in
+                    guard let self = self else { return }
+                    guard indexPath.item < items.count else { return }
+                    
+                    let movie = items[indexPath.item]
+                    viewModel.showDetail(movie, from: self, at: indexPath)
+                }),
+            
+            collectionView.rx.didScroll.subscribe { [weak self] _ in
+                guard let self = self else { return }
+                let offSetY = self.collectionView.contentOffset.y
+                let contentHeight = self.collectionView.contentSize.height
+                
+                if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
+                    viewModel.loadMoreItems()
+                }
             }
-        }
-        .disposed(by: disposeBag)
+        )
         
         viewModel.fetchItems(for: selectedCard.cardType)
     }

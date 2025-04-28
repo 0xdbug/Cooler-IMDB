@@ -9,7 +9,7 @@ import UIKit
 
 // separate coordinator (specific)
 class HomeCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
+    weak var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -18,14 +18,13 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel(networkService: TMDBService())
-        viewModel.coordinator = self
+        let viewModel = HomeViewModel(coordinator: self, networkService: TMDBService())
         let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let viewModel = HomeViewModel(networkService: TMDBService())
+        let viewModel = ListViewModel(coordinator: self, networkService: TMDBService())
         let vc = ListViewController(viewModel: viewModel)
         vc.selectedCard = card
         

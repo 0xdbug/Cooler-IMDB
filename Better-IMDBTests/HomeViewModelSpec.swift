@@ -75,9 +75,7 @@ class HomeViewModelSpec: QuickSpec {
                         expect(emits?.count).toEventually(equal(4))
                     }
                 }
-            }
-            
+            }   
         }
-        
     }
 }

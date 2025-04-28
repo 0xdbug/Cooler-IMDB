@@ -9,7 +9,14 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol HomeViewControllerDelegate {
+    func showList(_ card: HomeCards)
+}
+
 class HomeViewController: CollectionViewController {
+    
+//    viewModel is the delegate
+//    weak var delegate: HomeViewControllerDelegate?
     
     private lazy var mainCollectionView: HomeCollectionView = {
         let collectionView = HomeCollectionView(layoutProvider: HomeLayoutProvider())

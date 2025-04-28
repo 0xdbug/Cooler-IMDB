@@ -13,9 +13,13 @@ class BookmarkViewModel: ViewModel {
     weak var coordinator: BookmarkCoordinator?
     let networkService: TMDBNetworkServiceProtocol
     
-    var items: BehaviorRelay<[MovieDetail]> = .init(value: [])
+    private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])
+    var items: Driver<[MovieDetail]> {
+        return itemsRelay.asDriver()
+    }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
+    init(coordinator: BookmarkCoordinator, networkService: TMDBNetworkServiceProtocol) {
+        self.coordinator = coordinator
         self.networkService = networkService
     }
     
@@ -25,49 +29,18 @@ class BookmarkViewModel: ViewModel {
         networkService.fetchMovies(ids: id)
             .subscribe(onNext: { [weak self] movies in
                 guard let self = self else { return }
-                self.items.accept(movies)
-                
+                self.itemsRelay.accept(movies)
+                self.stopLoading()
             }, onError: { [weak self] error in
-                self?.handleError(error)
-                
-            }, onCompleted: { [weak self] in
                 self?.stopLoading()
+                self?.handleError(error)
             })
             .disposed(by: disposeBag)
     }
-    
+}
+
+extension BookmarkViewModel: BookmarkViewControllerDelegate {
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
         coordinator?.showDetail(movie, from: listViewController, at: indexPath)
     }
-
 }
-
-//class BookmarkViewModel: ViewModel {
-//    let networkService: TMDBNetworkServiceProtocol
-//    
-//    private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])
-//    var items: Driver<[MovieDetail]> {
-//        return itemsRelay.asDriver()
-//    }
-//    
-//    init(networkService: TMDBNetworkServiceProtocol) {
-//        self.networkService = networkService
-//        super.init()
-//    }
-//    
-//    func fetchMovies(withIds id: [Int]) {
-//        startLoading()
-//        
-//        networkService.fetchMovies(ids: id)
-//            .subscribe(onNext: { [weak self] movies in
-//                guard let self = self else { return }
-//                self.itemsRelay.accept(movies)
-//                self.stopLoading()
-//            }, onError: { [weak self] error in
-//                self?.stopLoading()
-//                self?.handleError(error)
-//            })
-//            .disposed(by: disposeBag)
-//    }
-//}
-
