@@ -18,13 +18,15 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel(coordinator: self, networkService: TMDBService())
+        let viewModel = HomeViewModel(networkService: TMDBService())
+        viewModel.coordinator = self
         let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let viewModel = ListViewModel(coordinator: self, networkService: TMDBService())
+        let viewModel = ListViewModel(networkService: TMDBService())
+        viewModel.coordinator = self
         let vc = ListViewController(viewModel: viewModel)
         vc.selectedCard = card
         

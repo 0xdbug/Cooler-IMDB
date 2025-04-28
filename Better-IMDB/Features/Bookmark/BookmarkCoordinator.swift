@@ -17,7 +17,8 @@ class BookmarkCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = BookmarkViewModel(coordinator: self, networkService: TMDBService())
+        let viewModel = BookmarkViewModel(networkService: TMDBService())
+        viewModel.coordinator = self
         let vc = BookmarkViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }

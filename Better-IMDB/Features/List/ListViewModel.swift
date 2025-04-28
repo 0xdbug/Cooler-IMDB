@@ -25,8 +25,7 @@ class ListViewModel: ViewModel {
         return currentPage < totalPages
     }
     
-    init(coordinator: HomeCoordinator, networkService: TMDBNetworkServiceProtocol) {
-        self.coordinator = coordinator
+    init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     

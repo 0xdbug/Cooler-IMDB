@@ -18,8 +18,7 @@ class BookmarkViewModel: ViewModel {
         return itemsRelay.asDriver()
     }
     
-    init(coordinator: BookmarkCoordinator, networkService: TMDBNetworkServiceProtocol) {
-        self.coordinator = coordinator
+    init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     

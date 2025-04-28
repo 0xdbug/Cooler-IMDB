@@ -20,8 +20,7 @@ class HomeViewModel: ViewModel {
         return itemsRelay.asDriver()
     }
     
-    init(coordinator: HomeCoordinator, networkService: TMDBNetworkServiceProtocol) {
-        self.coordinator = coordinator
+    init(networkService: TMDBNetworkServiceProtocol) {
         self.networkService = networkService
     }
     

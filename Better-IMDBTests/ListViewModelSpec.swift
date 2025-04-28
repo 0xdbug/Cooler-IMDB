@@ -28,10 +28,12 @@ class ListViewModelSpec: QuickSpec {
         describe("ListViewModel") {
             var viewModel: ListViewModel!
             var mockNetworkService: TMDBNetworkServiceProtocolMock!
+            var disposeBag: DisposeBag!
             
             beforeEach {
                 mockNetworkService = TMDBNetworkServiceProtocolMock()
                 viewModel = ListViewModel(networkService: mockNetworkService)
+                disposeBag = DisposeBag()
             }
 
             
@@ -74,7 +76,16 @@ class ListViewModelSpec: QuickSpec {
                     }
                     
                     it("should update items with the fetched movies") {
-                        expect(viewModel.items.value).toEventually(equal(page1Movies))
+
+                        var items: [Movie]?
+                        
+                        viewModel.items
+                            .drive(onNext: { movies in
+                                items = movies
+                            })
+                            .disposed(by: disposeBag)
+                                                
+                        expect(items).toEventually(equal(page1Movies))
                     }
                 }
             }
