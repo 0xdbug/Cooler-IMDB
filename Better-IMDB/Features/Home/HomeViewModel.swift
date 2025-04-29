@@ -10,7 +10,6 @@ import RxSwift
 import RxCocoa
 
 
-// improve solid
 class HomeViewModel: ViewModel {
     weak var coordinator: HomeCoordinator?
     let networkService: TMDBNetworkServiceProtocol

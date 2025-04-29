@@ -13,19 +13,27 @@ class TabBarCoordinator: Coordinator {
     var navigationController: UINavigationController
     
     private let tabBarController = BITabBarController()
+    private let container: DependencyContainer
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, container: DependencyContainer) {
         self.navigationController = navigationController
+        self.container = container
     }
     
     func start() {
         let homeNavController = UINavigationController()
         let bookmarkNavController = UINavigationController()
         
-        let home = HomeCoordinator(navigationController: homeNavController)
+        let home = HomeCoordinator(
+            navigationController: homeNavController,
+            container: container
+        )
         home.parentCoordinator = self
         
-        let bookmark = BookmarkCoordinator(navigationController: bookmarkNavController)
+        let bookmark = BookmarkCoordinator(
+            navigationController: bookmarkNavController,
+            container: container
+        )
         bookmark.parentCoordinator = self
         
         children = [home, bookmark]

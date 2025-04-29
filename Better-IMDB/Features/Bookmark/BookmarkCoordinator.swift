@@ -12,19 +12,22 @@ class BookmarkCoordinator: Coordinator {
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    private let container: DependencyContainer
+    
+    init(navigationController: UINavigationController, container: DependencyContainer) {
         self.navigationController = navigationController
+        self.container = container
     }
     
     func start() {
-        let viewModel = BookmarkViewModel(networkService: TMDBService())
+        let viewModel = BookmarkViewModel(networkService: container.tmdbService)
         viewModel.coordinator = self
         let vc = BookmarkViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
-        let viewModel = MovieDetailViewModel(networkService: MovieDetailService())
+        let viewModel = MovieDetailViewModel(networkService: container.movieDetailService)
         let vc = MovieDetailViewController(viewModel: viewModel)
         vc.selectedMovieId = movie.id
         

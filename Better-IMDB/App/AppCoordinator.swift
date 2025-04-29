@@ -12,13 +12,16 @@ class AppCoordinator: Coordinator {
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController : UINavigationController) {
+    private let container: DependencyContainer
+    
+    init(navigationController : UINavigationController, container: DependencyContainer) {
         self.navigationController = navigationController
+        self.container = container
     }
     
     // MARK: - Functions
     func start() {
-        let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
+        let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController, container: container)
         tabBarCoordinator.parentCoordinator = self
         children = [tabBarCoordinator]
         tabBarCoordinator.start()

@@ -7,25 +7,30 @@
 
 import UIKit
 
-// separate coordinator (specific)
 class HomeCoordinator: Coordinator {
     weak var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
     
-    init(navigationController: UINavigationController) {
+    private let container: DependencyContainer
+
+    init(
+        navigationController: UINavigationController,
+        container: DependencyContainer
+    ) {
         self.navigationController = navigationController
+        self.container = container
     }
     
     func start() {
-        let viewModel = HomeViewModel(networkService: TMDBService())
+        let viewModel = HomeViewModel(networkService: container.tmdbService)
         viewModel.coordinator = self
         let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let viewModel = ListViewModel(networkService: TMDBService())
+        let viewModel = ListViewModel(networkService: container.tmdbService)
         viewModel.coordinator = self
         let vc = ListViewController(viewModel: viewModel)
         vc.selectedCard = card
@@ -34,7 +39,7 @@ class HomeCoordinator: Coordinator {
     }
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let viewModel = MovieDetailViewModel(networkService: MovieDetailService())
+        let viewModel = MovieDetailViewModel(networkService: container.movieDetailService)
         let vc = MovieDetailViewController(viewModel: viewModel)
         vc.selectedMovieId = movie.id
         
