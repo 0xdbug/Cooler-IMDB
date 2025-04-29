@@ -32,26 +32,45 @@ class TMDBService: APIClient, TMDBNetworkServiceProtocol {
     
     func fetchMoviesForSection(_ section: MovieSection, page: Int = 1) -> Observable<TMDBMovies> {
         let request = SectionRequest(path: TMDBAPI.moviesForSection(section), page: page).request(with: baseURL)
-        
-        return urlSession.rx.data(request: request)
-            .map { data in
-                try JSONDecoder().decode(TMDBMovies.self, from: data)
-            }
-            .observe(on: scheduler)
+        return self.request(request)
     }
     
     func fetchMovies(ids: [Int]) -> Observable<[MovieDetail]> {
-        let requests = ids.map { id -> Observable<MovieDetail> in
+        let observables = ids.map { id -> Observable<MovieDetail> in
             let request = MovieDetailRequest(id: "\(id)").request(with: baseURL)
-            
-            return urlSession.rx.data(request: request)
-                .map { data in
-                    try JSONDecoder().decode(MovieDetail.self, from: data)
-                }
+            return self.request(request)
         }
         
-        return Observable.merge(requests)
+        return Observable.merge(observables)
             .toArray()
             .asObservable()
+    }
+    
+    private func request<T: Decodable>(_ urlRequest: URLRequest) -> Observable<T> {
+        return urlSession.rx.response(request: urlRequest)
+            .map { (response, data) in
+                
+                if response.statusCode != 200 {
+                    if let errorResponse = try? JSONDecoder().decode(TMDBErrorResponse.self, from: data) {
+                        if let statusMessage = errorResponse.statusMessage {
+                            throw TMDBError.apiError(
+                                statusCode: errorResponse.statusCode ?? response.statusCode,
+                                message: statusMessage
+                            )
+                        }
+                    }
+                }
+                
+                do {
+                    return try JSONDecoder().decode(T.self, from: data)
+                } catch let decodingError {
+                    print(decodingError)
+//                    throw TMDBError.decodingError(decodingError)
+                    // its nicer to show unkown error to use than decoding error
+                    // could add a flag for debug and production
+                    throw TMDBError.unknown
+                }
+            }
+            .observe(on: scheduler)
     }
 }

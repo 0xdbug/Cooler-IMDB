@@ -24,7 +24,7 @@ struct TMDBMovies: Codable {
 
 struct Movie: Codable {
     let adult: Bool
-    let backdrop_path: String
+    let backdrop_path: String?
     let genre_ids: [Int]
     let id: Int
     let original_language: String
@@ -42,7 +42,8 @@ struct Movie: Codable {
         URL(string: TMDBAPI.imagesURLString + poster_path) ?? URL(string: "")!
     }
     var backdropImageURL: URL {
-        URL(string: TMDBAPI.backdropURLString + backdrop_path) ?? URL(string: "")!
+        guard let backdrop_path = backdrop_path else { return URL(string: "")! }
+        return URL(string: TMDBAPI.backdropURLString + backdrop_path) ?? URL(string: "")!
     }
 }
 
