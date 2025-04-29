@@ -18,11 +18,11 @@ class ListViewModelSpec: QuickSpec {
     
     override class func spec() {
         func sampleMovies(ids: [Int]) -> [Movie] {
-            return ids.map { Movie(adult: false, backdrop_path: "", genre_ids: [11], id: $0, original_language: "", original_title: "", overview: "", popularity: 11.0, poster_path: "", release_date: "", title: "", video: false, vote_average: 10.0, vote_count: 10) }
+            return ids.map { Movie(adult: false, backdropPath: "", genreIds: [11], id: $0, originalLanguage: "", originalTitle: "", overview: "", popularity: 11.0, posterPath: "", releaseDate: "", title: "", video: false, voteAverage: 10.0, voteCount: 10) }
         }
         
         func sampleTMDBResponse(page: Int, totalPages: Int, movies: [Movie]) -> TMDBMovies {
-            return TMDBMovies(page: page, results: movies, total_pages: totalPages, total_results: movies.count * totalPages)
+            return TMDBMovies(page: page, results: movies, totalPages: totalPages, totalResults: movies.count * totalPages)
         }
         
         describe("ListViewModel") {
