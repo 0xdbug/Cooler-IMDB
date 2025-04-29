@@ -38,7 +38,7 @@ class ListViewModel: ViewModel {
         networkService.fetchMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
-                self.totalPages = tmdbMovies.total_pages
+                self.totalPages = tmdbMovies.totalPages
                 self.itemsRelay.accept(tmdbMovies.results)
             }, onError: { [weak self] error in
                 self?.handleError(error)

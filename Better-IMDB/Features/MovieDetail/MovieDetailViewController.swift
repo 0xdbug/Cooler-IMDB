@@ -178,9 +178,9 @@ class MovieDetailViewController: ViewController {
         movieViewModel?.item.subscribe(onNext: { [weak self] movie in
             guard let self = self, let movie = movie else { return }
             
-            let year = movie.release_date.prefix(4)
+            let year = movie.releaseDate.prefix(4)
             self.addValueLabelPair(value: String(year), type: "Year")
-            self.addValueLabelPair(value: movie.production_countries.first!.name, type: "Country")
+            self.addValueLabelPair(value: movie.productionCountries.first!.name, type: "Country")
             
             let hours = movie.runtime / 60
             let minutes = movie.runtime % 60

@@ -9,32 +9,57 @@ import UIKit
 
 struct MovieDetail: Codable {
     let adult: Bool
-    let backdrop_path: String
+    let backdropPath: String?
     let budget: Double
     let homepage: String
     let id: Int
-    let imdb_id: String
-    let original_language: String
-    let original_title: String
+    let imdbId: String
+    let originalLanguage: String
+    let originalTitle: String
     let overview: String
     let popularity: Double
-    let poster_path: String
-    let production_countries: [MovieProduction]
-    let release_date: String
+    let posterPath: String
+    let productionCountries: [MovieProduction]
+    let releaseDate: String
     let revenue: Int
     let runtime: Int
     let status: String
     let tagline: String
     let title: String
     let video: Bool
-    let vote_average: Double
-    let vote_count: Int
+    let voteAverage: Double
+    let voteCount: Int
+    
+    enum CodingKeys: String, CodingKey {
+        case adult
+        case backdropPath = "backdrop_path"
+        case budget
+        case homepage
+        case id
+        case imdbId = "imdb_id"
+        case originalLanguage = "original_language"
+        case originalTitle = "original_title"
+        case overview
+        case popularity
+        case posterPath = "poster_path"
+        case productionCountries = "production_countries"
+        case releaseDate = "release_date"
+        case revenue
+        case runtime
+        case status
+        case tagline
+        case title
+        case video
+        case voteAverage = "vote_average"
+        case voteCount = "vote_count"
+    }
     
     var posterImageURL: URL {
-        URL(string: TMDBAPI.imagesURLString + poster_path) ?? URL(string: "")!
+        URL(string: TMDBAPI.imagesURLString + posterPath) ?? URL(string: "")!
     }
     var backdropImageURL: URL {
-        URL(string: TMDBAPI.backdropURLString + backdrop_path) ?? URL(string: "")!
+        guard let backdropPath = backdropPath else { return URL(string: "")! }
+        return URL(string: TMDBAPI.backdropURLString + backdropPath) ?? URL(string: "")!
     }
 }
 
@@ -44,18 +69,30 @@ struct MovieVideoResponse: Codable {
 }
 
 struct VideoResult: Codable {
-    let iso_639_1: String
-    let iso_3166_1: String
+    let iso639_1: String
+    let iso3166_1: String
     let name: String
     let key: String
     let site: String
     let size: Int
     let type: String
     let official: Bool
-    let published_at: String
+    let publishedAt: String
     let id: String
+    
+    enum CodingKeys: String, CodingKey {
+        case iso639_1 = "iso_639_1"
+        case iso3166_1 = "iso_3166_1"
+        case name
+        case key
+        case site
+        case size
+        case type
+        case official
+        case publishedAt = "published_at"
+        case id
+    }
 }
-
 
 struct MovieGenre: Codable {
     let id: Int
@@ -63,8 +100,13 @@ struct MovieGenre: Codable {
 }
 
 struct MovieProduction: Codable {
-    let iso_3166_1: String
+    let iso3166_1: String
     let name: String
+    
+    enum CodingKeys: String, CodingKey {
+        case iso3166_1 = "iso_3166_1"
+        case name
+    }
 }
 
 extension MovieDetail: Equatable {
