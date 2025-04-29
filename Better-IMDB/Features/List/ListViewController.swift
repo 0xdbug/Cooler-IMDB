@@ -37,8 +37,8 @@ class ListViewController: CollectionViewController {
     func setupCollectionView() {
         guard let viewModel = viewModel as? ListViewModel else { return }
         
-        setupRefreshControl(for: collectionView, refreshAction: {
-            viewModel.fetchItems(for: self.selectedCard.cardType)
+        setupRefreshControl(for: collectionView, refreshAction: { [weak viewModel] in
+            viewModel?.fetchItems(for: self.selectedCard.cardType)
         })
         
         disposeBag.insert(
@@ -51,21 +51,21 @@ class ListViewController: CollectionViewController {
             collectionView.rx.itemSelected
                 .asDriver()
                 .withLatestFrom(viewModel.items) { indexPath, items in (indexPath, items) }
-                .drive(onNext: { [weak self] indexPath, items in
+                .drive(onNext: { [weak self, weak viewModel] indexPath, items in
                     guard let self = self else { return }
                     guard indexPath.item < items.count else { return }
                     
                     let movie = items[indexPath.item]
-                    viewModel.showDetail(movie, from: self, at: indexPath)
+                    viewModel?.showDetail(movie, from: self, at: indexPath)
                 }),
             
-            collectionView.rx.didScroll.subscribe { [weak self] _ in
+            collectionView.rx.didScroll.subscribe { [weak self, weak viewModel] _ in
                 guard let self = self else { return }
                 let offSetY = self.collectionView.contentOffset.y
                 let contentHeight = self.collectionView.contentSize.height
                 
                 if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                    viewModel.loadMoreItems()
+                    viewModel?.loadMoreItems()
                 }
             }
         )

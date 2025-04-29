@@ -38,8 +38,8 @@ class HomeViewController: CollectionViewController {
     func setupCollectionView() {
         guard let viewModel = viewModel as? HomeViewModel else { return }
         
-        setupRefreshControl(for: mainCollectionView) {
-            viewModel.fetchItems()
+        setupRefreshControl(for: mainCollectionView) { [weak viewModel] in
+            viewModel?.fetchItems()
         }
         
         disposeBag.insert(
@@ -52,13 +52,11 @@ class HomeViewController: CollectionViewController {
             mainCollectionView
                 .rx
                 .modelSelected(HomeCards.self)
-                .subscribe(onNext: { selected in
-                    viewModel.showList(selected)
+                .subscribe(onNext: { [weak viewModel] selected in
+                    viewModel?.showList(selected)
                 })
         )
         
         viewModel.fetchItems()
     }
-    
 }
-

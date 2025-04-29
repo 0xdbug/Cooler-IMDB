@@ -34,8 +34,8 @@ class BookmarkViewController: CollectionViewController {
     func setupCollectionView() {
         guard let viewModel = viewModel as? BookmarkViewModel else { return }
         
-        setupRefreshControl(for: collectionView) {
-            viewModel.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
+        setupRefreshControl(for: collectionView) { [weak viewModel] in
+            viewModel?.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
         }
         
         disposeBag.insert(
@@ -51,9 +51,9 @@ class BookmarkViewController: CollectionViewController {
                 .withLatestFrom(viewModel.items) { indexPath, movies -> (IndexPath, MovieDetail) in
                     return (indexPath, movies[indexPath.item])
                 }
-                .subscribe(onNext: { [weak self] indexPath, movie in
+                .subscribe(onNext: { [weak self, weak viewModel] indexPath, movie in
                     guard let self = self else { return }
-                    viewModel.showDetail(movie, from: self, at: indexPath)
+                    viewModel?.showDetail(movie, from: self, at: indexPath)
                 })
         )
         
