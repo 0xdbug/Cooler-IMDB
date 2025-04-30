@@ -47,6 +47,7 @@
 		70733A8C2DA5CAE9006D0DA8 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */; };
 		70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */; };
 		707F70F82DAC3292003BDE12 /* MoviePresistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 707F70F72DAC327A003BDE12 /* MoviePresistence.swift */; };
+		708A579F2DC26C200000D013 /* DependencyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708A579E2DC26C200000D013 /* DependencyError.swift */; };
 		708CAECA2DA3A13B00062906 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */; };
 		708CAECB2DA3A13B00062906 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBB2DA3A13B00062906 /* Coordinator.swift */; };
 		708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEBE2DA3A13B00062906 /* AppDelegate.swift */; };
@@ -123,6 +124,7 @@
 		70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BITabBarController.swift; sourceTree = "<group>"; };
 		707F70F72DAC327A003BDE12 /* MoviePresistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviePresistence.swift; sourceTree = "<group>"; };
+		708A579E2DC26C200000D013 /* DependencyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyError.swift; sourceTree = "<group>"; };
 		708CAE792DA3A08A00062906 /* Better-IMDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Better-IMDB.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708CAE8F2DA3A08D00062906 /* Better-IMDBTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Better-IMDBTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		708CAEBA2DA3A13B00062906 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 		70ACD1A12DA9DE79003BB2C0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				708A579E2DC26C200000D013 /* DependencyError.swift */,
 				70CF2D602DB8CF4D00FFF6D0 /* Rest */,
 				70D92C392DB6281800F1683E /* MovieSection.swift */,
 				7012982A2DAA914C00576ED3 /* MovieDetail.swift */,
@@ -752,6 +755,7 @@
 				70929C282DA7F464008DB6AC /* BookmarkViewController.swift in Sources */,
 				701298272DAA658F00576ED3 /* MovieDetailViewModel.swift in Sources */,
 				704A69932DA3E0E0001E249C /* TMDBRequest.swift in Sources */,
+				708A579F2DC26C200000D013 /* DependencyError.swift in Sources */,
 				704A698E2DA3DC83001E249C /* APIClient.swift in Sources */,
 				70D92C3A2DB6281800F1683E /* MovieSection.swift in Sources */,
 				70CF2D662DB8EDEA00FFF6D0 /* ViewController.swift in Sources */,

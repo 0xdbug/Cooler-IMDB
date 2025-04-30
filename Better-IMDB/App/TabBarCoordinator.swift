@@ -13,16 +13,18 @@ class TabBarCoordinator: Coordinator {
     var navigationController: UINavigationController
     
     private let tabBarController = BITabBarController()
-    private let container: DependencyContainer
     
-    init(navigationController: UINavigationController, container: DependencyContainer) {
+    init(navigationController: UINavigationController) {
         self.navigationController = navigationController
-        self.container = container
     }
     
     func start() {
         let homeNavController = UINavigationController()
         let bookmarkNavController = UINavigationController()
+        
+        let container = DependencyContainer.shared
+        container.register(TMDBNetworkServiceProtocol.self) { TMDBService() }
+        container.register(MovieDetailNetworkServiceProtocol.self) { MovieDetailService() }
         
         let home = HomeCoordinator(
             navigationController: homeNavController,

@@ -17,8 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController()
         
         let tabCoordinator = AppCoordinator(
-            navigationController: navigationController,
-            container: DependencyContainer.shared
+            navigationController: navigationController
         )
         tabCoordinator.start()
         
