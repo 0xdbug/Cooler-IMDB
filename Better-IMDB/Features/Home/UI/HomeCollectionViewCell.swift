@@ -7,9 +7,13 @@
 
 import UIKit
 import Nuke
+import RxSwift
 
 class HomeCollectionViewCell: UICollectionViewCell {
     static let id = "homeMainCell"
+    
+    private var viewModel: HomeCollectionViewCellModelProtocol!
+    private var disposeBag = DisposeBag()
     
     // i like setupViews clean
     private lazy var titleLabel: UILabel = {
@@ -47,7 +51,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
         view.tintColor = UIColor(.accentColor)
         return view
     }()
-
+    
     private lazy var cellPosterImage: UIImageView = {
         let imageview = UIImageView()
         imageview.clipsToBounds = true
@@ -85,7 +89,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
     }
-
+    
     
     private func setupConstraints() {
         contentContainer.pin(to: contentView)
@@ -111,10 +115,20 @@ class HomeCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureWithItem(_ item: HomeCards) async {
-        self.item = item
+    func configure(with viewModel: HomeCollectionViewCellModel) async {
+        self.viewModel = viewModel
+        self.item = viewModel.item
+        setupBindings()
         setupCard()
-        await setupPosters()
+        viewModel.loadPosters()
+    }
+    
+    func setupBindings() {
+        disposeBag.insert(
+            viewModel.posters.drive() { [weak self] images in
+                self?.posterStackView.updatePosters(images)
+            }
+        )
     }
     
     func setupCard() {
@@ -131,24 +145,9 @@ class HomeCollectionViewCell: UICollectionViewCell {
         titleLabel.font = .systemFont(ofSize: 25, weight: .heavy)
     }
     
-    func setupPosters() async {
-        guard item.movies.count >= 2 else { return }
-        let firstPoster = item.movies.first!.posterImageURL
-        let secondPoster = item.movies[1].posterImageURL
-        
-        do {
-            try await cellPosterImage.loadImage(firstPoster)
-            let secondPosterImage = try await ImagePipeline.shared.image(for: secondPoster)
-            
-            posterStackView.updatePosters([cellPosterImage.image!, secondPosterImage])
-        } catch {
-            print("Failed to load image")
-        }
-    }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        item = .none
+        posterStackView.updatePosters([])
         backgroundColor = .secondarySystemBackground
         titleLabel.text = ""
     }

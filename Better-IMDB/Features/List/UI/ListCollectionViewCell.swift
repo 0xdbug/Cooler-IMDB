@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import RxSwift
 
 class ListCollectionViewCell: UICollectionViewCell {
     static let id = "listMovieCell"
+    
+    private var viewModel: ListCollectionViewCellModelProtocol!
+    private var disposeBag = DisposeBag()
     
     lazy var posterImage: UIImageView = {
         let imageView = UIImageView()
@@ -36,6 +40,15 @@ class ListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func setupBindings() {
+        self.movieTitle.text = viewModel.movie.title
+        disposeBag.insert(
+            viewModel.posterImage.drive() { [weak self] image in
+                self?.posterImage.image = image
+            }
+        )
+    }
+    
     private func setupViews() {
         contentView.addSubview(posterImage)
         contentView.addSubview(movieTitle)
@@ -55,13 +68,10 @@ class ListCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureWithMovie(_ movie: Movie) async {
-        movieTitle.text = movie.title
-        do {
-            try await self.posterImage.loadImage(movie.posterImageURL)
-        } catch {
-            print("Failed to load image")
-        }
+    func configure(with viewModel: ListCollectionViewCellModelProtocol) async {
+        self.viewModel = viewModel
+        setupBindings()
+        viewModel.loadPosterImage()
     }
     
     override func prepareForReuse() {

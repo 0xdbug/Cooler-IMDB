@@ -44,7 +44,7 @@ class ListViewController: CollectionViewController {
         disposeBag.insert(
             viewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
                 Task {
-                    await cell.configureWithMovie(item)
+                    await cell.configure(with: ListCollectionViewCellModel(movie: item))
                 }
             },
             

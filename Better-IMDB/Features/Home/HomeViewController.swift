@@ -46,7 +46,7 @@ class HomeViewController: CollectionViewController {
             viewModel.items
                 .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
             { row, item, cell in
-                Task { await cell.configureWithItem(item) }
+                Task { await cell.configure(with: HomeCollectionViewCellModel(item: item)) }
             },
             
             mainCollectionView

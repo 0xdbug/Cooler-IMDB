@@ -29,6 +29,9 @@
 		701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87362DA7B313000DBF15 /* ListViewController.swift */; };
 		701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87382DA7B705000DBF15 /* HomeCoordinator.swift */; };
 		7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568D2DC59E8600789F43 /* TMDBRepository.swift */; };
+		703556902DC5ADB400789F43 /* HomeCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */; };
+		703556922DC5B85700789F43 /* BookmarkListCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */; };
+		703556942DC5BDCE00789F43 /* ListCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703556932DC5BDC100789F43 /* ListCollectionViewCellModel.swift */; };
 		704712712DC15CB80018D554 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704712702DC15CB50018D554 /* DependencyContainer.swift */; };
 		704A69852DA3C3F3001E249C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69842DA3C3F3001E249C /* RxCocoa */; };
 		704A69872DA3C3F3001E249C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69862DA3C3F3001E249C /* RxSwift */; };
@@ -113,6 +116,9 @@
 		701E87362DA7B313000DBF15 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		701E87382DA7B705000DBF15 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
 		7035568D2DC59E8600789F43 /* TMDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBRepository.swift; sourceTree = "<group>"; };
+		7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListCollectionViewCellModel.swift; sourceTree = "<group>"; };
+		703556932DC5BDC100789F43 /* ListCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		704712702DC15CB50018D554 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		704A698B2DA3DB6D001E249C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		704A698D2DA3DC83001E249C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -226,6 +232,7 @@
 			children = (
 				701306A22DAC4D8000B900C5 /* UI */,
 				70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */,
+				703556932DC5BDC100789F43 /* ListCollectionViewCellModel.swift */,
 				701E87362DA7B313000DBF15 /* ListViewController.swift */,
 			);
 			path = List;
@@ -375,6 +382,7 @@
 			children = (
 				70ACD19A2DA9DD88003BB2C0 /* UI */,
 				708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */,
+				7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */,
 				708CAEC82DA3A13B00062906 /* HomeViewController.swift */,
 				701E87382DA7B705000DBF15 /* HomeCoordinator.swift */,
 			);
@@ -396,6 +404,7 @@
 			children = (
 				701306A52DAC4DA800B900C5 /* UI */,
 				70929C242DA7F464008DB6AC /* BookmarkViewModel.swift */,
+				703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */,
 				70929C252DA7F464008DB6AC /* BookmarkViewController.swift */,
 				70929C292DA7F4AB008DB6AC /* BookmarkCoordinator.swift */,
 			);
@@ -754,6 +763,7 @@
 				701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */,
 				701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */,
 				704712712DC15CB80018D554 /* DependencyContainer.swift in Sources */,
+				703556902DC5ADB400789F43 /* HomeCollectionViewCellModel.swift in Sources */,
 				701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */,
 				70CF2D642DB8CFFD00FFF6D0 /* ViewModel.swift in Sources */,
 				701298252DAA657600576ED3 /* MovieDetailViewController.swift in Sources */,
@@ -767,6 +777,7 @@
 				701298272DAA658F00576ED3 /* MovieDetailViewModel.swift in Sources */,
 				704A69932DA3E0E0001E249C /* TMDBRequest.swift in Sources */,
 				708A579F2DC26C200000D013 /* DependencyError.swift in Sources */,
+				703556922DC5B85700789F43 /* BookmarkListCollectionViewCellModel.swift in Sources */,
 				704A698E2DA3DC83001E249C /* APIClient.swift in Sources */,
 				7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */,
 				70D92C3A2DB6281800F1683E /* MovieSection.swift in Sources */,
@@ -775,6 +786,7 @@
 				701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */,
 				709A1E662DBAFD3C00AA281C /* BookmarkLayoutProvider.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
+				703556942DC5BDCE00789F43 /* ListCollectionViewCellModel.swift in Sources */,
 				7012982D2DAA9BAB00576ED3 /* MovieDetailService.swift in Sources */,
 				70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */,
 				70929C272DA7F464008DB6AC /* BookmarkViewModel.swift in Sources */,

@@ -40,9 +40,7 @@ class BookmarkViewController: CollectionViewController {
         
         disposeBag.insert(
             viewModel.items.drive(collectionView.rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
-                Task {
-                    await cell.configureWithMovie(item)
-                }
+                    cell.configure(with: BookmarkListCollectionViewCellModel(movieDetail: item))
             },
             
             collectionView
