@@ -22,19 +22,21 @@ class TabBarCoordinator: Coordinator {
         let homeNavController = UINavigationController()
         let bookmarkNavController = UINavigationController()
         
-        let container = DependencyContainer.shared
-        container.register(TMDBNetworkServiceProtocol.self) { TMDBService() }
-        container.register(MovieDetailNetworkServiceProtocol.self) { MovieDetailService() }
+//        let container = DependencyContainer.shared
+//        container.register(TMDBNetworkServiceProtocol.self) { TMDBService() }
+//        container.register(MovieDetailNetworkServiceProtocol.self) { MovieDetailService() }
+        
+        DependencyContainer.register()
         
         let home = HomeCoordinator(
             navigationController: homeNavController,
-            container: container
+            container: DependencyContainer.shared
         )
         home.parentCoordinator = self
         
         let bookmark = BookmarkCoordinator(
             navigationController: bookmarkNavController,
-            container: container
+            container: DependencyContainer.shared
         )
         bookmark.parentCoordinator = self
         

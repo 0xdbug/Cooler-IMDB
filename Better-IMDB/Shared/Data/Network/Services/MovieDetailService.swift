@@ -28,7 +28,6 @@ class MovieDetailService: APIClient, MovieDetailNetworkServiceProtocol {
             .observe(on: scheduler)
     }
     
-    // running out of time im forcing some stuff
     func fetchVideoURLString(withId id: Int) -> Observable<String> {
         let request = MovieVideoRequest(id: id).request(with: baseURL)
         

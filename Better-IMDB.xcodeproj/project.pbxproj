@@ -28,6 +28,7 @@
 		701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */; };
 		701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87362DA7B313000DBF15 /* ListViewController.swift */; };
 		701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87382DA7B705000DBF15 /* HomeCoordinator.swift */; };
+		7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568D2DC59E8600789F43 /* TMDBRepository.swift */; };
 		704712712DC15CB80018D554 /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704712702DC15CB50018D554 /* DependencyContainer.swift */; };
 		704A69852DA3C3F3001E249C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69842DA3C3F3001E249C /* RxCocoa */; };
 		704A69872DA3C3F3001E249C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 704A69862DA3C3F3001E249C /* RxSwift */; };
@@ -111,6 +112,7 @@
 		701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePosterView.swift; sourceTree = "<group>"; };
 		701E87362DA7B313000DBF15 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		701E87382DA7B705000DBF15 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		7035568D2DC59E8600789F43 /* TMDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBRepository.swift; sourceTree = "<group>"; };
 		704712702DC15CB50018D554 /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
 		704A698B2DA3DB6D001E249C /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		704A698D2DA3DC83001E249C /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
@@ -227,6 +229,14 @@
 				701E87362DA7B313000DBF15 /* ListViewController.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		7035568A2DC59E3100789F43 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				7035568D2DC59E8600789F43 /* TMDBRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		7047126F2DC15CB00018D554 /* Core */ = {
@@ -448,6 +458,7 @@
 		70ACD1A32DA9DE98003BB2C0 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				7035568A2DC59E3100789F43 /* Repository */,
 				70ACD1A42DA9DEF7003BB2C0 /* Services */,
 				704A69912DA3E0CA001E249C /* Request */,
 				704A698D2DA3DC83001E249C /* APIClient.swift */,
@@ -757,6 +768,7 @@
 				704A69932DA3E0E0001E249C /* TMDBRequest.swift in Sources */,
 				708A579F2DC26C200000D013 /* DependencyError.swift in Sources */,
 				704A698E2DA3DC83001E249C /* APIClient.swift in Sources */,
+				7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */,
 				70D92C3A2DB6281800F1683E /* MovieSection.swift in Sources */,
 				70CF2D662DB8EDEA00FFF6D0 /* ViewController.swift in Sources */,
 				708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */,

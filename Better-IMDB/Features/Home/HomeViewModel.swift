@@ -12,15 +12,15 @@ import RxCocoa
 
 class HomeViewModel: ViewModel {
     weak var coordinator: HomeCoordinator?
-    let networkService: TMDBNetworkServiceProtocol
+    let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
     var items: Driver<[HomeCards]> {
         return itemsRelay.asDriver()
     }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
-        self.networkService = networkService
+    init(repository: TMDBRepositoryProtocol) {
+        self.repository = repository
     }
     
     func fetchItems() {
@@ -47,7 +47,7 @@ class HomeViewModel: ViewModel {
     }
     
     private func fetchCategory(_ section: MovieSection) -> Observable<HomeCards> {
-        return networkService.fetchMoviesForSection(section, page: 1)
+        return repository.getMoviesForSection(section, page: 1)
             .map { result -> HomeCards in
                 return HomeCards(cardName: section.rawValue
                     .replacingOccurrences(of: "_", with: " ")

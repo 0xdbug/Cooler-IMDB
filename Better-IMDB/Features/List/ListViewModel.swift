@@ -11,7 +11,7 @@ import RxCocoa
 
 class ListViewModel: ViewModel {
     weak var coordinator: HomeCoordinator?
-    let networkService: TMDBNetworkServiceProtocol
+    let repository: TMDBRepositoryProtocol
     
     private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
     var items: Driver<[Movie]> {
@@ -25,8 +25,8 @@ class ListViewModel: ViewModel {
         return currentPage < totalPages
     }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
-        self.networkService = networkService
+    init(repository: TMDBRepositoryProtocol) {
+        self.repository = repository
     }
     
     func fetchItems(for section: MovieSection) {
@@ -35,7 +35,7 @@ class ListViewModel: ViewModel {
         currentSection = section
         itemsRelay.accept([])
         
-        networkService.fetchMoviesForSection(section, page: currentPage)
+        repository.getMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
                 self.totalPages = tmdbMovies.totalPages
@@ -54,7 +54,7 @@ class ListViewModel: ViewModel {
         guard canLoadMore, let section = currentSection else { return }
         currentPage += 1
         
-        networkService.fetchMoviesForSection(section, page: currentPage)
+        repository.getMoviesForSection(section, page: currentPage)
             .subscribe(onNext: { [weak self] tmdbMovies in
                 guard let self = self else { return }
                 let currentItems = self.itemsRelay.value

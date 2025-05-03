@@ -11,21 +11,21 @@ import RxCocoa
 
 class BookmarkViewModel: ViewModel {
     weak var coordinator: BookmarkCoordinator?
-    let networkService: TMDBNetworkServiceProtocol
+    let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])
     var items: Driver<[MovieDetail]> {
         return itemsRelay.asDriver()
     }
     
-    init(networkService: TMDBNetworkServiceProtocol) {
-        self.networkService = networkService
+    init(repository: TMDBRepositoryProtocol) {
+        self.repository = repository
     }
     
     func fetchMovies(withIds id: [Int]) {
         startLoading()
         
-        networkService.fetchMovies(ids: id)
+        repository.getMovies(ids: id)
             .subscribe(onNext: { [weak self] movies in
                 guard let self = self else { return }
                 self.itemsRelay.accept(movies)

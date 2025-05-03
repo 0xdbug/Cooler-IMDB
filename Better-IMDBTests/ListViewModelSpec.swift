@@ -27,12 +27,12 @@ class ListViewModelSpec: QuickSpec {
         
         describe("ListViewModel") {
             var viewModel: ListViewModel!
-            var mockNetworkService: TMDBNetworkServiceProtocolMock!
+            var mockRepository: TMDBRepositoryProtocolMock!
             var disposeBag: DisposeBag!
             
             beforeEach {
-                mockNetworkService = TMDBNetworkServiceProtocolMock()
-                viewModel = ListViewModel(networkService: mockNetworkService)
+                mockRepository = TMDBRepositoryProtocolMock()
+                viewModel = ListViewModel(repository: mockRepository)
                 disposeBag = DisposeBag()
             }
 
@@ -45,14 +45,14 @@ class ListViewModelSpec: QuickSpec {
                 
                 context("when more pages exist") {
                     it("should call network service with new page number") {
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .value(1), willReturn: .just(responsePage1)))
+                        Given(mockRepository, .getMoviesForSection(.value(section), page: .value(1), willReturn: .just(responsePage1)))
                         viewModel.fetchItems(for: section)
                         
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .value(2), willReturn: .just(responsePage2)))
+                        Given(mockRepository, .getMoviesForSection(.value(section), page: .value(2), willReturn: .just(responsePage2)))
                         viewModel.loadMoreItems()
                         
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.popular), page: .value(1)))
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.popular), page: .value(2)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.popular), page: .value(1)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.popular), page: .value(2)))
                     }
                 }
             }
@@ -64,15 +64,15 @@ class ListViewModelSpec: QuickSpec {
                 
                 context("when fetch succeeds") {
                     beforeEach {
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(section), page: .any, willReturn: .just(responsePage1)))
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(.trending), page: .any, willReturn: .empty()))
+                        Given(mockRepository, .getMoviesForSection(.value(section), page: .any, willReturn: .just(responsePage1)))
+                        Given(mockRepository, .getMoviesForSection(.value(.trending), page: .any, willReturn: .empty()))
                         
                         viewModel.fetchItems(for: section)
                     }
                     
                     it("should call the correct network service method with page 1") {
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(section), page: .value(1)))
-                        Verify(mockNetworkService, 0, .fetchMoviesForSection(.value(.trending), page: .any))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(section), page: .value(1)))
+                        Verify(mockRepository, 0, .getMoviesForSection(.value(.trending), page: .any))
                     }
                     
                     it("should update items with the fetched movies") {

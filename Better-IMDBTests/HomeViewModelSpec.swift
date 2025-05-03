@@ -26,12 +26,12 @@ class HomeViewModelSpec: QuickSpec {
         
         describe("HomeViewModel") {
             var viewModel: HomeViewModel!
-            var mockNetworkService: TMDBNetworkServiceProtocolMock!
+            var mockRepository: TMDBRepositoryProtocolMock!
             var disposeBag: DisposeBag!
             
             beforeEach {
-                mockNetworkService = TMDBNetworkServiceProtocolMock()
-                viewModel = HomeViewModel(networkService: mockNetworkService)
+                mockRepository = TMDBRepositoryProtocolMock()
+                viewModel = HomeViewModel(repository: mockRepository)
                 disposeBag = DisposeBag()
             }
             
@@ -48,19 +48,19 @@ class HomeViewModelSpec: QuickSpec {
                     let upcomingResponse = sampleTMDBResponse(page: 1, totalPages: 1, movies: upcomingMovies)
                     
                     beforeEach {
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(.popular), page: .value(1), willReturn: .just(popularResponse)))
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(.trending), page: .value(1), willReturn: .just(trendingResponse)))
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(.topRated), page: .value(1), willReturn: .just(topRatedResponse)))
-                        Given(mockNetworkService, .fetchMoviesForSection(.value(.upcoming), page: .value(1), willReturn: .just(upcomingResponse)))
+                        Given(mockRepository, .getMoviesForSection(.value(.popular), page: .value(1), willReturn: .just(popularResponse)))
+                        Given(mockRepository, .getMoviesForSection(.value(.trending), page: .value(1), willReturn: .just(trendingResponse)))
+                        Given(mockRepository, .getMoviesForSection(.value(.topRated), page: .value(1), willReturn: .just(topRatedResponse)))
+                        Given(mockRepository, .getMoviesForSection(.value(.upcoming), page: .value(1), willReturn: .just(upcomingResponse)))
                         
                         viewModel.fetchItems()
                     }
                     
                     it("should call for each section") {
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.popular), page: .value(1)))
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.trending), page: .value(1)))
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.topRated), page: .value(1)))
-                        Verify(mockNetworkService, 1, .fetchMoviesForSection(.value(.upcoming), page: .value(1)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.popular), page: .value(1)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.trending), page: .value(1)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.topRated), page: .value(1)))
+                        Verify(mockRepository, 1, .getMoviesForSection(.value(.upcoming), page: .value(1)))
                     }
                     
                     it("should update items") {

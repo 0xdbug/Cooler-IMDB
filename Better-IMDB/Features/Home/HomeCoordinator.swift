@@ -23,14 +23,14 @@ class HomeCoordinator: Coordinator {
     }
     
     func start() {
-        let viewModel = HomeViewModel(networkService: container.get())
+        let viewModel = HomeViewModel(repository: container.get())
         viewModel.coordinator = self
         let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }
     
     func list(_ card: HomeCards) {
-        let viewModel = ListViewModel(networkService: container.get())
+        let viewModel = ListViewModel(repository: container.get())
         viewModel.coordinator = self
         let vc = ListViewController(viewModel: viewModel)
         vc.selectedCard = card
@@ -39,7 +39,7 @@ class HomeCoordinator: Coordinator {
     }
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let viewModel = MovieDetailViewModel(networkService: container.get())
+        let viewModel = MovieDetailViewModel(repository: container.get())
         let vc = MovieDetailViewController(viewModel: viewModel)
         vc.selectedMovieId = movie.id
         

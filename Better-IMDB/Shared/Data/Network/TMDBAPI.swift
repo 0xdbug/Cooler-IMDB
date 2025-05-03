@@ -27,6 +27,5 @@ struct TMDBAPI {
         return "https://www.themoviedb.org/video/play?key=\(key)&width=1920&height=1080"
     }
     
-    // remove from source code
     static let auth = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0Y2RjYzZkMmExN2VjNTRkYTc2ZmUyN2M3NjUzYjVkYSIsIm5iZiI6MTc0NDAwNzk0Ny43NjQsInN1YiI6IjY3ZjM3MzBiYTU0NzFhNTFlZTk5NTFiNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.1FWok1iINCCMvFdjCKAx_ZM7-OwXvJV5pla651Z301o"
 }

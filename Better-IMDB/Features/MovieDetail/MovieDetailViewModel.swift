@@ -11,7 +11,7 @@ import RxCocoa
 
 //
 class MovieDetailViewModel: ViewModel {
-    let networkService: MovieDetailNetworkServiceProtocol
+    let repository: TMDBRepositoryProtocol
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)
@@ -21,12 +21,12 @@ class MovieDetailViewModel: ViewModel {
     private var totalPages = 1
     private var currentSection: MovieSection?
     
-    init(networkService: MovieDetailNetworkServiceProtocol) {
-        self.networkService = networkService
+    init(repository: TMDBRepositoryProtocol) {
+        self.repository = repository
     }
     
     func fetchMovie(withId id: String) {
-        networkService.fetchMovie(withId: id)
+        repository.getMovieDetail(id: id)
             .subscribe(onNext: { [weak self] movie in
                 guard let self = self else { return }
                 self.item.accept(movie)
@@ -37,7 +37,7 @@ class MovieDetailViewModel: ViewModel {
     }
     
     func fetchTrailer(withId id: Int) {
-        networkService.fetchVideoURLString(withId: id)
+        repository.getMovieVideoURL(id: id)
             .subscribe(onNext: { [weak self] urlString in
                 guard let self = self else { return }
                 videoURL.accept(urlString)

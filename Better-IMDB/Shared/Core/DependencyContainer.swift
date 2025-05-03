@@ -48,5 +48,19 @@ class DependencyContainer {
             fatalError("Failed to resolve \(T.self): \(error)")
         }
     }
-    
+}
+
+extension DependencyContainer {
+    static func register() {
+        let container = DependencyContainer.shared
+        
+        container.register(TMDBNetworkServiceProtocol.self) { TMDBService() }
+        container.register(MovieDetailNetworkServiceProtocol.self) { MovieDetailService() }
+        
+        container.register(TMDBRepositoryProtocol.self) {
+            let tmdbService: TMDBNetworkServiceProtocol = container.get()
+            let movieDetailService: MovieDetailNetworkServiceProtocol = container.get()
+            return TMDBRepository(tmdbService: tmdbService, movieDetailService: movieDetailService)
+        }
+    }
 }

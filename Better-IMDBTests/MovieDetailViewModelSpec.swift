@@ -23,24 +23,24 @@ class MovieDetailViewModelSpec: QuickSpec {
         
         describe("MovieDetailViewModel") {
             var viewModel: MovieDetailViewModel!
-            var mockNetworkService: MovieDetailNetworkServiceProtocolMock!
+            var mockRepository: TMDBRepositoryProtocolMock!
             
             context("when fetch succeeds") {
                 beforeEach {
-                    mockNetworkService = MovieDetailNetworkServiceProtocolMock()
-                    viewModel = MovieDetailViewModel(networkService: mockNetworkService)
+                    mockRepository = TMDBRepositoryProtocolMock()
+                    viewModel = MovieDetailViewModel(repository: mockRepository)
                 }
                 
                 let movieDetailResponse = sampleMovieDetail(id: 100)
                 
                 beforeEach {
-                    Given(mockNetworkService, .fetchMovie(withId: .value("100"), willReturn: .just(movieDetailResponse)))
+                    Given(mockRepository, .getMovieDetail(id: .value("100"), willReturn: .just(movieDetailResponse)))
                     viewModel.fetchMovie(withId: "100")
                     
                 }
                 
                 it("should should call the network service with movie id") {
-                    Verify(mockNetworkService, .fetchMovie(withId: .value("100")))
+                    Verify(mockRepository, .getMovieDetail(id: .value("100")))
                 }
                 
                 it("should update item with fetched detail") {
