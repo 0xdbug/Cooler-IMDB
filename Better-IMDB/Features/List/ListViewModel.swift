@@ -16,7 +16,7 @@ protocol ListViewModelProtocol: AnyObject {
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
 }
 
-class ListViewModel: ViewModel {
+class ListViewModel: ViewModel, ListViewModelProtocol {
     weak var coordinator: HomeCoordinator?
     private let repository: TMDBRepositoryProtocol
     

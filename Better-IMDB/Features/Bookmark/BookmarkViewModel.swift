@@ -15,7 +15,7 @@ protocol BookmarkViewModelProtocol: AnyObject {
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
 }
 
-class BookmarkViewModel: ViewModel {
+class BookmarkViewModel: ViewModel, BookmarkViewModelProtocol {
     weak var coordinator: BookmarkCoordinator?
     private let repository: TMDBRepositoryProtocol
     
