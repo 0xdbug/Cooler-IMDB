@@ -9,9 +9,16 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol ListViewModelProtocol: AnyObject {
+    var items: Driver<[Movie]> { get }
+    func fetchItems(for section: MovieSection)
+    func loadMoreItems()
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
+}
+
 class ListViewModel: ViewModel {
     weak var coordinator: HomeCoordinator?
-    let repository: TMDBRepositoryProtocol
+    private let repository: TMDBRepositoryProtocol
     
     private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
     var items: Driver<[Movie]> {
@@ -69,7 +76,7 @@ class ListViewModel: ViewModel {
     }
 }
 
-extension ListViewModel: ListViewControllerDelegate {
+extension ListViewModel {
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
         coordinator?.showDetail(movie, from: listViewController, at: indexPath)
     }

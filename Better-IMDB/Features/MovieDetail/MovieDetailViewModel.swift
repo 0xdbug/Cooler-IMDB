@@ -9,9 +9,18 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-//
-class MovieDetailViewModel: ViewModel {
-    let repository: TMDBRepositoryProtocol
+protocol MovieDetailViewModelProtocol: AnyObject {
+    var item: BehaviorRelay<MovieDetail?> { get }
+    var videoURL: BehaviorRelay<String?> { get }
+    var bookmarkState: BehaviorRelay<Bool> { get }
+    func fetchMovie(withId id: String)
+    func fetchTrailer(withId id: Int)
+    func toggleBookmark(for id: Int)
+    func updateBookmarkState(for id: Int)
+}
+
+class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
+    private let repository: TMDBRepositoryProtocol
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)

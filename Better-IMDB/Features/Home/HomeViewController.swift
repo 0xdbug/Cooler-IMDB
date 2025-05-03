@@ -9,10 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol HomeViewControllerDelegate {
-    func showList(_ section: MovieSection)
-}
-
 class HomeViewController: CollectionViewController {
     
 //    viewModel is the delegate
@@ -36,7 +32,7 @@ class HomeViewController: CollectionViewController {
     }
     
     func setupCollectionView() {
-        guard let viewModel = viewModel as? HomeViewModel else { return }
+        guard let viewModel = viewModel as? HomeViewModelProtocol else { return }
         
         setupRefreshControl(for: mainCollectionView) { [weak viewModel] in
             viewModel?.fetchItems()

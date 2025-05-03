@@ -9,10 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol ListViewControllerDelegate {
-    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
-}
-
 class ListViewController: CollectionViewController {
     
     var collectionView: ListCollectionView = {
@@ -34,7 +30,7 @@ class ListViewController: CollectionViewController {
     }
     
     func setupCollectionView() {
-        guard let viewModel = viewModel as? ListViewModel else { return }
+        guard let viewModel = viewModel as? ListViewModelProtocol else { return }
         
         setupRefreshControl(for: collectionView, refreshAction: { [weak viewModel] in
             viewModel?.fetchItems(for: self.selectedSection)

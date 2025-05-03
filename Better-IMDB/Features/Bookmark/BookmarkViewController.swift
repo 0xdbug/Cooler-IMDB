@@ -9,10 +9,6 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol BookmarkViewControllerDelegate {
-    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
-}
-
 class BookmarkViewController: CollectionViewController {
     
     var collectionView: BookmarkListCollectionView = {
@@ -32,7 +28,7 @@ class BookmarkViewController: CollectionViewController {
     }
     
     func setupCollectionView() {
-        guard let viewModel = viewModel as? BookmarkViewModel else { return }
+        guard let viewModel = viewModel as? BookmarkViewModelProtocol else { return }
         
         setupRefreshControl(for: collectionView) { [weak viewModel] in
             viewModel?.fetchMovies(withIds: MoviePersistence.getAllBookmarks())

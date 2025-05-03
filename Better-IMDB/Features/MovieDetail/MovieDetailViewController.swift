@@ -15,7 +15,7 @@ class MovieDetailViewController: ViewController {
     // MARK: - Properties
     var selectedMovieId: Int!
     private var dominantColor: BehaviorRelay<UIColor> = .init(value: .secondarySystemBackground)
-    private var movieViewModel: MovieDetailViewModel?
+    private var movieViewModel: MovieDetailViewModelProtocol?
 
     
     // MARK: - UI Components
@@ -115,7 +115,7 @@ class MovieDetailViewController: ViewController {
         super.viewDidLoad()
         
         // i only makde movieViewModel because it's used in different places
-        self.movieViewModel = viewModel as? MovieDetailViewModel
+        self.movieViewModel = viewModel as? MovieDetailViewModelProtocol
         guard let _ = movieViewModel else {
             print("MovieDetailViewModel Needed")
             return

@@ -9,9 +9,15 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+protocol BookmarkViewModelProtocol: AnyObject {
+    var items: Driver<[MovieDetail]> { get }
+    func fetchMovies(withIds id: [Int])
+    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
+}
+
 class BookmarkViewModel: ViewModel {
     weak var coordinator: BookmarkCoordinator?
-    let repository: TMDBRepositoryProtocol
+    private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])
     var items: Driver<[MovieDetail]> {
@@ -38,7 +44,7 @@ class BookmarkViewModel: ViewModel {
     }
 }
 
-extension BookmarkViewModel: BookmarkViewControllerDelegate {
+extension BookmarkViewModel {
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
         coordinator?.showDetail(movie, from: listViewController, at: indexPath)
     }

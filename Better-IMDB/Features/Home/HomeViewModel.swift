@@ -10,9 +10,16 @@ import RxSwift
 import RxCocoa
 
 
-class HomeViewModel: ViewModel {
+protocol HomeViewModelProtocol: AnyObject {
+    var items: Driver<[HomeCards]> { get }
+    func fetchItems()
+    func fetchCategory(_ section: MovieSection) -> Observable<HomeCards>
+    func showList(_ section: MovieSection)
+}
+
+class HomeViewModel: ViewModel, HomeViewModelProtocol {
     weak var coordinator: HomeCoordinator?
-    let repository: TMDBRepositoryProtocol
+    private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
     var items: Driver<[HomeCards]> {
@@ -46,7 +53,7 @@ class HomeViewModel: ViewModel {
             .disposed(by: disposeBag)
     }
     
-    private func fetchCategory(_ section: MovieSection) -> Observable<HomeCards> {
+    func fetchCategory(_ section: MovieSection) -> Observable<HomeCards> {
         return repository.getMoviesForSection(section, page: 1)
             .map { result -> HomeCards in
                 return HomeCards(name: section.rawValue
@@ -58,9 +65,15 @@ class HomeViewModel: ViewModel {
     }
 }
 
-// delegation
-extension HomeViewModel: HomeViewControllerDelegate {
+extension HomeViewModel {
     func showList(_ section: MovieSection) {
         coordinator?.list(section)
     }
 }
+
+// delegation
+//extension HomeViewModel: HomeViewControllerDelegate {
+//    func showList(_ section: MovieSection) {
+//        coordinator?.list(section)
+//    }
+//}
