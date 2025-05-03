@@ -140,7 +140,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
             posterStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 25)
         ])
         
-        titleLabel.text = item.cardName
+        titleLabel.text = item.name
         allButton.titleLabel?.textColor = .white
         titleLabel.font = .systemFont(ofSize: 25, weight: .heavy)
     }

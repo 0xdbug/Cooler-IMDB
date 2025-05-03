@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol HomeViewControllerDelegate {
-    func showList(_ card: HomeCards)
+    func showList(_ section: MovieSection)
 }
 
 class HomeViewController: CollectionViewController {
@@ -53,7 +53,7 @@ class HomeViewController: CollectionViewController {
                 .rx
                 .modelSelected(HomeCards.self)
                 .subscribe(onNext: { [weak viewModel] selected in
-                    viewModel?.showList(selected)
+                    viewModel?.showList(selected.section)
                 })
         )
         

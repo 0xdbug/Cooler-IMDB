@@ -49,10 +49,10 @@ class HomeViewModel: ViewModel {
     private func fetchCategory(_ section: MovieSection) -> Observable<HomeCards> {
         return repository.getMoviesForSection(section, page: 1)
             .map { result -> HomeCards in
-                return HomeCards(cardName: section.rawValue
+                return HomeCards(name: section.rawValue
                     .replacingOccurrences(of: "_", with: " ")
                     .uppercased(),
-                                 cardType: section,
+                                 section: section,
                                  movies: result.results)
             }
     }
@@ -60,7 +60,7 @@ class HomeViewModel: ViewModel {
 
 // delegation
 extension HomeViewModel: HomeViewControllerDelegate {
-    func showList(_ card: HomeCards) {
-        coordinator?.list(card)
+    func showList(_ section: MovieSection) {
+        coordinator?.list(section)
     }
 }

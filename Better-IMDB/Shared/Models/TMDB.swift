@@ -8,8 +8,8 @@
 import UIKit
 
 struct HomeCards {
-    let cardName: String
-    let cardType: MovieSection
+    let name: String
+    let section: MovieSection
     let movies: [Movie]
     
 }

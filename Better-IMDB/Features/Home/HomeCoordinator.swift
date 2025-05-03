@@ -29,11 +29,11 @@ class HomeCoordinator: Coordinator {
         navigationController.pushViewController(vc, animated: false)
     }
     
-    func list(_ card: HomeCards) {
+    func list(_ section: MovieSection) {
         let viewModel = ListViewModel(repository: container.get())
         viewModel.coordinator = self
         let vc = ListViewController(viewModel: viewModel)
-        vc.selectedCard = card
+        vc.selectedSection = section
         
         navigationController.pushViewController(vc, animated: true)
     }

@@ -21,10 +21,9 @@ class ListViewController: CollectionViewController {
         return collectionView
     }()
     
-    var selectedCard: HomeCards!
+    var selectedSection: MovieSection!
     
     override func viewDidLoad() {
-        
         setupUI()
         setupCollectionView()
     }
@@ -38,7 +37,7 @@ class ListViewController: CollectionViewController {
         guard let viewModel = viewModel as? ListViewModel else { return }
         
         setupRefreshControl(for: collectionView, refreshAction: { [weak viewModel] in
-            viewModel?.fetchItems(for: self.selectedCard.cardType)
+            viewModel?.fetchItems(for: self.selectedSection)
         })
         
         disposeBag.insert(
@@ -70,7 +69,7 @@ class ListViewController: CollectionViewController {
             }
         )
         
-        viewModel.fetchItems(for: selectedCard.cardType)
+        viewModel.fetchItems(for: selectedSection)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
