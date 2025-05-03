@@ -126,6 +126,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     func setupBindings() {
         disposeBag.insert(
             viewModel.posters.drive() { [weak self] images in
+                self?.cellPosterImage.image = images.first
                 self?.posterStackView.updatePosters(images)
             }
         )
