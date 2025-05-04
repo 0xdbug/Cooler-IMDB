@@ -17,10 +17,12 @@ protocol MovieDetailViewModelProtocol: AnyObject {
     func fetchTrailer(withId id: Int)
     func toggleBookmark(for id: Int)
     func updateBookmarkState(for id: Int)
+    func coordinatorDidFinish()
 }
 
 class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
     private let repository: TMDBRepositoryProtocol
+    weak var coordinator: MovieDetailCoordintaor?
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)
@@ -65,5 +67,10 @@ class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
         let isBookmarked = MoviePersistence(movieId: id).isBookmarked()
         bookmarkState.accept(isBookmarked)
     }
-    
+}
+
+extension MovieDetailViewModel {    
+    func coordinatorDidFinish() {
+        coordinator?.didFinish()
+    }
 }

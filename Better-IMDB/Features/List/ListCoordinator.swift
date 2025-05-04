@@ -1,32 +1,40 @@
 //
-//  HomeCoordinator.swift
+//  ListCoordinator.swift
 //  Better-IMDB
 //
-//  Created by dbug on 4/10/25.
+//  Created by dbug on 5/4/25.
 //
 
 import UIKit
 
-class BookmarkCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
+class ListCoordinator: Coordinator {
+    func start() {}
+    
+    weak var parentCoordinator: (any Coordinator)?
+    var children: [any Coordinator] = []
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
     
-    init(navigationController: UINavigationController, container: DependencyContainer) {
+    init(
+        navigationController: UINavigationController,
+        container: DependencyContainer
+    ) {
         self.navigationController = navigationController
         self.container = container
     }
     
-    func start() {
-        let viewModel = BookmarkViewModel(repository: container.get())
+    func start(with section: MovieSection) {
+        let viewModel = ListViewModel(repository: container.get())
         viewModel.coordinator = self
-        let vc = BookmarkViewController(viewModel: viewModel)
-        navigationController.pushViewController(vc, animated: false)
+        let vc = ListViewController(viewModel: viewModel)
+        vc.selectedSection = section
+        
+        navigationController.pushViewController(vc, animated: true)
     }
     
-    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
+        
         let movieDetailCoordinator = MovieDetailCoordintaor(
             navigationController: navigationController,
             container: container
@@ -43,5 +51,4 @@ class BookmarkCoordinator: Coordinator {
             parentCoordinator?.children.remove(at: index)
         }
     }
-    
 }

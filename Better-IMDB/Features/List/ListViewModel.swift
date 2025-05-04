@@ -14,10 +14,11 @@ protocol ListViewModelProtocol: AnyObject {
     func fetchItems(for section: MovieSection)
     func loadMoreItems()
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
+    func coordinatorDidFinish()
 }
 
 class ListViewModel: ViewModel, ListViewModelProtocol {
-    weak var coordinator: HomeCoordinator?
+    weak var coordinator: ListCoordinator?
     private let repository: TMDBRepositoryProtocol
     
     private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
@@ -79,5 +80,9 @@ class ListViewModel: ViewModel, ListViewModelProtocol {
 extension ListViewModel {
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
         coordinator?.showDetail(movie, from: listViewController, at: indexPath)
+    }
+    
+    func coordinatorDidFinish() {
+        coordinator?.didFinish()
     }
 }

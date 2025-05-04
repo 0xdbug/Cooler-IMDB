@@ -28,6 +28,8 @@
 		701E87342DA7B2E7000DBF15 /* MultiplePosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */; };
 		701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87362DA7B313000DBF15 /* ListViewController.swift */; };
 		701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87382DA7B705000DBF15 /* HomeCoordinator.swift */; };
+		702B81822DC73C6F00A6AF51 /* ListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B81812DC73C6500A6AF51 /* ListCoordinator.swift */; };
+		702B81842DC7450000A6AF51 /* MovieDetailCoordintaor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B81832DC744FB00A6AF51 /* MovieDetailCoordintaor.swift */; };
 		7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568D2DC59E8600789F43 /* TMDBRepository.swift */; };
 		703556902DC5ADB400789F43 /* HomeCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */; };
 		703556922DC5B85700789F43 /* BookmarkListCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */; };
@@ -115,6 +117,8 @@
 		701E87312DA7B2E7000DBF15 /* MultiplePosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplePosterView.swift; sourceTree = "<group>"; };
 		701E87362DA7B313000DBF15 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		701E87382DA7B705000DBF15 /* HomeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCoordinator.swift; sourceTree = "<group>"; };
+		702B81812DC73C6500A6AF51 /* ListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCoordinator.swift; sourceTree = "<group>"; };
+		702B81832DC744FB00A6AF51 /* MovieDetailCoordintaor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailCoordintaor.swift; sourceTree = "<group>"; };
 		7035568D2DC59E8600789F43 /* TMDBRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TMDBRepository.swift; sourceTree = "<group>"; };
 		7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCellModel.swift; sourceTree = "<group>"; };
 		703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkListCollectionViewCellModel.swift; sourceTree = "<group>"; };
@@ -233,6 +237,7 @@
 				701306A22DAC4D8000B900C5 /* UI */,
 				70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */,
 				703556932DC5BDC100789F43 /* ListCollectionViewCellModel.swift */,
+				702B81812DC73C6500A6AF51 /* ListCoordinator.swift */,
 				701E87362DA7B313000DBF15 /* ListViewController.swift */,
 			);
 			path = List;
@@ -416,6 +421,7 @@
 			children = (
 				704F5DE82DAAEC39005FA9FA /* UI */,
 				701298262DAA658700576ED3 /* MovieDetailViewModel.swift */,
+				702B81832DC744FB00A6AF51 /* MovieDetailCoordintaor.swift */,
 				701298242DAA657600576ED3 /* MovieDetailViewController.swift */,
 			);
 			path = MovieDetail;
@@ -766,6 +772,7 @@
 				703556902DC5ADB400789F43 /* HomeCollectionViewCellModel.swift in Sources */,
 				701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */,
 				70CF2D642DB8CFFD00FFF6D0 /* ViewModel.swift in Sources */,
+				702B81822DC73C6F00A6AF51 /* ListCoordinator.swift in Sources */,
 				701298252DAA657600576ED3 /* MovieDetailViewController.swift in Sources */,
 				701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */,
 				701306A62DAC4DA800B900C5 /* BookmarkListCollectionView.swift in Sources */,
@@ -785,6 +792,7 @@
 				708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */,
 				701E87372DA7B31A000DBF15 /* ListViewController.swift in Sources */,
 				709A1E662DBAFD3C00AA281C /* BookmarkLayoutProvider.swift in Sources */,
+				702B81842DC7450000A6AF51 /* MovieDetailCoordintaor.swift in Sources */,
 				708CAECD2DA3A13B00062906 /* AppDelegate.swift in Sources */,
 				703556942DC5BDCE00789F43 /* ListCollectionViewCellModel.swift in Sources */,
 				7012982D2DAA9BAB00576ED3 /* MovieDetailService.swift in Sources */,

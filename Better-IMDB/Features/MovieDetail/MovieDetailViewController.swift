@@ -143,6 +143,7 @@ class MovieDetailViewController: ViewController {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
+            movieViewModel?.coordinatorDidFinish()
             if let _ = navigationController?.viewControllers.last as? BookmarkViewController,
                let tabBarController = navigationController?.tabBarController as? BITabBarController {
                 UIView.animate(withDuration: 0.25) {

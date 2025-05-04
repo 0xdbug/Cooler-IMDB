@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class ListCollectionViewCell: UICollectionViewCell {
+class ListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
     static let id = "listMovieCell"
     
     private var viewModel: ListCollectionViewCellModelProtocol!

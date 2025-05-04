@@ -9,9 +9,13 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ListViewController: CollectionViewController {
+protocol MovieListCollectionProtocol: AnyObject {
+    var collectionView: BaseCollectionView { get }
+}
+
+class ListViewController: CollectionViewController, MovieListCollectionProtocol {
     
-    var collectionView: ListCollectionView = {
+    var collectionView: BaseCollectionView = {
         let collectionView = ListCollectionView(layoutProvider: ListLayoutProvider())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
@@ -19,7 +23,12 @@ class ListViewController: CollectionViewController {
     
     var selectedSection: MovieSection!
     
+    var listViewModel: ListViewModelProtocol!
+    
     override func viewDidLoad() {
+        guard let viewModel = viewModel as? ListViewModelProtocol else { return }
+        listViewModel = viewModel
+        
         setupUI()
         setupCollectionView()
     }
@@ -30,14 +39,15 @@ class ListViewController: CollectionViewController {
     }
     
     func setupCollectionView() {
-        guard let viewModel = viewModel as? ListViewModelProtocol else { return }
-        
-        setupRefreshControl(for: collectionView, refreshAction: { [weak viewModel] in
-            viewModel?.fetchItems(for: self.selectedSection)
+        setupRefreshControl(for: collectionView, refreshAction: { [weak self] in
+            
+            guard let self = self else { return }
+            
+            self.listViewModel.fetchItems(for: self.selectedSection)
         })
         
         disposeBag.insert(
-            viewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
+            self.listViewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
                 Task {
                     await cell.configure(with: ListCollectionViewCellModel(movie: item))
                 }
@@ -45,33 +55,34 @@ class ListViewController: CollectionViewController {
             
             collectionView.rx.itemSelected
                 .asDriver()
-                .withLatestFrom(viewModel.items) { indexPath, items in (indexPath, items) }
-                .drive(onNext: { [weak self, weak viewModel] indexPath, items in
+                .withLatestFrom(self.listViewModel.items) { indexPath, items in (indexPath, items) }
+                .drive(onNext: { [weak self] indexPath, items in
                     guard let self = self else { return }
                     guard indexPath.item < items.count else { return }
                     
                     let movie = items[indexPath.item]
-                    viewModel?.showDetail(movie, from: self, at: indexPath)
+                    self.listViewModel.showDetail(movie, from: self, at: indexPath)
                 }),
             
-            collectionView.rx.didScroll.subscribe { [weak self, weak viewModel] _ in
+            collectionView.rx.didScroll.subscribe { [weak self] _ in
                 guard let self = self else { return }
                 let offSetY = self.collectionView.contentOffset.y
                 let contentHeight = self.collectionView.contentSize.height
                 
                 if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                    viewModel?.loadMoreItems()
+                    self.listViewModel.loadMoreItems()
                 }
             }
         )
         
-        viewModel.fetchItems(for: selectedSection)
+        listViewModel.fetchItems(for: selectedSection)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
+            listViewModel.coordinatorDidFinish()
             if let tabBarController = navigationController?.tabBarController as? BITabBarController {
                 UIView.animate(withDuration: 0.25) {
                     tabBarController.biTabBar.alpha = 1

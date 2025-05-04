@@ -30,35 +30,14 @@ class HomeCoordinator: Coordinator {
     }
     
     func list(_ section: MovieSection) {
-        let viewModel = ListViewModel(repository: container.get())
-        viewModel.coordinator = self
-        let vc = ListViewController(viewModel: viewModel)
-        vc.selectedSection = section
+        let listCoordinator = ListCoordinator(
+            navigationController: navigationController,
+            container: container
+        )
         
-        navigationController.pushViewController(vc, animated: true)
-    }
-    
-    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        let viewModel = MovieDetailViewModel(repository: container.get())
-        let vc = MovieDetailViewController(viewModel: viewModel)
-        vc.selectedMovieId = movie.id
+        listCoordinator.parentCoordinator = self
+        children.append(listCoordinator)
         
-        vc.preferredTransition = .zoom(sourceViewProvider: { [weak listViewController] _ in
-            
-            guard let sourceVC = listViewController else {
-                print("ListViewController is nil.")
-                return nil
-            }
-            
-            let collectionView = sourceVC.collectionView
-            
-            guard let cell = collectionView.cellForItem(at: indexPath) as? ListCollectionViewCell else {
-                return nil
-            }
-
-            return cell.posterImage
-        })
-        
-        navigationController.pushViewController(vc, animated: true)
+        listCoordinator.start(with: section)
     }
 }

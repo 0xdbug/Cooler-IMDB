@@ -9,9 +9,9 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class BookmarkViewController: CollectionViewController {
+class BookmarkViewController: CollectionViewController, MovieListCollectionProtocol {
     
-    var collectionView: BookmarkListCollectionView = {
+    var collectionView: BaseCollectionView = {
         let collectionView = BookmarkListCollectionView(layoutProvider: BookmarkLayoutProvider())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView

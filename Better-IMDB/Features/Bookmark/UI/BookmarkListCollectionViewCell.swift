@@ -8,7 +8,7 @@
 import UIKit
 import RxSwift
 
-class BookmarkListCollectionViewCell: UICollectionViewCell {
+class BookmarkListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
     static let id = "bookmarkListMovieCell"
     
     private var viewModel: BookmarkListCollectionViewCellModelProtocol!
