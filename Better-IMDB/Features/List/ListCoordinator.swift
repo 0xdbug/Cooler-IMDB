@@ -7,7 +7,12 @@
 
 import UIKit
 
-class ListCoordinator: Coordinator {
+protocol ListViewModelDelegate: AnyObject {
+    func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
+    func didFinish()
+}
+
+class ListCoordinator: Coordinator, ListViewModelDelegate {
     func start() {}
     
     weak var parentCoordinator: (any Coordinator)?
@@ -26,7 +31,7 @@ class ListCoordinator: Coordinator {
     
     func start(with section: MovieSection) {
         let viewModel = ListViewModel(repository: container.get())
-        viewModel.coordinator = self
+        viewModel.delegate = self
         let vc = ListViewController(viewModel: viewModel)
         vc.selectedSection = section
         

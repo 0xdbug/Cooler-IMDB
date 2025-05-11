@@ -7,7 +7,11 @@
 
 import UIKit
 
-class HomeCoordinator: Coordinator {
+protocol HomeViewModelDelegate: AnyObject {
+    func list(_ section: MovieSection)
+}
+
+class HomeCoordinator: Coordinator, HomeViewModelDelegate {
     weak var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
@@ -24,7 +28,7 @@ class HomeCoordinator: Coordinator {
     
     func start() {
         let viewModel = HomeViewModel(repository: container.get())
-        viewModel.coordinator = self
+        viewModel.delegate = self
         let vc = HomeViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }

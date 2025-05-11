@@ -7,7 +7,12 @@
 
 import UIKit
 
-class BookmarkCoordinator: Coordinator {
+protocol BookmarkViewModelDelegate: AnyObject {
+    func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
+    func didFinish()
+}
+
+class BookmarkCoordinator: Coordinator, BookmarkViewModelDelegate {
     var parentCoordinator: Coordinator?
     var children: [Coordinator] = []
     var navigationController: UINavigationController
@@ -21,7 +26,7 @@ class BookmarkCoordinator: Coordinator {
     
     func start() {
         let viewModel = BookmarkViewModel(repository: container.get())
-        viewModel.coordinator = self
+        viewModel.delegate = self
         let vc = BookmarkViewController(viewModel: viewModel)
         navigationController.pushViewController(vc, animated: false)
     }

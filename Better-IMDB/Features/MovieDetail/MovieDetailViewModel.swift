@@ -22,7 +22,7 @@ protocol MovieDetailViewModelProtocol: AnyObject {
 
 class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
     private let repository: TMDBRepositoryProtocol
-    weak var coordinator: MovieDetailCoordintaor?
+    weak var delegate: MovieDetailViewModelDelegate?
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)
@@ -67,10 +67,8 @@ class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
         let isBookmarked = MoviePersistence(movieId: id).isBookmarked()
         bookmarkState.accept(isBookmarked)
     }
-}
-
-extension MovieDetailViewModel {    
+    
     func coordinatorDidFinish() {
-        coordinator?.didFinish()
+        delegate?.didFinish()
     }
 }

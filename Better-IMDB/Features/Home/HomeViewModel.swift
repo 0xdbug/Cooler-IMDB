@@ -18,7 +18,7 @@ protocol HomeViewModelProtocol: AnyObject {
 }
 
 class HomeViewModel: ViewModel, HomeViewModelProtocol {
-    weak var coordinator: HomeCoordinator?
+    weak var delegate: HomeViewModelDelegate!
     private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
@@ -63,17 +63,9 @@ class HomeViewModel: ViewModel, HomeViewModelProtocol {
                                  movies: result.results)
             }
     }
-}
-
-extension HomeViewModel {
+    
     func showList(_ section: MovieSection) {
-        coordinator?.list(section)
+        delegate?.list(section)
     }
 }
 
-// delegation
-//extension HomeViewModel: HomeViewControllerDelegate {
-//    func showList(_ section: MovieSection) {
-//        coordinator?.list(section)
-//    }
-//}

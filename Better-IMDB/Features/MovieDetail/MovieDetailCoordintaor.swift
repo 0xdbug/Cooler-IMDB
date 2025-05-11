@@ -11,7 +11,12 @@ protocol PosterImageProvider {
     var posterImage: UIImageView { get }
 }
 
-class MovieDetailCoordintaor: Coordinator {
+protocol MovieDetailViewModelDelegate: AnyObject {
+    func start(with movieId: Int, from listViewController: UIViewController, at indexPath: IndexPath)
+    func didFinish()
+}
+
+class MovieDetailCoordintaor: Coordinator, MovieDetailViewModelDelegate {
     func start() {}
     
     var parentCoordinator: (any Coordinator)?
@@ -30,7 +35,7 @@ class MovieDetailCoordintaor: Coordinator {
     
     func start(with movieId: Int, from listViewController: UIViewController, at indexPath: IndexPath) {
         let viewModel = MovieDetailViewModel(repository: container.get())
-        viewModel.coordinator = self
+        viewModel.delegate = self
         let vc = MovieDetailViewController(viewModel: viewModel)
         vc.selectedMovieId = movieId
         

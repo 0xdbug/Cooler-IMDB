@@ -18,7 +18,7 @@ protocol ListViewModelProtocol: AnyObject {
 }
 
 class ListViewModel: ViewModel, ListViewModelProtocol {
-    weak var coordinator: ListCoordinator?
+    weak var delegate: ListViewModelDelegate?
     private let repository: TMDBRepositoryProtocol
     
     private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
@@ -75,14 +75,12 @@ class ListViewModel: ViewModel, ListViewModelProtocol {
             })
             .disposed(by: disposeBag)
     }
-}
-
-extension ListViewModel {
+    
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
-        coordinator?.showDetail(movie, from: listViewController, at: indexPath)
+        delegate?.showDetail(movie, from: listViewController, at: indexPath)
     }
     
     func coordinatorDidFinish() {
-        coordinator?.didFinish()
+        delegate?.didFinish()
     }
 }

@@ -16,7 +16,7 @@ protocol BookmarkViewModelProtocol: AnyObject {
 }
 
 class BookmarkViewModel: ViewModel, BookmarkViewModelProtocol {
-    weak var coordinator: BookmarkCoordinator?
+    weak var delegate: BookmarkViewModelDelegate?
     private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])
@@ -42,10 +42,9 @@ class BookmarkViewModel: ViewModel, BookmarkViewModelProtocol {
             })
             .disposed(by: disposeBag)
     }
-}
-
-extension BookmarkViewModel {
+    
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath) {
-        coordinator?.showDetail(movie, from: listViewController, at: indexPath)
+        delegate?.showDetail(movie, from: listViewController, at: indexPath)
     }
 }
+
