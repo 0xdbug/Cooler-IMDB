@@ -12,7 +12,7 @@ import RxSwift
 class HomeCollectionViewCell: UICollectionViewCell {
     static let id = "homeMainCell"
     
-    private var viewModel: HomeCollectionViewCellModelProtocol!
+    private var viewModel: HomeCollectionViewCellModelProtocol?
     private var disposeBag = DisposeBag()
     
     // i like setupViews clean
@@ -60,7 +60,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }()
     private lazy var contentContainer: UIView = UIView()
     
-    var item: HomeCards!
+    var item: HomeCards?
     
     let posterStackView = MultiplePosterView(frame: .zero)
     
@@ -124,6 +124,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
     }
     
     func setupBindings() {
+        guard let viewModel = viewModel else { return }
         disposeBag.insert(
             viewModel.posters.drive() { [weak self] images in
                 self?.cellPosterImage.image = images.first
@@ -141,7 +142,7 @@ class HomeCollectionViewCell: UICollectionViewCell {
             posterStackView.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 25)
         ])
         
-        titleLabel.text = item.name
+        titleLabel.text = item?.name
         allButton.titleLabel?.textColor = .white
         titleLabel.font = .systemFont(ofSize: 25, weight: .heavy)
     }

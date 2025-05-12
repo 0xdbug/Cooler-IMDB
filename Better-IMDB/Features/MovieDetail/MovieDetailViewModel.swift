@@ -17,7 +17,6 @@ protocol MovieDetailViewModelProtocol: AnyObject {
     func fetchTrailer(withId id: Int)
     func toggleBookmark(for id: Int)
     func updateBookmarkState(for id: Int)
-    func coordinatorDidFinish()
 }
 
 class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
@@ -67,8 +66,5 @@ class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
         let isBookmarked = MoviePersistence(movieId: id).isBookmarked()
         bookmarkState.accept(isBookmarked)
     }
-    
-    func coordinatorDidFinish() {
-        delegate?.didFinish()
-    }
+
 }

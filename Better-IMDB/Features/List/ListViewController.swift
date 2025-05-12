@@ -82,7 +82,6 @@ class ListViewController: CollectionViewController, MovieListCollectionProtocol 
         super.viewWillDisappear(animated)
         
         if isMovingFromParent {
-            listViewModel.coordinatorDidFinish()
             if let tabBarController = navigationController?.tabBarController as? BITabBarController {
                 UIView.animate(withDuration: 0.25) {
                     tabBarController.biTabBar.alpha = 1

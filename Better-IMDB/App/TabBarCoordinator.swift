@@ -22,10 +22,6 @@ class TabBarCoordinator: Coordinator {
         let homeNavController = UINavigationController()
         let bookmarkNavController = UINavigationController()
         
-//        let container = DependencyContainer.shared
-//        container.register(TMDBNetworkServiceProtocol.self) { TMDBService() }
-//        container.register(MovieDetailNetworkServiceProtocol.self) { MovieDetailService() }
-        
         DependencyContainer.register()
         
         let home = HomeCoordinator(
@@ -41,7 +37,8 @@ class TabBarCoordinator: Coordinator {
         bookmark.parentCoordinator = self
         
         children = [home, bookmark]
-        children.forEach { $0.start() }
+        home.start()
+        bookmark.start()
         
         tabBarController.setViewControllers([
             homeNavController,

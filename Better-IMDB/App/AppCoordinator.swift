@@ -8,8 +8,6 @@
 import UIKit
 
 class AppCoordinator: Coordinator {
-    var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
         
     init(navigationController : UINavigationController) {
@@ -20,7 +18,6 @@ class AppCoordinator: Coordinator {
     func start() {
         let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
         tabBarCoordinator.parentCoordinator = self
-        children = [tabBarCoordinator]
         tabBarCoordinator.start()
     }
 }

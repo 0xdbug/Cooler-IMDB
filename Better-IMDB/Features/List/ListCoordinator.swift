@@ -9,14 +9,12 @@ import UIKit
 
 protocol ListViewModelDelegate: AnyObject {
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
-    func didFinish()
 }
 
 class ListCoordinator: Coordinator, ListViewModelDelegate {
     func start() {}
     
     weak var parentCoordinator: (any Coordinator)?
-    var children: [any Coordinator] = []
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -46,14 +44,8 @@ class ListCoordinator: Coordinator, ListViewModelDelegate {
         )
         
         movieDetailCoordinator.parentCoordinator = self
-        children.append(movieDetailCoordinator)
         
         movieDetailCoordinator.start(with: movie.id, from: listViewController, at: indexPath)
     }
     
-    func didFinish() {
-        if let index = parentCoordinator?.children.firstIndex(where: { $0 === self }) {
-            parentCoordinator?.children.remove(at: index)
-        }
-    }
 }

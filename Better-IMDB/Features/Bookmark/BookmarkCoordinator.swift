@@ -9,12 +9,10 @@ import UIKit
 
 protocol BookmarkViewModelDelegate: AnyObject {
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)
-    func didFinish()
 }
 
 class BookmarkCoordinator: Coordinator, BookmarkViewModelDelegate {
     var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -38,15 +36,7 @@ class BookmarkCoordinator: Coordinator, BookmarkViewModelDelegate {
         )
         
         movieDetailCoordinator.parentCoordinator = self
-        children.append(movieDetailCoordinator)
-        
         movieDetailCoordinator.start(with: movie.id, from: listViewController, at: indexPath)
-    }
-    
-    func didFinish() {
-        if let index = parentCoordinator?.children.firstIndex(where: { $0 === self }) {
-            parentCoordinator?.children.remove(at: index)
-        }
     }
     
 }

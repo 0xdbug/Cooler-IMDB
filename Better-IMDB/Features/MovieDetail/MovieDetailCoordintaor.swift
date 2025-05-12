@@ -13,14 +13,12 @@ protocol PosterImageProvider {
 
 protocol MovieDetailViewModelDelegate: AnyObject {
     func start(with movieId: Int, from listViewController: UIViewController, at indexPath: IndexPath)
-    func didFinish()
 }
 
 class MovieDetailCoordintaor: Coordinator, MovieDetailViewModelDelegate {
     func start() {}
     
     var parentCoordinator: (any Coordinator)?
-    var children: [any Coordinator] = []
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -58,9 +56,4 @@ class MovieDetailCoordintaor: Coordinator, MovieDetailViewModelDelegate {
         navigationController.pushViewController(vc, animated: true)
     }
     
-    func didFinish() {
-        if let index = parentCoordinator?.children.firstIndex(where: { $0 === self }) {
-            parentCoordinator?.children.remove(at: index)
-        }
-    }
 }

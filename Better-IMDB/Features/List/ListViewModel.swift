@@ -14,7 +14,6 @@ protocol ListViewModelProtocol: AnyObject {
     func fetchItems(for section: MovieSection)
     func loadMoreItems()
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath)
-    func coordinatorDidFinish()
 }
 
 class ListViewModel: ViewModel, ListViewModelProtocol {
@@ -78,9 +77,5 @@ class ListViewModel: ViewModel, ListViewModelProtocol {
     
     func showDetail(_ movie: Movie, from listViewController: ListViewController, at indexPath: IndexPath) {
         delegate?.showDetail(movie, from: listViewController, at: indexPath)
-    }
-    
-    func coordinatorDidFinish() {
-        delegate?.didFinish()
     }
 }
