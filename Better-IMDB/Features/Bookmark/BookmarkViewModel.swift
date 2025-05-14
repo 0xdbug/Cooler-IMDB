@@ -16,7 +16,7 @@ protocol BookmarkViewModelProtocol: AnyObject {
 }
 
 class BookmarkViewModel: ViewModel, BookmarkViewModelProtocol {
-    weak var delegate: BookmarkViewModelDelegate?
+    var delegate: BookmarkViewModelDelegate?
     private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[MovieDetail]>(value: [])

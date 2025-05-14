@@ -14,7 +14,6 @@ protocol ListViewModelDelegate: AnyObject {
 class ListCoordinator: Coordinator, ListViewModelDelegate {
     func start() {}
     
-    weak var parentCoordinator: (any Coordinator)?
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -42,9 +41,7 @@ class ListCoordinator: Coordinator, ListViewModelDelegate {
             navigationController: navigationController,
             container: container
         )
-        
-        movieDetailCoordinator.parentCoordinator = self
-        
+                
         movieDetailCoordinator.start(with: movie.id, from: listViewController, at: indexPath)
     }
     

@@ -8,8 +8,6 @@
 import UIKit
 
 class TabBarCoordinator: Coordinator {
-    weak var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     
     private let tabBarController = BITabBarController()
@@ -28,15 +26,12 @@ class TabBarCoordinator: Coordinator {
             navigationController: homeNavController,
             container: DependencyContainer.shared
         )
-        home.parentCoordinator = self
         
         let bookmark = BookmarkCoordinator(
             navigationController: bookmarkNavController,
             container: DependencyContainer.shared
         )
-        bookmark.parentCoordinator = self
         
-        children = [home, bookmark]
         home.start()
         bookmark.start()
         

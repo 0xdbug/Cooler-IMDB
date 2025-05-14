@@ -18,7 +18,6 @@ protocol MovieDetailViewModelDelegate: AnyObject {
 class MovieDetailCoordintaor: Coordinator, MovieDetailViewModelDelegate {
     func start() {}
     
-    var parentCoordinator: (any Coordinator)?
     var navigationController: UINavigationController
     
     private let container: DependencyContainer

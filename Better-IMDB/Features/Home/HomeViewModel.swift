@@ -18,7 +18,7 @@ protocol HomeViewModelProtocol: AnyObject {
 }
 
 class HomeViewModel: ViewModel, HomeViewModelProtocol {
-    weak var delegate: HomeViewModelDelegate!
+    var delegate: HomeViewModelDelegate!
     private let repository: TMDBRepositoryProtocol
     
     private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])

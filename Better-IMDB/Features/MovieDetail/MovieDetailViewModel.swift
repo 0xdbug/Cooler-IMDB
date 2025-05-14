@@ -21,7 +21,7 @@ protocol MovieDetailViewModelProtocol: AnyObject {
 
 class MovieDetailViewModel: ViewModel, MovieDetailViewModelProtocol {
     private let repository: TMDBRepositoryProtocol
-    weak var delegate: MovieDetailViewModelDelegate?
+    var delegate: MovieDetailViewModelDelegate?
     
     var item: BehaviorRelay<MovieDetail?> = .init(value: nil)
     var videoURL: BehaviorRelay<String?> = .init(value: nil)

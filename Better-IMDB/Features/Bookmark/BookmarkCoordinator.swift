@@ -12,7 +12,6 @@ protocol BookmarkViewModelDelegate: AnyObject {
 }
 
 class BookmarkCoordinator: Coordinator, BookmarkViewModelDelegate {
-    var parentCoordinator: Coordinator?
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -35,7 +34,6 @@ class BookmarkCoordinator: Coordinator, BookmarkViewModelDelegate {
             container: container
         )
         
-        movieDetailCoordinator.parentCoordinator = self
         movieDetailCoordinator.start(with: movie.id, from: listViewController, at: indexPath)
     }
     

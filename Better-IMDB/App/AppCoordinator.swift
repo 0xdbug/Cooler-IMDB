@@ -17,7 +17,6 @@ class AppCoordinator: Coordinator {
     // MARK: - Functions
     func start() {
         let tabBarCoordinator = TabBarCoordinator(navigationController: navigationController)
-        tabBarCoordinator.parentCoordinator = self
         tabBarCoordinator.start()
     }
 }

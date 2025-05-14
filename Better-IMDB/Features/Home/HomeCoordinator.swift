@@ -12,8 +12,6 @@ protocol HomeViewModelDelegate: AnyObject {
 }
 
 class HomeCoordinator: Coordinator, HomeViewModelDelegate {
-    weak var parentCoordinator: Coordinator?
-    var children: [Coordinator] = []
     var navigationController: UINavigationController
     
     private let container: DependencyContainer
@@ -38,9 +36,6 @@ class HomeCoordinator: Coordinator, HomeViewModelDelegate {
             navigationController: navigationController,
             container: container
         )
-        
-        listCoordinator.parentCoordinator = self
-        children.append(listCoordinator)
         
         listCoordinator.start(with: section)
     }

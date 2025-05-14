@@ -17,7 +17,7 @@ protocol ListViewModelProtocol: AnyObject {
 }
 
 class ListViewModel: ViewModel, ListViewModelProtocol {
-    weak var delegate: ListViewModelDelegate?
+    var delegate: ListViewModelDelegate?
     private let repository: TMDBRepositoryProtocol
     
     private var itemsRelay = BehaviorRelay<[Movie]>(value: [])
