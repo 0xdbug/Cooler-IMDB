@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 protocol BookmarkViewModelProtocol: AnyObject {
+    var isLoading: Driver<Bool> { get }
+    var error: Observable<Error> { get }
+    
+    func startLoading()
+    func stopLoading()
+    func handleError(_ error: Error)
+    
     var items: Driver<[MovieDetail]> { get }
     func fetchMovies(withIds id: [Int])
     func showDetail(_ movie: MovieDetail, from listViewController: BookmarkViewController, at indexPath: IndexPath)

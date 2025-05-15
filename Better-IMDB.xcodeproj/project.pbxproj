@@ -20,8 +20,6 @@
 		701306A72DAC4DA800B900C5 /* BookmarkListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701306A32DAC4DA800B900C5 /* BookmarkListCollectionViewCell.swift */; };
 		7016344F2DA55AA50066D373 /* TMDBService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7016344E2DA55AA50066D373 /* TMDBService.swift */; };
 		701DABC02DA69AB1008625CA /* UIImage+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABBF2DA69AAA008625CA /* UIImage+Ext.swift */; };
-		701DABC32DA69AF1008625CA /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC22DA69AF1008625CA /* Nuke */; };
-		701DABC52DA69AF1008625CA /* NukeExtensions in Frameworks */ = {isa = PBXBuildFile; productRef = 701DABC42DA69AF1008625CA /* NukeExtensions */; };
 		701DABC72DA69B08008625CA /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701DABC62DA69B03008625CA /* UIImageView+Ext.swift */; };
 		701E87322DA7B2E7000DBF15 /* HomeCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E872F2DA7B2E7000DBF15 /* HomeCollectionView.swift */; };
 		701E87332DA7B2E7000DBF15 /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87302DA7B2E7000DBF15 /* HomeCollectionViewCell.swift */; };
@@ -30,6 +28,7 @@
 		701E87392DA7B705000DBF15 /* HomeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 701E87382DA7B705000DBF15 /* HomeCoordinator.swift */; };
 		702B81822DC73C6F00A6AF51 /* ListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B81812DC73C6500A6AF51 /* ListCoordinator.swift */; };
 		702B81842DC7450000A6AF51 /* MovieDetailCoordintaor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 702B81832DC744FB00A6AF51 /* MovieDetailCoordintaor.swift */; };
+		703441ED2DD5C30600829120 /* Nuke in Frameworks */ = {isa = PBXBuildFile; productRef = 703441EC2DD5C30600829120 /* Nuke */; };
 		7035568E2DC59E8C00789F43 /* TMDBRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568D2DC59E8600789F43 /* TMDBRepository.swift */; };
 		703556902DC5ADB400789F43 /* HomeCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7035568F2DC5ADAF00789F43 /* HomeCollectionViewCellModel.swift */; };
 		703556922DC5B85700789F43 /* BookmarkListCollectionViewCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703556912DC5B85200789F43 /* BookmarkListCollectionViewCellModel.swift */; };
@@ -48,7 +47,6 @@
 		704F5DEA2DAAEC3E005FA9FA /* ValueLabelPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = 704F5DE92DAAEC3E005FA9FA /* ValueLabelPair.swift */; };
 		70733A7F2DA5C3E6006D0DA8 /* BITabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A7E2DA5C3C3006D0DA8 /* BITabItem.swift */; };
 		70733A812DA5C6C4006D0DA8 /* BIItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A802DA5C6C4006D0DA8 /* BIItemView.swift */; };
-		70733A872DA5C99E006D0DA8 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 70733A862DA5C99E006D0DA8 /* RxGesture */; };
 		70733A892DA5C9C9006D0DA8 /* BITabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A882DA5C9C9006D0DA8 /* BITabBar.swift */; };
 		70733A8C2DA5CAE9006D0DA8 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8B2DA5CAE5006D0DA8 /* UIView+Ext.swift */; };
 		70733A8E2DA5CB17006D0DA8 /* BITabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70733A8D2DA5CB17006D0DA8 /* BITabBarController.swift */; };
@@ -61,7 +59,6 @@
 		708CAECF2DA3A13B00062906 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEC82DA3A13B00062906 /* HomeViewController.swift */; };
 		708CAED02DA3A13B00062906 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 708CAEC22DA3A13B00062906 /* Assets.xcassets */; };
 		708CAED22DA3A13B00062906 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708CAEC52DA3A13B00062906 /* LaunchScreen.storyboard */; };
-		708CAED32DA3A13B00062906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 708CAEC72DA3A13B00062906 /* Main.storyboard */; };
 		708CAED62DA3A14000062906 /* Better_IMDBTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAED42DA3A14000062906 /* Better_IMDBTests.swift */; };
 		708CAEE12DA3A3AE00062906 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */; };
 		70929C222DA7EA42008DB6AC /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70929C212DA7EA42008DB6AC /* TabBarCoordinator.swift */; };
@@ -75,6 +72,7 @@
 		709A1E6C2DBB88FE00AA281C /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709A1E6B2DBB88FA00AA281C /* CollectionViewController.swift */; };
 		70ACD1922DA9C41A003BB2C0 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1912DA9C415003BB2C0 /* ListViewModel.swift */; };
 		70ACD1A82DA9E446003BB2C0 /* ListViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70ACD1A72DA9E3D9003BB2C0 /* ListViewModelSpec.swift */; };
+		70B290AC2DD638010004AF54 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 70B290AB2DD638010004AF54 /* RxGesture */; };
 		70CF2D642DB8CFFD00FFF6D0 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CF2D632DB8CFF500FFF6D0 /* ViewModel.swift */; };
 		70CF2D662DB8EDEA00FFF6D0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CF2D652DB8EDE400FFF6D0 /* ViewController.swift */; };
 		70D92C3A2DB6281800F1683E /* MovieSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D92C392DB6281800F1683E /* MovieSection.swift */; };
@@ -146,7 +144,6 @@
 		708CAEC22DA3A13B00062906 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		708CAEC32DA3A13B00062906 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		708CAEC42DA3A13B00062906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		708CAEC62DA3A13B00062906 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		708CAEC82DA3A13B00062906 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		708CAED42DA3A14000062906 /* Better_IMDBTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Better_IMDBTests.swift; sourceTree = "<group>"; };
 		708CAEE02DA3A3AB00062906 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -179,11 +176,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				704A69872DA3C3F3001E249C /* RxSwift in Frameworks */,
-				701DABC52DA69AF1008625CA /* NukeExtensions in Frameworks */,
-				70733A872DA5C99E006D0DA8 /* RxGesture in Frameworks */,
-				701DABC32DA69AF1008625CA /* Nuke in Frameworks */,
 				704A69852DA3C3F3001E249C /* RxCocoa in Frameworks */,
+				70B290AC2DD638010004AF54 /* RxGesture in Frameworks */,
 				17730661B641CC9BF53710AB /* Pods_Better_IMDB.framework in Frameworks */,
+				703441ED2DD5C30600829120 /* Nuke in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,7 +369,6 @@
 		70ACD1982DA9DD6C003BB2C0 /* Features */ = {
 			isa = PBXGroup;
 			children = (
-				708CAEC72DA3A13B00062906 /* Main.storyboard */,
 				70ACD1992DA9DD75003BB2C0 /* Home */,
 				70ACD19B2DA9DDCD003BB2C0 /* Bookmark */,
 				701E87352DA7B305000DBF15 /* List */,
@@ -568,9 +563,8 @@
 			packageProductDependencies = (
 				704A69842DA3C3F3001E249C /* RxCocoa */,
 				704A69862DA3C3F3001E249C /* RxSwift */,
-				70733A862DA5C99E006D0DA8 /* RxGesture */,
-				701DABC22DA69AF1008625CA /* Nuke */,
-				701DABC42DA69AF1008625CA /* NukeExtensions */,
+				703441EC2DD5C30600829120 /* Nuke */,
+				70B290AB2DD638010004AF54 /* RxGesture */,
 			);
 			productName = "Better-IMDB";
 			productReference = 708CAE792DA3A08A00062906 /* Better-IMDB.app */;
@@ -634,8 +628,8 @@
 				704A69832DA3C3F3001E249C /* XCRemoteSwiftPackageReference "RxSwift" */,
 				704A69C82DA41769001E249C /* XCRemoteSwiftPackageReference "Quick" */,
 				704A69CD2DA41783001E249C /* XCRemoteSwiftPackageReference "Nimble" */,
-				70733A852DA5C99E006D0DA8 /* XCRemoteSwiftPackageReference "RxGesture" */,
-				701DABC12DA69AF1008625CA /* XCRemoteSwiftPackageReference "Nuke" */,
+				703441EB2DD5C30600829120 /* XCRemoteSwiftPackageReference "Nuke" */,
+				70B290AA2DD638010004AF54 /* XCRemoteSwiftPackageReference "RxGesture" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 708CAE7A2DA3A08A00062906 /* Products */;
@@ -655,7 +649,6 @@
 			files = (
 				708CAED02DA3A13B00062906 /* Assets.xcassets in Resources */,
 				708CAED22DA3A13B00062906 /* LaunchScreen.storyboard in Resources */,
-				708CAED32DA3A13B00062906 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -845,14 +838,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		708CAEC72DA3A13B00062906 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				708CAEC62DA3A13B00062906 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -870,7 +855,7 @@
 				INFOPLIST_FILE = "Better-IMDB/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -900,7 +885,7 @@
 				INFOPLIST_FILE = "Better-IMDB/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1110,7 +1095,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		701DABC12DA69AF1008625CA /* XCRemoteSwiftPackageReference "Nuke" */ = {
+		703441EB2DD5C30600829120 /* XCRemoteSwiftPackageReference "Nuke" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kean/Nuke";
 			requirement = {
@@ -1130,19 +1115,19 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Quick/Quick.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.6.2;
 			};
 		};
 		704A69CD2DA41783001E249C /* XCRemoteSwiftPackageReference "Nimble" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Quick/Nimble.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.7.1;
 			};
 		};
-		70733A852DA5C99E006D0DA8 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
+		70B290AA2DD638010004AF54 /* XCRemoteSwiftPackageReference "RxGesture" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxGesture.git";
 			requirement = {
@@ -1153,15 +1138,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		701DABC22DA69AF1008625CA /* Nuke */ = {
+		703441EC2DD5C30600829120 /* Nuke */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 701DABC12DA69AF1008625CA /* XCRemoteSwiftPackageReference "Nuke" */;
+			package = 703441EB2DD5C30600829120 /* XCRemoteSwiftPackageReference "Nuke" */;
 			productName = Nuke;
-		};
-		701DABC42DA69AF1008625CA /* NukeExtensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 701DABC12DA69AF1008625CA /* XCRemoteSwiftPackageReference "Nuke" */;
-			productName = NukeExtensions;
 		};
 		704A69842DA3C3F3001E249C /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1193,9 +1173,9 @@
 			package = 704A69CD2DA41783001E249C /* XCRemoteSwiftPackageReference "Nimble" */;
 			productName = Nimble;
 		};
-		70733A862DA5C99E006D0DA8 /* RxGesture */ = {
+		70B290AB2DD638010004AF54 /* RxGesture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 70733A852DA5C99E006D0DA8 /* XCRemoteSwiftPackageReference "RxGesture" */;
+			package = 70B290AA2DD638010004AF54 /* XCRemoteSwiftPackageReference "RxGesture" */;
 			productName = RxGesture;
 		};
 /* End XCSwiftPackageProductDependency section */

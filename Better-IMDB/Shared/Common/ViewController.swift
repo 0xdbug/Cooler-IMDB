@@ -10,12 +10,11 @@ import RxSwift
 import RxCocoa
 
 class ViewController: UIViewController {
-    var viewModel: ViewModel?
+    let headerRefreshTrigger = PublishSubject<Void>()
     let disposeBag = DisposeBag()
     
-    init(viewModel: ViewModel? = nil) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,16 +23,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindViewModel()
         makeUI()
-    }
-    
-    func bindViewModel() {        
-        viewModel?.error
-            .subscribe(onNext: { [weak self] error in
-                self?.showError(error)
-            })
-            .disposed(by: disposeBag)
     }
     
     func showError(_ error: Error) {
@@ -49,5 +39,4 @@ class ViewController: UIViewController {
     func makeUI() {
     }
 }
-
 

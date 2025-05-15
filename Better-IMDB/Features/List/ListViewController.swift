@@ -13,7 +13,8 @@ protocol MovieListCollectionProtocol: AnyObject {
     var collectionView: BaseCollectionView { get }
 }
 
-class ListViewController: CollectionViewController, MovieListCollectionProtocol {
+class ListViewController: ViewController, MovieListCollectionProtocol {
+    var viewModel: ListViewModelProtocol?
     
     var collectionView: BaseCollectionView = {
         let collectionView = ListCollectionView(layoutProvider: ListLayoutProvider())
@@ -22,11 +23,18 @@ class ListViewController: CollectionViewController, MovieListCollectionProtocol 
     }()
     
     var selectedSection: MovieSection!
-    
     var listViewModel: ListViewModelProtocol!
     
+    init(viewModel: ListViewModelProtocol? = nil) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
-        guard let viewModel = viewModel as? ListViewModelProtocol else { return }
         listViewModel = viewModel
         
         setupUI()
@@ -46,36 +54,60 @@ class ListViewController: CollectionViewController, MovieListCollectionProtocol 
             self.listViewModel.fetchItems(for: self.selectedSection)
         })
         
-        disposeBag.insert(
-            self.listViewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
-                Task {
-                    await cell.configure(with: ListCollectionViewCellModel(movie: item))
-                }
-            },
-            
-            collectionView.rx.itemSelected
-                .asDriver()
-                .withLatestFrom(self.listViewModel.items) { indexPath, items in (indexPath, items) }
-                .drive(onNext: { [weak self] indexPath, items in
-                    guard let self = self else { return }
-                    guard indexPath.item < items.count else { return }
-                    
-                    let movie = items[indexPath.item]
-                    self.listViewModel.showDetail(movie, from: self, at: indexPath)
-                }),
-            
-            collectionView.rx.didScroll.subscribe { [weak self] _ in
-                guard let self = self else { return }
-                let offSetY = self.collectionView.contentOffset.y
-                let contentHeight = self.collectionView.contentSize.height
-                
-                if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                    self.listViewModel.loadMoreItems()
-                }
+        self.listViewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
+            Task {
+                await cell.configure(with: ListCollectionViewCellModel(movie: item))
             }
-        )
+        }.disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected
+            .asDriver()
+            .withLatestFrom(self.listViewModel.items) { indexPath, items in (indexPath, items) }
+            .drive(onNext: { [weak self] indexPath, items in
+                guard let self = self else { return }
+                guard indexPath.item < items.count else { return }
+                
+                let movie = items[indexPath.item]
+                self.listViewModel.showDetail(movie, from: self, at: indexPath)
+            }).disposed(by: disposeBag)
+        
+        collectionView.rx.didScroll.subscribe { [weak self] _ in
+            guard let self = self else { return }
+            let offSetY = self.collectionView.contentOffset.y
+            let contentHeight = self.collectionView.contentSize.height
+            
+            if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
+                self.listViewModel.loadMoreItems()
+            }
+        }.disposed(by: disposeBag)
+        
+        viewModel?.error
+            .subscribe(onNext: { [weak self] error in
+                self?.showError(error)
+            })
+            .disposed(by: disposeBag)
         
         listViewModel.fetchItems(for: selectedSection)
+    }
+    
+    func setupRefreshControl(for collectionView: UICollectionView, refreshAction: @escaping () -> Void) {
+        let refreshControl = UIRefreshControl()
+        collectionView.refreshControl = refreshControl
+        
+        refreshControl.rx.controlEvent(.valueChanged)
+            .do(onNext: { _ in
+                refreshAction()
+            })
+            .bind(to: headerRefreshTrigger)
+            .disposed(by: disposeBag)
+        
+        viewModel?.isLoading
+            .drive(onNext: { [weak refreshControl] isLoading in
+                if !isLoading {
+                    refreshControl?.endRefreshing()
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

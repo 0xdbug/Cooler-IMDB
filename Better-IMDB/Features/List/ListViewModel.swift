@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 protocol ListViewModelProtocol: AnyObject {
+    var isLoading: Driver<Bool> { get }
+    var error: Observable<Error> { get }
+    
+    func startLoading()
+    func stopLoading()
+    func handleError(_ error: Error)
+    
     var items: Driver<[Movie]> { get }
     func fetchItems(for section: MovieSection)
     func loadMoreItems()

@@ -11,11 +11,11 @@ import RxCocoa
 import SafariServices
 
 class MovieDetailViewController: ViewController {
+    private var viewModel: MovieDetailViewModelProtocol?
     
     // MARK: - Properties
     var selectedMovieId: Int!
     private var dominantColor: BehaviorRelay<UIColor> = .init(value: .secondarySystemBackground)
-    private var movieViewModel: MovieDetailViewModelProtocol?
 
     
     // MARK: - UI Components
@@ -111,15 +111,17 @@ class MovieDetailViewController: ViewController {
         return label
     }()
     
+    init(viewModel: MovieDetailViewModelProtocol? = nil) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // i only makde movieViewModel because it's used in different places
-        self.movieViewModel = viewModel as? MovieDetailViewModelProtocol
-        guard let _ = movieViewModel else {
-            print("MovieDetailViewModel Needed")
-            return
-        }
         
         setupView()
         setupConstraints()
@@ -174,8 +176,8 @@ class MovieDetailViewController: ViewController {
     }
     
     private func setupBindings() {
-        movieViewModel?.fetchMovie(withId: String(selectedMovieId))
-        movieViewModel?.item.subscribe(onNext: { [weak self] movie in
+        viewModel?.fetchMovie(withId: String(selectedMovieId))
+        viewModel?.item.subscribe(onNext: { [weak self] movie in
             guard let self = self, let movie = movie else { return }
             
             let year = movie.releaseDate.prefix(4)
@@ -187,7 +189,7 @@ class MovieDetailViewController: ViewController {
             let timeString = "\(hours)h \(minutes)m"
             
             self.addValueLabelPair(value: timeString, type: "Time")
-            movieViewModel?.updateBookmarkState(for: movie.id)
+            viewModel?.updateBookmarkState(for: movie.id)
             
             self.movieTitle.text = movie.title
             self.movieOverviewLabel.text = movie.overview
@@ -206,7 +208,7 @@ class MovieDetailViewController: ViewController {
             self.playView.isHidden = false
         }).disposed(by: disposeBag)
         
-        movieViewModel?.videoURL.subscribe(onNext: { [weak self] videoUrlString in
+        viewModel?.videoURL.subscribe(onNext: { [weak self] videoUrlString in
             guard let self = self else { return }
             
             if let urlString = videoUrlString, let url = URL(string: urlString) {
@@ -216,7 +218,7 @@ class MovieDetailViewController: ViewController {
             }
         }).disposed(by: disposeBag)
         
-        movieViewModel?.bookmarkState
+        viewModel?.bookmarkState
             .subscribe(onNext: { [weak self] isBookmarked in
                 print(isBookmarked)
                 self?.bookmarkButton.isSelected = isBookmarked
@@ -225,11 +227,11 @@ class MovieDetailViewController: ViewController {
     }
     
     @objc private func playVideo() {
-        movieViewModel?.fetchTrailer(withId: selectedMovieId)
+        viewModel?.fetchTrailer(withId: selectedMovieId)
     }
     
     @objc private func toggleBookmark() {
-        movieViewModel?.toggleBookmark(for: selectedMovieId)
+        viewModel?.toggleBookmark(for: selectedMovieId)
     }
     
     func setHeader(backdropImageUrl: URL) async {
@@ -247,15 +249,15 @@ class MovieDetailViewController: ViewController {
     }
     
     func initialBookmarkState() {
-        guard let movieId = movieViewModel?.item.value?.id else { return }
-        movieViewModel?.updateBookmarkState(for: movieId)
+        guard let movieId = viewModel?.item.value?.id else { return }
+        viewModel?.updateBookmarkState(for: movieId)
     }
     
     func playVideoWithURL(_ url: URL) {
         let safariVC = SFSafariViewController(url: url)
         present(safariVC, animated: true)
     }
-    
+     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 11),

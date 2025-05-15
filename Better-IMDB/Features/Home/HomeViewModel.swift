@@ -11,6 +11,13 @@ import RxCocoa
 
 
 protocol HomeViewModelProtocol: AnyObject {
+    var isLoading: Driver<Bool> { get }
+    var error: Observable<Error> { get }
+    
+    func startLoading()
+    func stopLoading()
+    func handleError(_ error: Error)
+    
     var items: Driver<[HomeCards]> { get }
     func fetchItems()
     func fetchCategory(_ section: MovieSection) -> Observable<HomeCards>
@@ -20,6 +27,8 @@ protocol HomeViewModelProtocol: AnyObject {
 class HomeViewModel: ViewModel, HomeViewModelProtocol {
     var delegate: HomeViewModelDelegate!
     private let repository: TMDBRepositoryProtocol
+    
+    let headerRefreshTrigger = PublishSubject<Void>()
     
     private let itemsRelay = BehaviorRelay<[HomeCards]>(value: [])
     var items: Driver<[HomeCards]> {

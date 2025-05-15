@@ -10,6 +10,13 @@ import RxSwift
 import RxCocoa
 
 protocol MovieDetailViewModelProtocol: AnyObject {
+    var isLoading: Driver<Bool> { get }
+    var error: Observable<Error> { get }
+    
+    func startLoading()
+    func stopLoading()
+    func handleError(_ error: Error)
+    
     var item: BehaviorRelay<MovieDetail?> { get }
     var videoURL: BehaviorRelay<String?> { get }
     var bookmarkState: BehaviorRelay<Bool> { get }
