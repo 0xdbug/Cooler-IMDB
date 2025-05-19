@@ -29,6 +29,8 @@ class HomeViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let viewModel else { return }
+        bind(viewModel: viewModel)
         setupUI()
         setupCollectionView()
     }
@@ -38,29 +40,30 @@ class HomeViewController: ViewController {
         mainCollectionView.pin(to: view)
     }
     
-    func setupCollectionView() {
-        
-        setupRefreshControl(for: mainCollectionView) { [weak viewModel] in
-            viewModel?.fetchItems()
-        }
-        
-        viewModel?.items
+    private func bind(viewModel: HomeViewModelProtocol) {
+        viewModel.items
             .drive(mainCollectionView.rx.items(cellIdentifier: HomeCollectionViewCell.id, cellType: HomeCollectionViewCell.self))
         { row, item, cell in
             Task { await cell.configure(with: HomeCollectionViewCellModel(item: item)) }
         }.disposed(by: disposeBag)
+        
+        viewModel.error
+            .subscribe(onNext: { [weak self] error in
+                self?.showError(error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupCollectionView() {
+        setupRefreshControl(for: mainCollectionView) { [weak viewModel] in
+            viewModel?.fetchItems()
+        }
         
         mainCollectionView
             .rx
             .modelSelected(HomeCards.self)
             .subscribe(onNext: { [weak viewModel] selected in
                 viewModel?.showList(selected.section)
-            })
-            .disposed(by: disposeBag)
-        
-        viewModel?.error
-            .subscribe(onNext: { [weak self] error in
-                self?.showError(error)
             })
             .disposed(by: disposeBag)
         

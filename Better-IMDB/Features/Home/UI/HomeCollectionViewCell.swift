@@ -12,10 +12,14 @@ import RxSwift
 class HomeCollectionViewCell: UICollectionViewCell {
     static let id = "homeMainCell"
     
-    private var viewModel: HomeCollectionViewCellModelProtocol?
+    private var viewModel: HomeCollectionViewCellModelProtocol? {
+        didSet {
+            guard let viewModel else { return }
+            bind(viewModel: viewModel)
+        }
+    }
     private var disposeBag = DisposeBag()
     
-    // i like setupViews clean
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 17)
@@ -118,19 +122,8 @@ class HomeCollectionViewCell: UICollectionViewCell {
     func configure(with viewModel: HomeCollectionViewCellModel) async {
         self.viewModel = viewModel
         self.item = viewModel.item
-        setupBindings()
         setupCard()
         viewModel.loadPosters()
-    }
-    
-    func setupBindings() {
-        guard let viewModel = viewModel else { return }
-        disposeBag.insert(
-            viewModel.posters.drive() { [weak self] images in
-                self?.cellPosterImage.image = images.first
-                self?.posterStackView.updatePosters(images)
-            }
-        )
     }
     
     func setupCard() {
@@ -152,5 +145,15 @@ class HomeCollectionViewCell: UICollectionViewCell {
         posterStackView.updatePosters([])
         backgroundColor = .secondarySystemBackground
         titleLabel.text = ""
+        disposeBag = DisposeBag()
+    }
+    
+    private func bind(viewModel: HomeCollectionViewCellModelProtocol) {
+        viewModel.posters
+            .drive(onNext: { [weak self] images in
+                self?.cellPosterImage.image = images.first
+                self?.posterStackView.updatePosters(images)
+            })
+            .disposed(by: disposeBag)
     }
 }

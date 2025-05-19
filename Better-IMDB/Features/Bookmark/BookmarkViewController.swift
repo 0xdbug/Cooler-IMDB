@@ -28,6 +28,8 @@ class BookmarkViewController: ViewController, MovieListCollectionProtocol {
     }
     
     override func viewDidLoad() {
+        guard let viewModel else { return }
+        bind(viewModel: viewModel)
         setupUI()
         setupCollectionView()
     }
@@ -37,15 +39,22 @@ class BookmarkViewController: ViewController, MovieListCollectionProtocol {
         collectionView.pin(to: view)
     }
     
-    func setupCollectionView() {
+    private func bind(viewModel: BookmarkViewModelProtocol) {
+        viewModel.items.drive(collectionView.rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
+            cell.configure(with: BookmarkListCollectionViewCellModel(movieDetail: item))
+        }.disposed(by: disposeBag)
         
+        viewModel.error
+            .subscribe(onNext: { [weak self] error in
+                self?.showError(error)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func setupCollectionView() {
         setupRefreshControl(for: collectionView) { [weak viewModel] in
             viewModel?.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
         }
-        
-        viewModel?.items.drive(collectionView.rx.items(cellIdentifier: BookmarkListCollectionViewCell.id, cellType: BookmarkListCollectionViewCell.self)) { row, item, cell in
-            cell.configure(with: BookmarkListCollectionViewCellModel(movieDetail: item))
-        }.disposed(by: disposeBag)
         
         guard let items = viewModel?.items else { return }
         
@@ -59,12 +68,6 @@ class BookmarkViewController: ViewController, MovieListCollectionProtocol {
                 guard let self = self else { return }
                 viewModel?.showDetail(movie, from: self, at: indexPath)
             }).disposed(by: disposeBag)
-        
-        viewModel?.error
-            .subscribe(onNext: { [weak self] error in
-                self?.showError(error)
-            })
-            .disposed(by: disposeBag)
         
         viewModel?.fetchMovies(withIds: MoviePersistence.getAllBookmarks())
     }

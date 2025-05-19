@@ -11,7 +11,13 @@ import RxSwift
 class BookmarkListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
     static let id = "bookmarkListMovieCell"
     
-    private var viewModel: BookmarkListCollectionViewCellModelProtocol?
+    private var viewModel: BookmarkListCollectionViewCellModelProtocol? {
+        didSet {
+            guard let viewModel else { return }
+            self.movieTitle.text = viewModel.movieDetail.title
+            bind(viewModel: viewModel)
+        }
+    }
     private var disposeBag = DisposeBag()
     
     lazy var posterImage: UIImageView = {
@@ -40,14 +46,10 @@ class BookmarkListCollectionViewCell: UICollectionViewCell, PosterImageProvider 
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBindings() {
-        guard let viewModel = viewModel else { return }
-        self.movieTitle.text = viewModel.movieDetail.title
-        disposeBag.insert(
-            viewModel.posterImage.drive() { [weak self] image in
-                self?.posterImage.image = image
-            }
-        )
+    private func bind(viewModel: BookmarkListCollectionViewCellModelProtocol) {
+        viewModel.posterImage.drive(onNext: { [weak self] image in
+            self?.posterImage.image = image
+        }).disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -71,7 +73,6 @@ class BookmarkListCollectionViewCell: UICollectionViewCell, PosterImageProvider 
     
     func configure(with viewModel: BookmarkListCollectionViewCellModelProtocol) {
         self.viewModel = viewModel
-        setupBindings()
         viewModel.loadPosterImage()
     }
     
@@ -79,6 +80,7 @@ class BookmarkListCollectionViewCell: UICollectionViewCell, PosterImageProvider 
         super.prepareForReuse()
         movieTitle.text = ""
         posterImage.image = nil
+        disposeBag = DisposeBag()
     }
 }
 

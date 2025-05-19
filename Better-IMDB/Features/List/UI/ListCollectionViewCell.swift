@@ -11,7 +11,13 @@ import RxSwift
 class ListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
     static let id = "listMovieCell"
     
-    private var viewModel: ListCollectionViewCellModelProtocol?
+    private var viewModel: ListCollectionViewCellModelProtocol? {
+        didSet {
+            guard let viewModel else { return }
+            self.movieTitle.text = viewModel.movie.title
+            bind(viewModel: viewModel)
+        }
+    }
     private var disposeBag = DisposeBag()
     
     lazy var posterImage: UIImageView = {
@@ -38,7 +44,6 @@ class ListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
     
     func configure(with viewModel: ListCollectionViewCellModelProtocol) async {
         self.viewModel = viewModel
-        setupBindings()
         viewModel.loadPosterImage()
     }
     
@@ -46,14 +51,10 @@ class ListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupBindings() {
-        guard let viewModel = viewModel else { return }
-        self.movieTitle.text = viewModel.movie.title
-        disposeBag.insert(
-            viewModel.posterImage.drive() { [weak self] image in
-                self?.posterImage.image = image
-            }
-        )
+    private func bind(viewModel: ListCollectionViewCellModelProtocol) {
+        viewModel.posterImage.drive(onNext: { [weak self] image in
+            self?.posterImage.image = image
+        }).disposed(by: disposeBag)
     }
     
     private func setupViews() {
@@ -79,5 +80,6 @@ class ListCollectionViewCell: UICollectionViewCell, PosterImageProvider {
         super.prepareForReuse()
         movieTitle.text = ""
         posterImage.image = nil
+        disposeBag = DisposeBag()
     }
 }

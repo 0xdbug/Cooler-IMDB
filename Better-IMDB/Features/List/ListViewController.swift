@@ -23,7 +23,6 @@ class ListViewController: ViewController, MovieListCollectionProtocol {
     }()
     
     var selectedSection: MovieSection!
-    var listViewModel: ListViewModelProtocol!
     
     init(viewModel: ListViewModelProtocol? = nil) {
         self.viewModel = viewModel
@@ -35,8 +34,8 @@ class ListViewController: ViewController, MovieListCollectionProtocol {
     }
     
     override func viewDidLoad() {
-        listViewModel = viewModel
-        
+        guard let viewModel else { return }
+        bind(viewModel: viewModel)
         setupUI()
         setupCollectionView()
     }
@@ -46,29 +45,37 @@ class ListViewController: ViewController, MovieListCollectionProtocol {
         collectionView.pin(to: view)
     }
     
-    func setupCollectionView() {
-        setupRefreshControl(for: collectionView, refreshAction: { [weak self] in
-            
-            guard let self = self else { return }
-            
-            self.listViewModel.fetchItems(for: self.selectedSection)
-        })
+    private func bind(viewModel: ListViewModelProtocol) {
+        viewModel.error
+            .subscribe(onNext: { [weak self] error in
+                self?.showError(error)
+            })
+            .disposed(by: disposeBag)
         
-        self.listViewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
+        viewModel.items.drive(collectionView.rx.items(cellIdentifier: ListCollectionViewCell.id, cellType: ListCollectionViewCell.self)) { row, item, cell in
             Task {
                 await cell.configure(with: ListCollectionViewCellModel(movie: item))
             }
         }.disposed(by: disposeBag)
+    }
+    
+    private func setupCollectionView() {
+        setupRefreshControl(for: collectionView, refreshAction: { [weak self] in
+            guard let self = self else { return }
+            viewModel?.fetchItems(for: self.selectedSection)
+        })
+        
+        guard let items = viewModel?.items else { return }
         
         collectionView.rx.itemSelected
             .asDriver()
-            .withLatestFrom(self.listViewModel.items) { indexPath, items in (indexPath, items) }
+            .withLatestFrom(items) { indexPath, items in (indexPath, items) }
             .drive(onNext: { [weak self] indexPath, items in
                 guard let self = self else { return }
                 guard indexPath.item < items.count else { return }
                 
                 let movie = items[indexPath.item]
-                self.listViewModel.showDetail(movie, from: self, at: indexPath)
+                viewModel?.showDetail(movie, from: self, at: indexPath)
             }).disposed(by: disposeBag)
         
         collectionView.rx.didScroll.subscribe { [weak self] _ in
@@ -77,17 +84,11 @@ class ListViewController: ViewController, MovieListCollectionProtocol {
             let contentHeight = self.collectionView.contentSize.height
             
             if offSetY > (contentHeight - self.collectionView.frame.size.height - 100) {
-                self.listViewModel.loadMoreItems()
+                viewModel?.loadMoreItems()
             }
         }.disposed(by: disposeBag)
         
-        viewModel?.error
-            .subscribe(onNext: { [weak self] error in
-                self?.showError(error)
-            })
-            .disposed(by: disposeBag)
-        
-        listViewModel.fetchItems(for: selectedSection)
+        viewModel?.fetchItems(for: selectedSection)
     }
     
     func setupRefreshControl(for collectionView: UICollectionView, refreshAction: @escaping () -> Void) {

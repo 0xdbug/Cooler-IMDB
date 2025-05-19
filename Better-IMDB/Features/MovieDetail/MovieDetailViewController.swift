@@ -122,10 +122,10 @@ class MovieDetailViewController: ViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        guard let viewModel else { return }
+        bind(viewModel: viewModel)
         setupView()
         setupConstraints()
-        setupBindings()
         initialBookmarkState()
     }
     
@@ -175,9 +175,9 @@ class MovieDetailViewController: ViewController {
         plotContainerView.addSubview(movieOverviewLabel)
     }
     
-    private func setupBindings() {
-        viewModel?.fetchMovie(withId: String(selectedMovieId))
-        viewModel?.item.subscribe(onNext: { [weak self] movie in
+    private func bind(viewModel: MovieDetailViewModelProtocol) {
+        viewModel.fetchMovie(withId: String(selectedMovieId))
+        viewModel.item.subscribe(onNext: { [weak self] movie in
             guard let self = self, let movie = movie else { return }
             
             let year = movie.releaseDate.prefix(4)
@@ -189,7 +189,7 @@ class MovieDetailViewController: ViewController {
             let timeString = "\(hours)h \(minutes)m"
             
             self.addValueLabelPair(value: timeString, type: "Time")
-            viewModel?.updateBookmarkState(for: movie.id)
+            viewModel.updateBookmarkState(for: movie.id)
             
             self.movieTitle.text = movie.title
             self.movieOverviewLabel.text = movie.overview
@@ -208,7 +208,7 @@ class MovieDetailViewController: ViewController {
             self.playView.isHidden = false
         }).disposed(by: disposeBag)
         
-        viewModel?.videoURL.subscribe(onNext: { [weak self] videoUrlString in
+        viewModel.videoURL.subscribe(onNext: { [weak self] videoUrlString in
             guard let self = self else { return }
             
             if let urlString = videoUrlString, let url = URL(string: urlString) {
@@ -218,7 +218,7 @@ class MovieDetailViewController: ViewController {
             }
         }).disposed(by: disposeBag)
         
-        viewModel?.bookmarkState
+        viewModel.bookmarkState
             .subscribe(onNext: { [weak self] isBookmarked in
                 print(isBookmarked)
                 self?.bookmarkButton.isSelected = isBookmarked
